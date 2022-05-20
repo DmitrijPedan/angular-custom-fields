@@ -1,0 +1,33 @@
+<form [formGroup]="_form">
+  <fieldset>
+    <legend>{{formLabel}}</legend>
+    <div>
+
+      <app-buttons-bar
+        (remove)="remove.emit()"
+        (addRepeater)="_addGroup()"
+        (addField)="_addCondition()"
+      ></app-buttons-bar>
+
+
+      <ng-container formArrayName="conditions">
+        <app-field-form *ngFor="let c of _conditionsFormArray?.controls; index as j"
+                            (remove)="_deleteCondition(j)"
+                            [formControlName]="j"
+                            [formLabel]="'Condition ' + (j+1)">
+        </app-field-form>
+      </ng-container>
+
+      <ng-container formArrayName="groups">
+        <app-group-control *ngFor="let s of _groupsFormArray?.controls; index as i"
+                           (remove)="_deleteGroupFromArray(i)"
+                           [formControlName]="i"
+                           [formLabel]="'Nested Group '+ (i + 1) + ':'">
+        </app-group-control>
+      </ng-container>
+
+    </div>
+  </fieldset>
+</form>
+
+

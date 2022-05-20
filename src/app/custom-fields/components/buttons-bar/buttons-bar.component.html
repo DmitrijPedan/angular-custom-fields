@@ -1,0 +1,10 @@
+<div class="container">
+  <span *ngIf="addField.observers.length > 0">
+      <select #typeSelect>
+        <option *ngFor="let type of types" [value]="type">{{type | titlecase}}</option>
+      </select>
+      <button *ngIf="addField.observers.length > 0" type="button" (click)="addField.emit(typeSelect?.value)">add field</button>
+  </span>
+  <button *ngIf="addRepeater.observers.length > 0" type="button" (click)="addRepeater.emit()">add repeater</button>
+  <button *ngIf="remove.observers.length > 0" type="button" (click)="remove.emit()">delete repeater</button>
+</div>

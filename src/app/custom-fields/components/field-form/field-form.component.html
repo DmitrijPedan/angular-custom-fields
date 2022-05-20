@@ -1,0 +1,15 @@
+<form [formGroup]="_form">
+  <fieldset>
+    <legend>{{formLabel}}</legend>
+    <button type="button" (click)="remove.emit()">delete condition</button>
+    <input type="text" formControlName="type" hidden>
+    <div class="input">
+      <input type="text" formControlName="name" id="name">
+      <label for="name">Name</label>
+    </div>
+    <div class="input">
+      <input type="text" formControlName="label" id="label">
+      <label for="label">Label</label>
+    </div>
+  </fieldset>
+</form>

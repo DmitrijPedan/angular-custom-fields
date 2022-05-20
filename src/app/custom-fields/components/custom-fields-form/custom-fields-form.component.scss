@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  .form {
+    width: 58%;
+  }
+  .pre {
+    width: 38%;
+  }
+}
+
