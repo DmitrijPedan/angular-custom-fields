@@ -9,20 +9,17 @@
         (addField)="_addCondition()"
       ></app-buttons-bar>
 
-
-      <ng-container formArrayName="conditions">
-        <app-field-form *ngFor="let c of _conditionsFormArray?.controls; index as j"
-                            (remove)="_deleteCondition(j)"
-                            [formControlName]="j"
-                            [formLabel]="'Condition ' + (j+1)">
-        </app-field-form>
-      </ng-container>
+      <app-field-form
+        [formControlName]="'conditions'"
+        [formLabel]="'Condition '">
+      </app-field-form>
 
       <ng-container formArrayName="fields">
-        <app-group-control *ngFor="let s of _fieldsFormArray?.controls; index as i"
-                           (remove)="_deleteGroupFromArray(i)"
-                           [formControlName]="i"
-                           [formLabel]="'Nested Group '+ (i + 1) + ':'">
+        <app-group-control
+          *ngFor="let s of _fieldsFormArray?.controls; index as i"
+          (remove)="_deleteGroupFromArray(i)"
+          [formControlName]="i"
+          [formLabel]="'Nested Group '+ (i + 1) + ':'">
         </app-group-control>
       </ng-container>
 
