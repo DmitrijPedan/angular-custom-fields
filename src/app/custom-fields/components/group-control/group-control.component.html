@@ -4,7 +4,7 @@
 
       <div class="cf-controls">
         <app-add-field-button
-          (addField)="_addGroup()"
+          (addField)="_addGroup($event)"
         ></app-add-field-button>
         <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
       </div>

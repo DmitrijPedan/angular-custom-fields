@@ -1,14 +1,10 @@
 import {Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Subject, Subscription} from "rxjs";
+import {Subject} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {takeUntil} from "rxjs/operators";
+import { ICustomFieldConditions } from "../../interfaces/interfaces";
 
-export interface ConditionFormComponentData {
-  name: any;
-  type: any;
-  label: any;
-}
 
 @Component({
   selector: 'app-field-form',
@@ -25,16 +21,13 @@ export interface ConditionFormComponentData {
 export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
 
-  @Input()
-  formLabel: string | number = "Condition";
-
-  @Output()
-  remove: EventEmitter<void> = new EventEmitter<void>();
+  @Input() formLabel: string | number = "Conditions";
+  @Output() remove: EventEmitter<void> = new EventEmitter<void>();
 
   _form!: FormGroup;
 
   private _onChange!: (
-    value: ConditionFormComponentData | null | undefined
+    value: ICustomFieldConditions | null | undefined
   ) => void;
 
   private _destroy$: Subject<void> = new Subject<void>();
@@ -46,7 +39,6 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   ngOnInit() {
     this._createFormGroup();
-
     this._setupObservables();
   }
 
@@ -57,14 +49,14 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
     }
   }
 
-  writeValue(value: ConditionFormComponentData): void {
+  writeValue(value: ICustomFieldConditions): void {
     if (!value) {
       return;
     }
     this._form.patchValue(value);
   }
   registerOnChange(
-    fn: (v: ConditionFormComponentData | null | undefined) => void
+    fn: (v: ICustomFieldConditions | null | undefined) => void
   ): void {
     this._onChange = fn;
   }

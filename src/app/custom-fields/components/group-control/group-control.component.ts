@@ -2,14 +2,9 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, forwardRef }
 import {ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { CustomFieldService} from "../../services/custom-field.service";
 import {Subject, Subscription} from "rxjs";
-import {ConditionFormComponentData} from "../field-form/field-form.component";
 import {takeUntil} from "rxjs/operators";
-import {FieldType} from "../../interfaces/interfaces";
+import {FieldType, ICustomField} from "../../interfaces/interfaces";
 
-export interface GroupControlComponentData {
-  conditions: ConditionFormComponentData;
-  fields: GroupControlComponentData[];
-}
 
 @Component({
   selector: 'app-group-control',
@@ -31,7 +26,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   _form!: FormGroup;
 
   private _onChange!: (
-    value: GroupControlComponentData | null | undefined
+    value: ICustomField | null | undefined
   ) => void;
 
   private _destroy$: Subject<void> = new Subject<void>();
@@ -53,17 +48,16 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     }
   }
 
-  writeValue(value: GroupControlComponentData | null | undefined): void {
+  writeValue(value: ICustomField | null | undefined): void {
     if (!value) return;
     setTimeout(() => {
       if (value) {
-        // this._addCondition()
         this._formConditions.setValue(value);
       }
       if (value.fields?.length) {
         this._fieldsFormArray.clear();
-        value.fields.forEach(g => {
-          this._addGroup()
+        value.fields.forEach((field: ICustomField) => {
+          this._addGroup(field.conditions.type)
         });
       }
 
@@ -72,7 +66,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   registerOnChange(
-    fn: (value: GroupControlComponentData | null | undefined) => void
+    fn: (value: ICustomField | null | undefined) => void
   ): void {
     this._onChange = fn;
   }
@@ -95,13 +89,14 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     this._fieldsFormArray.removeAt(index);
   }
 
-  _addGroup() {
-    this._fieldsFormArray.push(
-      this._fb.control({
-        conditions: {},
-        fields: []
-      })
-    );
+  _addGroup(type: FieldType) {
+    // this._fieldsFormArray.push(
+    //   this._fb.control({
+    //     conditions: {},
+    //     fields: []
+    //   })
+    // );
+    this._fieldsFormArray.push(this.cf.getCustomFieldControls(type));
   }
 
   get _formConditions(): FormControl {
