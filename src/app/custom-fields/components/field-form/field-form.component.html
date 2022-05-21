@@ -1,7 +1,6 @@
-<form [formGroup]="_form">
+<form [formGroup]="form">
   <fieldset>
     <legend>{{formLabel}} (field-form)</legend>
-<!--    <button type="button" (click)="remove.emit()">delete condition</button>-->
     <input type="text" formControlName="type" hidden>
     <div class="input">
       <input type="text" formControlName="name" id="name">

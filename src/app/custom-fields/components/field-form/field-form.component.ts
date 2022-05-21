@@ -1,9 +1,8 @@
 import {Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Subject} from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
-import {takeUntil} from "rxjs/operators";
-import { ICustomFieldConditions } from "../../interfaces/interfaces";
+import {ICustomFieldConditions} from "../../interfaces/interfaces";
 
 
 @Component({
@@ -20,17 +19,11 @@ import { ICustomFieldConditions } from "../../interfaces/interfaces";
 })
 export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-
   @Input() formLabel: string | number = "Conditions";
-  @Output() remove: EventEmitter<void> = new EventEmitter<void>();
-
-  _form!: FormGroup;
-
-  private _onChange!: (
-    value: ICustomFieldConditions | null | undefined
-  ) => void;
-
+  public form!: FormGroup;
+  private _onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private _destroy$: Subject<void> = new Subject<void>();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -38,11 +31,17 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   ) {}
 
   ngOnInit() {
-    this._createFormGroup();
-    this._setupObservables();
+    this.createFormGroup();
+    const formSub = this.form.valueChanges.subscribe(value => {
+      if (this._onChange) {
+        this._onChange(value);
+      }
+    });
+    this.subscriptions.push(formSub)
   }
 
   ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
     if (this._destroy$ && !this._destroy$.closed) {
       this._destroy$.next();
       this._destroy$.complete();
@@ -53,11 +52,10 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
     if (!value) {
       return;
     }
-    this._form.patchValue(value);
+    this.form.patchValue(value);
   }
-  registerOnChange(
-    fn: (v: ICustomFieldConditions | null | undefined) => void
-  ): void {
+
+  registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {
     this._onChange = fn;
   }
 
@@ -71,16 +69,8 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
     // throw new Error("setDisabledState not implemented");
   }
 
-  private _createFormGroup() {
-    this._form = this.cf.getCustomFieldGroup();
-  }
-
-  private _setupObservables() {
-    this._form.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(value => {
-      if (this._onChange) {
-        this._onChange(value);
-      }
-    });
+  private createFormGroup() {
+    this.form = this.cf.getCustomFieldGroup();
   }
 
 }
