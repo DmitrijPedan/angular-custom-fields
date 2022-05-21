@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from "@angular/forms";
-import { FieldType } from "../interfaces/interfaces";
+import {Injectable} from '@angular/core';
+import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
+import {FieldType} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'

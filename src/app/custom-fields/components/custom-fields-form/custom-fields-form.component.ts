@@ -3,7 +3,6 @@ import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {FieldType} from "../../interfaces/interfaces";
 
-
 @Component({
   selector: 'app-custom-fields-form',
   templateUrl: './custom-fields-form.component.html',
