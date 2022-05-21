@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import { CustomFieldService } from "../../services/custom-field.service";
+import {CustomFieldService} from "../../services/custom-field.service";
 import {FieldType} from "../../interfaces/interfaces";
 
 
@@ -21,6 +21,10 @@ export class CustomFieldsFormComponent   {
     this.initForm();
   }
 
+  get fieldsFormArray(): FormArray {
+    return this.form?.get('fields') as FormArray;
+  }
+
   buildFormFromData() {
     if (this.data.fields.length) {
       this.initForm()
@@ -37,16 +41,8 @@ export class CustomFieldsFormComponent   {
     this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
   }
 
-  clear(): void {
-    this.fieldsFormArray.setValue([])
-  }
-
   deleteField(index: number) {
     this.fieldsFormArray.removeAt(index);
-  }
-
-  get fieldsFormArray(): FormArray {
-    return this.form?.get("fields") as FormArray;
   }
 
   initForm() {

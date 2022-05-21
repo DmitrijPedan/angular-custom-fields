@@ -21,6 +21,13 @@ export class CustomFieldService {
     return this.fb.array([]);
   }
 
+  getEmptyCustomFieldGroup(): FormGroup {
+    return this.fb.group({
+      conditions: {},
+      fields: this.fb.array([])
+    })
+  }
+
   getCustomFieldGroup(type?: FieldType): FormGroup {
     const group: FormGroup = this.fb.group({
       name: ['', [Validators.required]],

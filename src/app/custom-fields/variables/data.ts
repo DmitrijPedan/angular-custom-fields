@@ -26,7 +26,22 @@ export const data = {
           "maxLength": ""
         }
       },
-      "fields": []
+      "fields": [
+        {
+          "conditions": {
+            "name": "sdf",
+            "label": "sdf",
+            "type": "checkbox",
+            "options": {
+              "value": "",
+              "required": false,
+              "minLength": "",
+              "maxLength": ""
+            }
+          },
+          "fields": []
+        }
+      ]
     },
     {
       "conditions": {

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Subject, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {ICustomFieldConditions} from "../../interfaces/interfaces";
 
@@ -21,8 +21,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   @Input() formLabel: string | number = "Conditions";
   public form!: FormGroup;
-  private _onChange!: (value: ICustomFieldConditions | null | undefined) => void;
-  private _destroy$: Subject<void> = new Subject<void>();
+  private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -33,8 +32,8 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   ngOnInit() {
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe(value => {
-      if (this._onChange) {
-        this._onChange(value);
+      if (this.onChange) {
+        this.onChange(value);
       }
     });
     this.subscriptions.push(formSub)
@@ -42,10 +41,6 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-    if (this._destroy$ && !this._destroy$.closed) {
-      this._destroy$.next();
-      this._destroy$.complete();
-    }
   }
 
   writeValue(value: ICustomFieldConditions): void {
@@ -56,7 +51,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   }
 
   registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {
-    this._onChange = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
