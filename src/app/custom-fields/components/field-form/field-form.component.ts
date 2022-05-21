@@ -2,7 +2,7 @@ import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
-import {ICustomFieldConditions} from "../../interfaces/interfaces";
+import {FieldType, ICustomFieldConditions} from "../../interfaces/interfaces";
 
 
 @Component({
@@ -30,7 +30,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   ngOnInit() {
     this.createFormGroup();
-    const formSub = this.form.valueChanges.subscribe(value => {
+    const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
       if (this.onChange) {
         this.onChange(value);
       }

@@ -47,7 +47,7 @@ export class CustomFieldService {
     return group;
   }
 
-  getCustomFieldControls(type?: FieldType): FormControl {
+  getCustomFieldControls(type: FieldType): FormControl {
     const formState: any = {
       name: '',
       label: '',

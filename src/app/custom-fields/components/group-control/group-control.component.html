@@ -1,9 +1,10 @@
 <form [formGroup]="form">
   <fieldset>
-    <legend>{{formLabel}} ()</legend>
+    <legend>{{formLabel}} ({{type}})</legend>
 
       <div class="cf-controls">
         <app-add-field-button
+          *ngIf="type === 'repeater'"
           (addField)="addField($event)"
         ></app-add-field-button>
         <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
@@ -19,8 +20,8 @@
           *ngFor="let control of fieldsFormArray?.controls; index as i"
           (remove)="deleteFieldFromArray(i)"
           [formControlName]="i"
-          [formLabel]="'Nested Field '+ (i + 1) + ':'">
-        </app-group-control>
+          [formLabel]="'Nested Field '+ (i + 1) + ':'"
+        ></app-group-control>
       </ng-container>
 
   </fieldset>

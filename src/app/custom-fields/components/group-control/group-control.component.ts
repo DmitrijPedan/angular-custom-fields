@@ -22,6 +22,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
+  public type!: FieldType;
 
   constructor(
     private cf: CustomFieldService
@@ -36,8 +37,9 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   ngOnInit() {
-    this._createFormGroup();
-    const formSub = this.form.valueChanges.subscribe(value => {
+    this.createFormGroup();
+    const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
+      this.type = value.conditions.type;
       if (this.onChange) {
         this.onChange(value);
       }
@@ -61,9 +63,8 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
           this.addField(field.conditions.type)
         });
       }
-
       this.form.patchValue(value);
-    }, 50);
+    }, 10);
   }
 
   registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {
@@ -88,7 +89,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
   }
 
-  private _createFormGroup() {
+  private createFormGroup() {
     this.form = this.cf.getEmptyCustomFieldGroup()
     // add one condition on the next tick, after the form creation
     setTimeout(() => this.conditions.setValue({}));

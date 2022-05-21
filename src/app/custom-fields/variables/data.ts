@@ -2,23 +2,9 @@ export const data = {
   "fields": [
     {
       "conditions": {
-        "name": "checkbox",
-        "label": "Check label",
-        "type": "checkbox",
-        "options": {
-          "value": "",
-          "required": false,
-          "minLength": "",
-          "maxLength": ""
-        }
-      },
-      "fields": []
-    },
-    {
-      "conditions": {
-        "name": "netxt",
-        "label": "Nlkgjlk ;",
-        "type": "text",
+        "name": "",
+        "label": "",
+        "type": "repeater",
         "options": {
           "value": "",
           "required": false,
@@ -29,8 +15,8 @@ export const data = {
       "fields": [
         {
           "conditions": {
-            "name": "sdf",
-            "label": "sdf",
+            "name": "",
+            "label": "",
             "type": "checkbox",
             "options": {
               "value": "",
@@ -40,14 +26,73 @@ export const data = {
             }
           },
           "fields": []
+        },
+        {
+          "conditions": {
+            "name": "",
+            "label": "",
+            "type": "repeater",
+            "options": {
+              "value": "",
+              "required": false,
+              "minLength": "",
+              "maxLength": ""
+            }
+          },
+          "fields": [
+            {
+              "conditions": {
+                "name": "",
+                "label": "",
+                "type": "repeater",
+                "options": {
+                  "value": "",
+                  "required": false,
+                  "minLength": "",
+                  "maxLength": ""
+                }
+              },
+              "fields": [
+                {
+                  "conditions": {
+                    "name": "",
+                    "label": "",
+                    "type": "repeater",
+                    "options": {
+                      "value": "",
+                      "required": false,
+                      "minLength": "",
+                      "maxLength": ""
+                    }
+                  },
+                  "fields": [
+                    {
+                      "conditions": {
+                        "name": "",
+                        "label": "",
+                        "type": "repeater",
+                        "options": {
+                          "value": "",
+                          "required": false,
+                          "minLength": "",
+                          "maxLength": ""
+                        }
+                      },
+                      "fields": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "conditions": {
-        "name": "ssss",
-        "label": "sss",
-        "type": "repeater",
+        "name": "",
+        "label": "",
+        "type": "checkbox",
         "options": {
           "value": "",
           "required": false,
