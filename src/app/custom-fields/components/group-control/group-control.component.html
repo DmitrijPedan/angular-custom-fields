@@ -18,8 +18,8 @@
         </app-field-form>
       </ng-container>
 
-      <ng-container formArrayName="groups">
-        <app-group-control *ngFor="let s of _groupsFormArray?.controls; index as i"
+      <ng-container formArrayName="fields">
+        <app-group-control *ngFor="let s of _fieldsFormArray?.controls; index as i"
                            (remove)="_deleteGroupFromArray(i)"
                            [formControlName]="i"
                            [formLabel]="'Nested Group '+ (i + 1) + ':'">

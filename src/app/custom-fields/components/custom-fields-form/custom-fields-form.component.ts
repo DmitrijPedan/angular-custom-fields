@@ -35,7 +35,7 @@ export class CustomFieldsFormComponent   {
     this.fieldsFormArray.push(
       this.fb.control({
         conditions: [],
-        groups: []
+        fields: []
       })
     );
   }

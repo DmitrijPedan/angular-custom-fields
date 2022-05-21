@@ -7,7 +7,7 @@ import {takeUntil} from "rxjs/operators";
 
 export interface GroupControlComponentData {
   conditions: ConditionFormComponentData[];
-  groups: GroupControlComponentData[];
+  fields: GroupControlComponentData[];
 }
 
 @Component({
@@ -63,9 +63,9 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
         value.conditions.forEach(c => this._addCondition());
       }
 
-      if (value.groups.length) {
-        this._groupsFormArray.clear();
-        value.groups.forEach(g => this._addGroup());
+      if (value.fields.length) {
+        this._fieldsFormArray.clear();
+        value.fields.forEach(g => this._addGroup());
       }
 
       this._form.patchValue(value);
@@ -97,14 +97,14 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   _deleteGroupFromArray(index: number) {
-    this._groupsFormArray.removeAt(index);
+    this._fieldsFormArray.removeAt(index);
   }
 
   _addGroup() {
-    this._groupsFormArray.push(
+    this._fieldsFormArray.push(
       this._fb.control({
         conditions: [],
-        groups: []
+        fields: []
       })
     );
   }
@@ -113,14 +113,14 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     return this._form.get("conditions") as FormArray;
   }
 
-  get _groupsFormArray(): FormArray {
-    return this._form.get("groups") as FormArray;
+  get _fieldsFormArray(): FormArray {
+    return this._form.get("fields") as FormArray;
   }
 
   private _createFormGroup() {
     this._form = this._fb.group({
       conditions: this._fb.array([]),
-      groups: this._fb.array([])
+      fields: this._fb.array([])
     });
 
     // add one condition on the next tick, after the form creation
