@@ -2,26 +2,43 @@ export const data = {
   "fields": [
     {
       "conditions": {
-        "name": "First",
-        "label": "First label",
-        "type": ""
-      },
-      "fields": [
-        {
-          "conditions": {
-            "name": "Nested",
-            "label": "Nested label",
-            "type": ""
-          },
-          "fields": []
+        "name": "checkbox",
+        "label": "Check label",
+        "type": "checkbox",
+        "options": {
+          "value": "",
+          "required": false,
+          "minLength": "",
+          "maxLength": ""
         }
-      ]
+      },
+      "fields": []
     },
     {
       "conditions": {
-        "name": "Second",
-        "label": "Second labelsa",
-        "type": ""
+        "name": "netxt",
+        "label": "Nlkgjlk ;",
+        "type": "text",
+        "options": {
+          "value": "",
+          "required": false,
+          "minLength": "",
+          "maxLength": ""
+        }
+      },
+      "fields": []
+    },
+    {
+      "conditions": {
+        "name": "ssss",
+        "label": "sss",
+        "type": "repeater",
+        "options": {
+          "value": "",
+          "required": false,
+          "minLength": "",
+          "maxLength": ""
+        }
       },
       "fields": []
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from "@angular/forms";
 import { FieldType } from "../interfaces/interfaces";
 
 @Injectable({
@@ -44,7 +44,7 @@ export class CustomFieldService {
     const formState: any = {
       name: '',
       label: '',
-      type: '',
+      type: type,
       options: {
         value: '',
         required: false,

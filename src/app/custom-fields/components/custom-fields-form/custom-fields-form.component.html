@@ -1,7 +1,7 @@
 <div class="form">
   <div class="cf-controls">
     <button class="cf-btn" (click)="buildFormFromData()">Build form</button>
-    <button class="cf-btn err" (click)="createForm()">Clear form</button>
+    <button class="cf-btn err" (click)="initForm()">Clear form</button>
     <app-add-field-button
       (addField)="addField($event)"
     ></app-add-field-button>
@@ -10,11 +10,11 @@
     <fieldset>
       <legend>CUSTOM FIELDS</legend>
       <ng-container formArrayName="fields">
-        <ng-container *ngFor="let group of fieldsFormArray?.controls; index as i">
+        <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
           <app-group-control
             [formControlName]="i"
-            [formLabel]="'Field '+ (i + 1) + ':'"
-            (remove)="delete(i)"
+            [formLabel]="'Field '+ (i + 1)"
+            (remove)="deleteField(i)"
           ></app-group-control>
         </ng-container>
       </ng-container>

@@ -18,36 +18,30 @@ export class CustomFieldsFormComponent   {
     private cf: CustomFieldService,
     private fb: FormBuilder
   ) {
-    this.createForm();
+    this.initForm();
   }
 
   buildFormFromData() {
     if (this.data.fields.length) {
-      this.createForm()
+      this.initForm()
       this.data.fields.forEach((field: any) => {
         this.addField(field.conditions.type);
       })
     }
-
     setTimeout(() => {
       this.form.patchValue(this.data);
     }, 50);
   }
 
   addField(type?: FieldType) {
-    this.fieldsFormArray.push(
-      this.fb.control({
-        conditions: {},
-        fields: []
-      })
-    );
+    this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
   }
 
   clear(): void {
     this.fieldsFormArray.setValue([])
   }
 
-  delete(index: number) {
+  deleteField(index: number) {
     this.fieldsFormArray.removeAt(index);
   }
 
@@ -55,7 +49,7 @@ export class CustomFieldsFormComponent   {
     return this.form?.get("fields") as FormArray;
   }
 
-  createForm() {
+  initForm() {
     this.form = this.cf.getInitialForm();
   }
 

@@ -23,8 +23,9 @@ export interface GroupControlComponentData {
 })
 export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input() formLabel: string | number = "Group";
+  @Input() formLabel: string | number = "Field";
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();
+
   public fieldType!: FieldType;
 
   _form!: FormGroup;
@@ -54,15 +55,16 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
 
   writeValue(value: GroupControlComponentData | null | undefined): void {
     if (!value) return;
-    this.fieldType = value.conditions?.type;
     setTimeout(() => {
-      if (value.conditions) {
-        this._addCondition()
+      if (value) {
+        // this._addCondition()
+        this._formConditions.setValue(value);
       }
-
-      if (value.fields.length) {
+      if (value.fields?.length) {
         this._fieldsFormArray.clear();
-        value.fields.forEach(g => this._addGroup());
+        value.fields.forEach(g => {
+          this._addGroup()
+        });
       }
 
       this._form.patchValue(value);
@@ -85,9 +87,8 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     // throw new Error('setDisabledState not implemented');
   }
 
-
   _addCondition() {
-    this._formConditions.setValue({name: '', label: '', type: ''});
+    this._formConditions.setValue({});
   }
 
   _deleteGroupFromArray(index: number) {
