@@ -1,30 +1,29 @@
 <form [formGroup]="_form">
   <fieldset>
-    <legend>{{formLabel}}</legend>
-    <div>
+    <legend>{{formLabel}} ({{fieldType}})</legend>
 
-      <app-buttons-bar
-        (remove)="remove.emit()"
-        (addField)="_addGroup()"
-      ></app-buttons-bar>
+      <div class="cf-controls">
+        <app-add-field-button
+          (addField)="_addGroup()"
+        ></app-add-field-button>
+        <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
+      </div>
 
       <app-field-form
         [formControlName]="'conditions'"
         [formLabel]="'Condition'"
         (remove)="remove.emit()"
-      >
-      </app-field-form>
+      ></app-field-form>
 
       <ng-container formArrayName="fields">
         <app-group-control
           *ngFor="let s of _fieldsFormArray?.controls; index as i"
           (remove)="_deleteGroupFromArray(i)"
           [formControlName]="i"
-          [formLabel]="'Nested Group '+ (i + 1) + ':'">
+          [formLabel]="'Nested Field '+ (i + 1) + ':'">
         </app-group-control>
       </ng-container>
 
-    </div>
   </fieldset>
 </form>
 

@@ -1,0 +1,9 @@
+.cf-form {
+  fieldset {
+    border: 1px solid var(--cf-border-color);
+    margin-bottom: 10px;
+  }
+  legend {
+    color: var(--cf-border-color);
+  }
+}

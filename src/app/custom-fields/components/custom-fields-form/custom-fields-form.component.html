@@ -1,22 +1,24 @@
 <div class="form">
-  <div class="controls">
-    <button (click)="buildFormFromData()" >build</button>
-    <app-buttons-bar
+  <div class="cf-controls">
+    <button class="cf-btn" (click)="buildFormFromData()">Build form</button>
+    <button class="cf-btn err" (click)="createForm()">Clear form</button>
+    <app-add-field-button
       (addField)="addField($event)"
-      (remove)="createForm()"
-    ></app-buttons-bar>
-
+    ></app-add-field-button>
   </div>
-  <form *ngIf="form" [formGroup]="form">
-    <ng-container formArrayName="fields">
-      <ng-container *ngFor="let group of fieldsFormArray?.controls; index as i">
-        <app-group-control
-          [formControlName]="i"
-          [formLabel]="'Field '+ (i + 1) + ':'"
-          (remove)="delete(i)"
-        ></app-group-control>
+  <form *ngIf="form" [formGroup]="form" class="cf-form">
+    <fieldset>
+      <legend>CUSTOM FIELDS</legend>
+      <ng-container formArrayName="fields">
+        <ng-container *ngFor="let group of fieldsFormArray?.controls; index as i">
+          <app-group-control
+            [formControlName]="i"
+            [formLabel]="'Field '+ (i + 1) + ':'"
+            (remove)="delete(i)"
+          ></app-group-control>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </fieldset>
   </form>
 
 </div>

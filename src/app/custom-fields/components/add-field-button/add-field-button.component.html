@@ -1,0 +1,11 @@
+<div class="cf-controls">
+  <select #typeSelect>
+    <option *ngFor="let type of types" [value]="type">
+      {{type | titlecase}}
+    </option>
+  </select>
+  <button type="button" class="cf-btn sucs" (click)="addField.emit(typeSelect?.value)">
+    Add Field
+  </button>
+</div>
+

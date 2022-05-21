@@ -4,6 +4,7 @@ import { CustomFieldService} from "../../services/custom-field.service";
 import {Subject, Subscription} from "rxjs";
 import {ConditionFormComponentData} from "../field-form/field-form.component";
 import {takeUntil} from "rxjs/operators";
+import {FieldType} from "../../interfaces/interfaces";
 
 export interface GroupControlComponentData {
   conditions: ConditionFormComponentData;
@@ -24,6 +25,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
 
   @Input() formLabel: string | number = "Group";
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();
+  public fieldType!: FieldType;
 
   _form!: FormGroup;
 
@@ -51,9 +53,8 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   }
 
   writeValue(value: GroupControlComponentData | null | undefined): void {
-    if (!value) {
-      return;
-    }
+    if (!value) return;
+    this.fieldType = value.conditions?.type;
     setTimeout(() => {
       if (value.conditions) {
         this._addCondition()
@@ -96,7 +97,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   _addGroup() {
     this._fieldsFormArray.push(
       this._fb.control({
-        conditions: [],
+        conditions: {},
         fields: []
       })
     );

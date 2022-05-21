@@ -27,13 +27,13 @@ export class CustomFieldService {
       label: ['', Validators.required],
       type: [type],
     })
-    // const options = this.fb.group({
-    //   value: [''],
-    //   required: [false],
-    //   minLength: [''],
-    //   maxLength: [''],
-    // })
-    // group.addControl('options', options);
+    const options = this.fb.group({
+      value: [''],
+      required: [false],
+      minLength: [''],
+      maxLength: [''],
+    })
+    group.addControl('options', options);
     if (type === "repeater") {
       group.addControl('fields', this.fb.array([]))
     }
@@ -41,11 +41,21 @@ export class CustomFieldService {
   }
 
   getCustomFieldControls(type?: FieldType): FormControl {
-    return this.fb.control({
+    const formState: any = {
       name: '',
       label: '',
       type: '',
-    });
+      options: {
+        value: '',
+        required: false,
+        minLength: '',
+        maxLength: '',
+      }
+    }
+    if (type === "repeater") {
+      formState.fields = []
+    }
+    return this.fb.control(formState);
   }
 
 }
