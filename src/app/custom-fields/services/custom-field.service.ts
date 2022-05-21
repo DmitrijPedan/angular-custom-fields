@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
 import {FieldType} from "../interfaces/interfaces";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomFieldService {
+
+  public type$: BehaviorSubject<FieldType> = new BehaviorSubject<FieldType>('text');
 
   constructor(
     private fb: FormBuilder
@@ -29,6 +32,9 @@ export class CustomFieldService {
   }
 
   getCustomFieldGroup(type?: FieldType): FormGroup {
+    if (!type) {
+      type = this.type$.value
+    }
     const group: FormGroup = this.fb.group({
       name: ['', [Validators.required]],
       label: ['', Validators.required],
@@ -37,9 +43,12 @@ export class CustomFieldService {
     const options = this.fb.group({
       value: [''],
       required: [false],
-      minLength: [''],
-      maxLength: [''],
     })
+    if (type === 'number') {
+      options.addControl('min', this.fb.control([1]));
+      options.addControl('max', this.fb.control([1]));
+      options.addControl('step', this.fb.control([1]));
+    }
     group.addControl('options', options);
     if (type === "repeater") {
       group.addControl('fields', this.fb.array([]))
@@ -47,7 +56,10 @@ export class CustomFieldService {
     return group;
   }
 
-  getCustomFieldControls(type: FieldType): FormControl {
+  getCustomFieldControls(type?: FieldType): FormControl {
+    if (!type) {
+      type = this.type$.value
+    }
     const formState: any = {
       name: '',
       label: '',
@@ -55,9 +67,12 @@ export class CustomFieldService {
       options: {
         value: '',
         required: false,
-        minLength: '',
-        maxLength: '',
       }
+    }
+    if (type === 'number') {
+      formState.options.min = 1;
+      formState.options.max = 1;
+      formState.options.step = 1;
     }
     if (type === "repeater") {
       formState.fields = []

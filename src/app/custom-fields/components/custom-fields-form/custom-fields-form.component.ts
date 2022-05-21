@@ -35,7 +35,7 @@ export class CustomFieldsFormComponent   {
     }, 50);
   }
 
-  addField(type: FieldType) {
+  addField(type?: FieldType) {
     this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
   }
 

@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
@@ -19,7 +19,6 @@ import {FieldType, ICustomFieldConditions} from "../../interfaces/interfaces";
 })
 export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input() formLabel: string | number = "Conditions";
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
@@ -27,6 +26,10 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   constructor(
     private cf: CustomFieldService
   ) {}
+
+  get options (): FormGroup {
+    return this.form.get('options') as FormGroup;
+  }
 
   ngOnInit() {
     this.createFormGroup();
@@ -64,7 +67,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   }
 
   private createFormGroup() {
-    this.form = this.cf.getCustomFieldGroup();
+    this.form = this.cf.getCustomFieldGroup('number');
   }
 
 }

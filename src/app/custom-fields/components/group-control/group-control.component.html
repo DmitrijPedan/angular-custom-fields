@@ -3,17 +3,11 @@
     <legend>{{formLabel}} ({{type}})</legend>
 
       <div class="cf-controls">
-        <app-add-field-button
-          *ngIf="type === 'repeater'"
-          (addField)="addField($event)"
-        ></app-add-field-button>
+        <app-add-field-button *ngIf="type === 'repeater'" (addField)="addField($event)"></app-add-field-button>
         <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
       </div>
 
-      <app-field-form
-        [formControlName]="'conditions'"
-        [formLabel]="'Condition'"
-      ></app-field-form>
+      <app-field-form [formControlName]="'conditions'"></app-field-form>
 
       <ng-container formArrayName="fields">
         <app-group-control

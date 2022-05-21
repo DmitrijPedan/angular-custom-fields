@@ -1,5 +1,5 @@
 <div class="cf-controls">
-  <select #typeSelect>
+  <select #typeSelect (change)="onTypeSelected($event)">
     <option *ngFor="let type of types" [value]="type">
       {{type | titlecase}}
     </option>

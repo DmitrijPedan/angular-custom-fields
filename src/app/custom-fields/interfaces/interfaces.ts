@@ -1,4 +1,4 @@
-export type FieldType = 'text' | 'checkbox' | 'repeater';
+export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number';
 
 export interface ICustomField {
   conditions: ICustomFieldConditions;

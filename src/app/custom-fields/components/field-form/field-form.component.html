@@ -1,14 +1,79 @@
 <form [formGroup]="form">
-  <fieldset>
-    <legend>{{formLabel}} (field-form)</legend>
     <input type="text" formControlName="type" hidden>
-    <div class="input">
-      <input type="text" formControlName="name" id="name">
-      <label for="name">Name</label>
-    </div>
-    <div class="input">
-      <input type="text" formControlName="label" id="label">
-      <label for="label">Label</label>
-    </div>
-  </fieldset>
+    <table>
+      <tr>
+        <td>
+          <p class="title">Field Label</p>
+          <p class="subtitle">This is the name which will appear on the EDIT page</p>
+        </td>
+        <td>
+          <input type="text" formControlName="label" required>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="title">Field Name</p>
+          <p class="subtitle">Single word, no spaces. Underscores and dashes allowed</p>
+        </td>
+        <td>
+          <input type="text" formControlName="name" required>
+        </td>
+      </tr>
+    </table>
+  <table formGroupName="options">
+    <tr *ngIf="options.get('value')">
+      <td>
+        <p class="title">Default Value</p>
+        <p class="subtitle">Appears when creating a new item</p>
+      </td>
+      <td>
+        <input type="text" formControlName="value">
+      </td>
+    </tr>
+    <tr *ngIf="options.get('required')">
+      <td>
+        <p class="title">Required?</p>
+        <p class="subtitle">Field required attribute</p>
+      </td>
+      <td>
+        <input type="checkbox" formControlName="required">
+      </td>
+    </tr>
+    <tr *ngIf="options.get('rows')">
+      <td>
+        <p class="title">Rows</p>
+        <p class="subtitle">Textarea rows attribute</p>
+      </td>
+      <td>
+        <input type="number" formControlName="rows" min="1" max="10" step="1">
+      </td>
+    </tr>
+    <tr *ngIf="options.get('min')">
+      <td>
+        <p class="title">Min</p>
+        <p class="subtitle">Number input min attribute</p>
+      </td>
+      <td>
+        <input type="number" formControlName="min">
+      </td>
+    </tr>
+    <tr *ngIf="options.get('max')">
+      <td>
+        <p class="title">Max</p>
+        <p class="subtitle">Number input max attribute</p>
+      </td>
+      <td>
+        <input type="number" formControlName="max">
+      </td>
+    </tr>
+    <tr *ngIf="options.get('step')">
+      <td>
+        <p class="title">Step</p>
+        <p class="subtitle">Number input step attribute</p>
+      </td>
+      <td>
+        <input type="number" formControlName="step">
+      </td>
+    </tr>
+  </table>
 </form>

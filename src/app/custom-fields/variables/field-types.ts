@@ -1,3 +1,3 @@
 import {FieldType} from "../interfaces/interfaces";
 
-export const FIELD_TYPES: FieldType[] = ['checkbox', 'repeater', 'text'];
+export const FIELD_TYPES: FieldType[] = ['text', 'checkbox', 'number', 'repeater'];
