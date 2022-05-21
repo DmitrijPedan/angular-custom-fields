@@ -22,11 +22,8 @@ export interface GroupControlComponentData {
 })
 export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input()
-  formLabel: string | number = "Group";
-
-  @Output()
-  remove: EventEmitter<void> = new EventEmitter<void>();
+  @Input() formLabel: string | number = "Group";
+  @Output() remove: EventEmitter<void> = new EventEmitter<void>();
 
   _form!: FormGroup;
 
@@ -86,7 +83,6 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     // TODO: implement this method
     // throw new Error('setDisabledState not implemented');
   }
-
 
 
   _addCondition() {

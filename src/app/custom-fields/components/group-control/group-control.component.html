@@ -5,13 +5,14 @@
 
       <app-buttons-bar
         (remove)="remove.emit()"
-        (addRepeater)="_addGroup()"
-        (addField)="_addCondition()"
+        (addField)="_addGroup()"
       ></app-buttons-bar>
 
       <app-field-form
         [formControlName]="'conditions'"
-        [formLabel]="'Condition '">
+        [formLabel]="'Condition'"
+        (remove)="remove.emit()"
+      >
       </app-field-form>
 
       <ng-container formArrayName="fields">
