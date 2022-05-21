@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {data} from "./custom-fields/variables/data";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'custom-fields';
+
+  public data = data;
+
 }

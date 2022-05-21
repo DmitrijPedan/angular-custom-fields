@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray,  Validators } from "@angular/forms";
+import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
 import { FieldType } from "../interfaces/interfaces";
 
 @Injectable({
@@ -38,6 +38,14 @@ export class CustomFieldService {
       group.addControl('fields', this.fb.array([]))
     }
     return group;
+  }
+
+  getCustomFieldControls(type?: FieldType): FormControl {
+    return this.fb.control({
+      name: '',
+      label: '',
+      type: '',
+    });
   }
 
 }

@@ -22,8 +22,11 @@ export class CustomFieldsFormComponent   {
   }
 
   buildFormFromData() {
-    if (this.data.groups.length) {
-      this.addGroup();
+    if (this.data.fields.length) {
+      this.createForm()
+      this.data.fields.forEach((field: any) => {
+        this.addField(field.conditions.type);
+      })
     }
 
     setTimeout(() => {
@@ -31,7 +34,7 @@ export class CustomFieldsFormComponent   {
     }, 50);
   }
 
-  addGroup(type?: FieldType) {
+  addField(type?: FieldType) {
     this.fieldsFormArray.push(
       this.fb.control({
         conditions: {},

@@ -1,7 +1,8 @@
 <div class="form">
   <div class="controls">
+    <button (click)="buildFormFromData()" >build</button>
     <app-buttons-bar
-      (addField)="addGroup($event)"
+      (addField)="addField($event)"
       (remove)="createForm()"
     ></app-buttons-bar>
 
