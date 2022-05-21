@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {FieldType} from "../../interfaces/interfaces";
 
@@ -12,11 +12,10 @@ import {FieldType} from "../../interfaces/interfaces";
 export class CustomFieldsFormComponent   {
 
   @Input() data: any;
-  form!: FormGroup;
+  public form!: FormGroup;
 
   constructor(
     private cf: CustomFieldService,
-    private fb: FormBuilder
   ) {
     this.initForm();
   }

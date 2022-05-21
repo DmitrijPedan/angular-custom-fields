@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {ICustomFieldConditions} from "../../interfaces/interfaces";
@@ -25,7 +25,6 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private _fb: FormBuilder,
     private cf: CustomFieldService
   ) {}
 

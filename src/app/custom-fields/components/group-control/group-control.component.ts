@@ -20,13 +20,20 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   @Input() formLabel: string | number = "Field";
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();
   public form!: FormGroup;
-  private subscriptions: Subscription[] = [];
-
   private onChange!: (value: ICustomField | null | undefined) => void;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private cf: CustomFieldService
   ) {}
+
+  get conditions(): FormControl {
+    return this.form.get('conditions') as FormControl;
+  }
+
+  get fieldsFormArray(): FormArray {
+    return this.form.get('fields') as FormArray;
+  }
 
   ngOnInit() {
     this._createFormGroup();
@@ -79,14 +86,6 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
 
   addField(type: FieldType) {
     this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
-  }
-
-  get conditions(): FormControl {
-    return this.form.get('conditions') as FormControl;
-  }
-
-  get fieldsFormArray(): FormArray {
-    return this.form.get('fields') as FormArray;
   }
 
   private _createFormGroup() {
