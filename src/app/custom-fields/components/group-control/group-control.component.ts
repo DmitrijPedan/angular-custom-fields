@@ -60,7 +60,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
       if (value.fields?.length) {
         this.fieldsFormArray.clear();
         value.fields.forEach((field: ICustomField) => {
-          this.addField(field.conditions.type)
+          this.addField()
         });
       }
       this.form.patchValue(value);
@@ -85,8 +85,8 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     this.fieldsFormArray.removeAt(index);
   }
 
-  addField(type: FieldType) {
-    this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
+  addField() {
+    this.fieldsFormArray.push(this.cf.getCustomFieldControls());
   }
 
   private createFormGroup() {

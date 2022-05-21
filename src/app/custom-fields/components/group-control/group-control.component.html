@@ -3,7 +3,7 @@
     <legend>{{formLabel}} ({{type}})</legend>
 
       <div class="cf-controls">
-        <app-add-field-button *ngIf="type === 'repeater'" (addField)="addField($event)"></app-add-field-button>
+        <button *ngIf="type === 'repeater'" class="cf-btn sucs" (click)="addField()">Add field</button>
         <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
       </div>
 

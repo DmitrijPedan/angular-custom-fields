@@ -2,8 +2,8 @@ import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
-import {FieldType, ICustomFieldConditions} from "../../interfaces/interfaces";
-
+import {FieldOption, ICustomFieldConditions, IFieldType} from "../../interfaces/interfaces";
+import {FIELD_TYPES} from "../../variables/field-types";
 
 @Component({
   selector: 'app-field-form',
@@ -22,14 +22,13 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
+  public fieldTypes: IFieldType[] = FIELD_TYPES;
+  public type: IFieldType = this.fieldTypes[0];
+  public allowedOptions: FieldOption[] = [];
 
   constructor(
     private cf: CustomFieldService
   ) {}
-
-  get options (): FormGroup {
-    return this.form.get('options') as FormGroup;
-  }
 
   ngOnInit() {
     this.createFormGroup();
@@ -43,6 +42,11 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  test(event: any):void {
+    this.type = this.fieldTypes.find(el => el.type === event.target.value) || this.fieldTypes[0];
+    this.allowedOptions = this.type.options;
   }
 
   writeValue(value: ICustomFieldConditions): void {
@@ -67,7 +71,11 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   }
 
   private createFormGroup() {
-    this.form = this.cf.getCustomFieldGroup('number');
+    this.form = this.cf.getCustomFieldGroup();
+  }
+
+  showOptionControl(controlName: FieldOption): boolean {
+    return this.allowedOptions.includes(controlName);
   }
 
 }

@@ -1,4 +1,12 @@
-export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number';
+export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number' | 'textarea';
+export type FieldOption = 'value' | 'required' | 'min' | 'max' | 'step' | 'rows';
+
+export interface IFieldType {
+  type: FieldType;
+  displayName: string;
+  options: FieldOption[];
+}
+
 
 export interface ICustomField {
   conditions: ICustomFieldConditions;

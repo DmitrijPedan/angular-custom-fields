@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
-import {FieldType} from "../../interfaces/interfaces";
 
 @Component({
   selector: 'app-custom-fields-form',
@@ -27,7 +26,7 @@ export class CustomFieldsFormComponent   {
     if (this.data.fields.length) {
       this.initForm()
       this.data.fields.forEach((field: any) => {
-        this.addField(field.conditions.type);
+        this.addField();
       })
     }
     setTimeout(() => {
@@ -35,8 +34,8 @@ export class CustomFieldsFormComponent   {
     }, 50);
   }
 
-  addField(type?: FieldType) {
-    this.fieldsFormArray.push(this.cf.getCustomFieldControls(type));
+  addField() {
+    this.fieldsFormArray.push(this.cf.getCustomFieldControls());
   }
 
   deleteField(index: number) {

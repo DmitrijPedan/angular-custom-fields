@@ -2,9 +2,7 @@
   <div class="cf-controls">
     <button class="cf-btn" (click)="buildFormFromData()">Build form</button>
     <button class="cf-btn err" (click)="initForm()">Clear form</button>
-    <app-add-field-button
-      (addField)="addField($event)"
-    ></app-add-field-button>
+    <button class="cf-btn sucs" (click)="addField()">Add field</button>
   </div>
   <form *ngIf="form" [formGroup]="form" class="cf-form">
     <fieldset>
