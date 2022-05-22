@@ -13,6 +13,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { FieldTitleComponent } from './components/field-title/field-title.component';
 import { FieldNamePipe } from './pipes/field-name.pipe';
+import { ButtonsComponent } from './components/buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FieldNamePipe } from './pipes/field-name.pipe';
     CustomFieldsFormComponent,
     FieldTitleComponent,
     FieldNamePipe,
+    ButtonsComponent,
   ],
   exports: [
     CustomFieldsFormComponent

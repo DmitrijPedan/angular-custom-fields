@@ -1,0 +1,54 @@
+<div class="cf-controls">
+
+  <span *ngIf="showArrayControls">
+
+    <button
+      *ngIf="openAll.observers.length > 0"
+      mat-icon-button
+      (click)="openAll.emit()"
+      color="primary"
+      title="Expand all">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <button
+      *ngIf="closeAll.observers.length > 0"
+      mat-icon-button
+      (click)="closeAll.emit()"
+      color="primary"
+      title="Collapse all">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+
+    <button
+      *ngIf="clearArray.observers.length > 0"
+      mat-icon-button
+      (click)="clearAllAction()"
+      color="primary"
+      title="Clear all fields">
+      <mat-icon>clear_all</mat-icon>
+    </button>
+
+  </span>
+
+  <button
+    *ngIf="addField.observers.length > 0 && showAdd"
+    mat-icon-button
+    (click)="addField.emit()"
+    color="primary"
+    title="Add field">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button
+    *ngIf="removeField.observers.length > 0"
+    mat-icon-button
+    (click)="removeFieldAction()"
+    color="warn"
+    title="Remove field">
+    <mat-icon>clear</mat-icon>
+  </button>
+
+
+</div>
+

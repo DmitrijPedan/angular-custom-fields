@@ -40,7 +40,6 @@ export class CustomFieldService {
         step: [1],
         rows: [1],
       }),
-      fields: this.fb.array([])
     })
   }
 
@@ -57,7 +56,6 @@ export class CustomFieldService {
         step: 1,
         rows: 1,
       },
-      fields: []
     });
   }
 

@@ -1,5 +1,5 @@
 import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {FieldOption, ICustomFieldConditions, IFieldType} from "../../interfaces/interfaces";
@@ -23,7 +23,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
   public fieldTypes: IFieldType[] = FIELD_TYPES;
-  public type: IFieldType = this.fieldTypes[0];
+  public selectedType: IFieldType = this.fieldTypes[0];
   public allowedOptions: FieldOption[] = [];
 
   constructor(
@@ -44,9 +44,27 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  test(event: any):void {
-    this.type = this.fieldTypes.find(el => el.type === event.target.value) || this.fieldTypes[0];
-    this.allowedOptions = this.type.options;
+  get type(): FormControl {
+    return this.form.get('type') as FormControl;
+  }
+
+  get fields(): FormControl {
+    return this.form.get('fields') as FormControl;
+  }
+
+  typeChanged(event: any):void {
+    const value = event.target.value;
+    if (this.type.value !== 'repeater') {
+      this.type.setValue(value);
+    } else {
+      if (confirm('Are you sure you want to change the type? Nested fields will be lost!')) {
+        this.type.setValue(value);
+      } else {
+        event.target.value = this.type.value;
+      }
+    }
+    this.selectedType = this.fieldTypes.find(el => el.type === this.type.value) || this.fieldTypes[0];
+    this.allowedOptions = this.selectedType.options;
   }
 
   writeValue(value: ICustomFieldConditions): void {

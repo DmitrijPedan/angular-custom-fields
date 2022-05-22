@@ -6,7 +6,7 @@
           <p class="subtitle">Type</p>
         </td>
         <td>
-          <select name="type" formControlName="type" (change)="test($event)">
+          <select name="type" (change)="typeChanged($event)">
             <option *ngFor="let item of fieldTypes" [value]="item.type">{{item.displayName}}</option>
           </select>
         </td>

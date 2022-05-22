@@ -1,20 +1,25 @@
 <form [formGroup]="form">
   <fieldset>
-    <legend>{{type | fieldName}}</legend>
-      <div class="cf-controls">
-        <button *ngIf="type === 'repeater'" mat-icon-button (click)="addField()" color="primary" title="Add field">
-          <mat-icon>add</mat-icon>
-        </button>
-        <button mat-icon-button (click)="remove.emit()" color="warn" title="Remove field">
-          <mat-icon>clear</mat-icon>
-        </button>
-      </div>
+    <legend>
+      <span>{{type | fieldName}}</span>
+      <span *ngIf="fieldsFormArray.length">({{fieldsFormArray.length}} fields)</span>
+    </legend>
+
+      <app-buttons
+        [showAdd]="type === 'repeater'"
+        (addField)="addField()"
+        (removeField)="remove.emit()"
+        [showArrayControls]="fieldsFormArray.length > 0"
+        (closeAll)="accordion.closeAll()"
+        (openAll)="accordion.openAll()"
+        (clearArray)="clearFieldsArray()"
+      ></app-buttons>
 
       <app-field-form
         [formControlName]="'conditions'"
       ></app-field-form>
 
-      <mat-accordion formArrayName="fields" [multi]="true">
+      <mat-accordion formArrayName="fields" [multi]="true" #accordion="matAccordion">
         <mat-expansion-panel *ngFor="let control of fieldsFormArray?.controls; index as i" [expanded]="true">
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
             <mat-panel-title>

@@ -1,23 +1,16 @@
 <div class="wrapper" [ngClass]="{'show-json': jsonVisible}" >
   <div class="fields-form">
     <div class="cf-controls">
-      <button mat-icon-button (click)="addField()" color="primary" title="Add field">
-        <mat-icon>add</mat-icon>
-      </button>
+      <app-buttons
+        [showArrayControls]="fieldsFormArray.length > 0"
+        (addField)="addField()"
+        (openAll)="accordion.openAll()"
+        (closeAll)="accordion.closeAll()"
+        (clearArray)="initForm()"
+      ></app-buttons>
       <button mat-icon-button (click)="buildFormFromData()" color="primary" title="Build form">
         <mat-icon>ballot</mat-icon>
       </button>
-      <span *ngIf="fieldsFormArray.length > 0">
-       <button  mat-icon-button (click)="accordion.openAll()" color="primary" title="Expand all">
-      <mat-icon>expand_more</mat-icon>
-    </button>
-    <button mat-icon-button (click)="accordion.closeAll()" color="primary" title="Collapse all">
-      <mat-icon>expand_less</mat-icon>
-    </button>
-      <button mat-icon-button (click)="initForm()" color="primary" title="Clear form">
-      <mat-icon>clear_all</mat-icon>
-    </button>
-    </span>
       <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">
         <mat-icon>{{jsonVisible ? 'chevron_right' : 'chevron_left'}}</mat-icon>
       </button>

@@ -39,9 +39,14 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   ngOnInit() {
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
-      this.type = value.conditions.type;
       if (this.onChange) {
         this.onChange(value);
+      }
+      if (value) {
+        this.type = value.conditions.type;
+        if (value.conditions.type !== 'repeater' && this.fieldsFormArray.value.length > 0) {
+          this.clearFieldsArray();
+        }
       }
     });
     this.subscriptions.push(formSub);
@@ -87,6 +92,10 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
 
   addField() {
     this.fieldsFormArray.push(this.cf.getCustomFieldControls());
+  }
+
+  clearFieldsArray(): void {
+    this.fieldsFormArray.clear();
   }
 
   private createFormGroup() {
