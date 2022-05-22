@@ -12,6 +12,7 @@ import { CustomFieldsFormComponent } from './components/custom-fields-form/custo
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { FieldTitleComponent } from './components/field-title/field-title.component';
+import { FieldNamePipe } from './pipes/field-name.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FieldTitleComponent } from './components/field-title/field-title.compon
     FieldFormComponent,
     CustomFieldsFormComponent,
     FieldTitleComponent,
+    FieldNamePipe,
   ],
   exports: [
     CustomFieldsFormComponent

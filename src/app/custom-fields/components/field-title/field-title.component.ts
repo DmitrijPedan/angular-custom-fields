@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {FieldType} from "../../interfaces/interfaces";
 
 @Component({
   selector: 'app-field-title',
@@ -9,14 +8,13 @@ import {FieldType} from "../../interfaces/interfaces";
 export class FieldTitleComponent implements OnInit {
 
   @Input() number: number = 0;
-  @Input() type: any;
+  @Input() name: string = 'Field';
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();
   @Output() addField: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.type)
   }
 
 }

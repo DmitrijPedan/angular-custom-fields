@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <fieldset>
-    <legend>Field</legend>
+    <legend>{{type | fieldName}}</legend>
       <div class="cf-controls">
         <button *ngIf="type === 'repeater'" mat-icon-button (click)="addField()" color="primary" title="Add field">
           <mat-icon>add</mat-icon>
@@ -18,10 +18,7 @@
         <mat-expansion-panel *ngFor="let control of fieldsFormArray?.controls; index as i" [expanded]="true">
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
             <mat-panel-title>
-              <app-field-title
-                [number]="i + 1"
-                [type]="control.value.type"
-              ></app-field-title>
+              <app-field-title [number]="i + 1" ></app-field-title>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <app-group-control
