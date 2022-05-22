@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FieldType} from "../../interfaces/interfaces";
+import {FIELD_ICONS} from "../../variables/field-icons";
 
 @Component({
   selector: 'app-field-title',
@@ -13,6 +14,7 @@ export class FieldTitleComponent implements OnInit, OnChanges {
   @Input() dragDisabled = true;
   public label: string = 'Field';
   public type!: FieldType;
+  private icons = FIELD_ICONS;
 
   constructor() { }
 
@@ -26,5 +28,10 @@ export class FieldTitleComponent implements OnInit, OnChanges {
       this.type = value.conditions.type;
     }
   }
+
+  icon(): string {
+    return this.icons[this.type];
+  }
+
 
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="cf-form" [ngClass]="{'repeater': type === 'repeater'}" >
   <fieldset>
     <legend>
       <span>{{type | fieldName}}</span>
@@ -31,6 +31,7 @@
         <mat-expansion-panel
           *ngFor="let control of fieldsFormArray?.controls; index as i"
           [expanded]="true"
+          togglePosition="before"
           cdkDrag>
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
             <mat-panel-title>
@@ -48,7 +49,13 @@
           ></app-group-control>
         </mat-expansion-panel>
       </mat-accordion>
-
+      <app-buttons
+        *ngIf="fieldsFormArray.value.length > 0"
+        (addField)="addField()"
+        [showArrayControls]="fieldsFormArray.length > 0"
+        (closeAll)="accordion.closeAll()"
+        (openAll)="accordion.openAll()"
+      ></app-buttons>
   </fieldset>
 </form>
 

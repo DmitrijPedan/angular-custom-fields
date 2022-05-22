@@ -2,5 +2,6 @@
 <span class="type">{{type | fieldName}}</span>
 <span *ngIf="label" class="name">"{{label}}"</span>
 <span class="right">
+  <mat-icon [title]="type | fieldName">{{icon()}}</mat-icon>
   <mat-icon *ngIf="!dragDisabled" title="Reorder allowed">drag_handle</mat-icon>
 </span>

@@ -1,6 +1,12 @@
 .cf-form {
   font-family: "Roboto", sans-serif;
 
+  &.repeater {
+    > fieldset {
+      background-color: var(--cf-repeater-bkg-color);
+    }
+  }
+
   fieldset {
     border: 1px solid transparent;
     margin: 10px 5px;
@@ -13,7 +19,8 @@
     background-color: white;
     display: flex;
     align-items: center;
-    padding: 3px 6px;
+    padding: 0 6px;
+    border-radius: 3px;
     > * {
       margin-right: 5px;
     }
