@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   span {
     margin-right: 10px;
     color: white;
@@ -18,4 +19,12 @@
   font-size: 12px;
   line-height: 1em;
   margin-right: 15px;
+}
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin-left: 5px;
+  }
 }

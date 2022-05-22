@@ -10,6 +10,7 @@ export class FieldTitleComponent implements OnInit, OnChanges {
 
   @Input() number: number = 0;
   @Input() value: any;
+  @Input() dragDisabled = true;
   public label: string = 'Field';
   public type!: FieldType;
 

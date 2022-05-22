@@ -29,6 +29,15 @@
       <mat-icon>clear_all</mat-icon>
     </button>
 
+     <button
+       *ngIf="reorderArray.observers.length > 0"
+       mat-icon-button
+       (click)="reorderArray.emit()"
+       [color]="reorderDisabled ? 'primary' : 'warn'"
+       title="Reorder fields">
+      <mat-icon>reorder</mat-icon>
+    </button>
+
   </span>
 
   <button

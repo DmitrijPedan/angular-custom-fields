@@ -3,6 +3,7 @@ import {ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALUE_ACCESS
 import {CustomFieldService} from "../../services/custom-field.service";
 import {Subscription} from "rxjs";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
   public type!: FieldType;
+  public reorderDisabled = true;
 
   constructor(
     private cf: CustomFieldService
@@ -34,6 +36,17 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
 
   get fieldsFormArray(): FormArray {
     return this.form.get('fields') as FormArray;
+  }
+
+  toggleReorder(): void {
+    this.reorderDisabled = !this.reorderDisabled;
+  }
+
+  reorderFields(event: CdkDragDrop<string[]>) {
+    const controls = this.fieldsFormArray?.controls;
+    moveItemInArray(controls, event.previousIndex, event.currentIndex);
+    const upd = controls.map((el: any) => el.value);
+    this.fieldsFormArray?.setValue(upd)
   }
 
   ngOnInit() {

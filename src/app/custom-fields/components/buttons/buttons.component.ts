@@ -10,11 +10,13 @@ export class ButtonsComponent implements OnInit {
   @Input() showArrayControls: boolean = false;
   @Input() showAdd: boolean = true;
   @Input() confirmRemoveField: boolean = true;
+  @Input() reorderDisabled: boolean = true;
   @Output() addField: EventEmitter<void> = new EventEmitter<void>();
   @Output() removeField: EventEmitter<void> = new EventEmitter<void>();
   @Output() clearArray: EventEmitter<void> = new EventEmitter<void>();
   @Output() openAll: EventEmitter<void> = new EventEmitter<void>();
   @Output() closeAll: EventEmitter<void> = new EventEmitter<void>();
+  @Output() reorderArray: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 

@@ -2,6 +2,7 @@ import {Component, Input, ViewChild} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {MatAccordion} from "@angular/material/expansion";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-custom-fields-form',
@@ -14,6 +15,7 @@ export class CustomFieldsFormComponent   {
   @Input() data: any;
   public form!: FormGroup;
   public jsonVisible = true;
+  public reorderDisabled = true;
 
   constructor(
     private cf: CustomFieldService,
@@ -27,6 +29,17 @@ export class CustomFieldsFormComponent   {
 
   toggleJson(): void {
     this.jsonVisible = !this.jsonVisible;
+  }
+
+  toggleReorder(): void {
+    this.reorderDisabled = !this.reorderDisabled;
+  }
+
+  reorderFields(event: CdkDragDrop<string[]>) {
+    const controls = this.fieldsFormArray?.controls;
+    moveItemInArray(controls, event.previousIndex, event.currentIndex);
+    const upd = controls.map((el: any) => el.value);
+    this.fieldsFormArray?.setValue(upd)
   }
 
   buildFormFromData() {
