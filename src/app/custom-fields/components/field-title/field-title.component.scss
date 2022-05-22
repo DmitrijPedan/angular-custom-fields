@@ -2,12 +2,15 @@
   width: 100%;
   display: flex;
   align-items: center;
+  span {
+    margin-right: 10px;
+    color: white;
+  }
 }
 .number {
   width: 23px;
   height: 23px;
   border: 1px solid white;
-  color: white;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -15,10 +18,4 @@
   font-size: 12px;
   line-height: 1em;
   margin-right: 15px;
-}
-.name {
-  color: white;
-}
-.controls {
-  margin-left: auto;
 }
