@@ -1,25 +1,54 @@
-<div class="form">
-  <div class="cf-controls">
-    <button class="cf-btn" (click)="buildFormFromData()">Build form</button>
-    <button class="cf-btn err" (click)="initForm()">Clear form</button>
-    <button class="cf-btn sucs" (click)="addField()">Add field</button>
+<div class="wrapper" [ngClass]="{'show-json': jsonVisible}" >
+  <div class="fields-form">
+    <div class="cf-controls">
+      <button mat-icon-button (click)="addField()" color="primary" title="Add field">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button (click)="buildFormFromData()" color="primary" title="Build form">
+        <mat-icon>ballot</mat-icon>
+      </button>
+      <span *ngIf="fieldsFormArray.length > 0">
+       <button  mat-icon-button (click)="accordion.openAll()" color="primary" title="Expand all">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <button mat-icon-button (click)="accordion.closeAll()" color="primary" title="Collapse all">
+      <mat-icon>expand_less</mat-icon>
+    </button>
+      <button mat-icon-button (click)="initForm()" color="primary" title="Clear form">
+      <mat-icon>clear_all</mat-icon>
+    </button>
+    </span>
+      <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">
+        <mat-icon>{{jsonVisible ? 'chevron_right' : 'chevron_left'}}</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="form" class="cf-form">
+      <fieldset>
+        <legend><mat-icon>extension</mat-icon> Custom Fields</legend>
+        <mat-accordion #accordion="matAccordion"  formArrayName="fields" togglePosition="before" [multi]="true" class="cf-accordion">
+          <mat-expansion-panel *ngFor="let control of fieldsFormArray?.controls; index as i" [expanded]="true">
+            <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
+              <mat-panel-title>
+                <app-field-title
+                  [number]="i + 1"
+                  [type]="control.value.type"
+                ></app-field-title>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-group-control
+              [formControlName]="i"
+              [formLabel]="'Field '+ (i + 1)"
+              (remove)="deleteField(i)"
+            ></app-group-control>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </fieldset>
+    </form>
   </div>
-  <form *ngIf="form" [formGroup]="form" class="cf-form">
-    <fieldset>
-      <legend>CUSTOM FIELDS</legend>
-      <ng-container formArrayName="fields">
-        <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
-          <app-group-control
-            [formControlName]="i"
-            [formLabel]="'Field '+ (i + 1)"
-            (remove)="deleteField(i)"
-          ></app-group-control>
-        </ng-container>
-      </ng-container>
-    </fieldset>
-  </form>
+  <div *ngIf="jsonVisible" class="fields-json">
+    <pre>{{form.value | json}}</pre>
+  </div>
+</div>
 
-</div>
-<div class="pre">
-  <pre>{{form.value | json}}</pre>
-</div>
+
+

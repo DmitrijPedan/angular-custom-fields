@@ -1,22 +1,36 @@
 <form [formGroup]="form">
   <fieldset>
-    <legend>{{formLabel}} ({{type}})</legend>
-
+    <legend>Field</legend>
       <div class="cf-controls">
-        <button *ngIf="type === 'repeater'" class="cf-btn sucs" (click)="addField()">Add field</button>
-        <button class="cf-btn err" (click)="remove.emit()">Remove field</button>
+        <button *ngIf="type === 'repeater'" mat-icon-button (click)="addField()" color="primary" title="Add field">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="remove.emit()" color="warn" title="Remove field">
+          <mat-icon>clear</mat-icon>
+        </button>
       </div>
 
-      <app-field-form [formControlName]="'conditions'"></app-field-form>
+      <app-field-form
+        [formControlName]="'conditions'"
+      ></app-field-form>
 
-      <ng-container formArrayName="fields">
-        <app-group-control
-          *ngFor="let control of fieldsFormArray?.controls; index as i"
-          (remove)="deleteFieldFromArray(i)"
-          [formControlName]="i"
-          [formLabel]="'Nested Field '+ (i + 1) + ':'"
-        ></app-group-control>
-      </ng-container>
+      <mat-accordion formArrayName="fields" [multi]="true">
+        <mat-expansion-panel *ngFor="let control of fieldsFormArray?.controls; index as i" [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
+            <mat-panel-title>
+              <app-field-title
+                [number]="i + 1"
+                [type]="control.value.type"
+              ></app-field-title>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-group-control
+            (remove)="deleteFieldFromArray(i)"
+            [formControlName]="i"
+            [formLabel]="'Nested Field '+ (i + 1) + ':'"
+          ></app-group-control>
+        </mat-expansion-panel>
+      </mat-accordion>
 
   </fieldset>
 </form>

@@ -1,45 +1,4 @@
 .cf-controls {
   display: flex;
   justify-content: flex-end;
-  > button, > input, > select  {
-    margin: 0 15px 10px 0;
-  }
-}
-
-.cf-btn {
-  box-sizing: border-box;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  padding: 5px 15px;
-  cursor: pointer;
-  background-color: var(--cf-primary-color);
-  color: white;
-  position: relative;
-  overflow: hidden;
-  line-height: 1em;
-  &.sucs {
-    background-color: var(--cf-sucs-color);
-  }
-  &.err {
-    background-color: var(--cf-err-color);
-  }
-  &.warn {
-    background-color: var(--cf-warn-color);
-  }
-  &:before {
-    content: "";
-    position: absolute;
-    width: 105%;
-    height: 105%;
-    top: 0;
-    left: 0;
-    background-color: white;
-    opacity: .1;
-    transition: opacity var(--cf-transition);
-  }
-  &:hover {
-    &:before {
-      opacity: 0;
-    }
-  }
 }

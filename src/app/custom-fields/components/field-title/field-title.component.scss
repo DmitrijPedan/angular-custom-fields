@@ -1,0 +1,24 @@
+:host {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.number {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--cf-border-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1em;
+  margin-right: 15px;
+}
+.name {
+
+}
+.controls {
+  margin-left: auto;
+}

@@ -1,11 +1,26 @@
-:host {
+@import "~src/app/custom-fields/styles/accordion";
+
+.wrapper {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
-  .form {
-    width: 58%;
+  .fields-form {
+    width: 100%;
+    transition: width .1s;
   }
-  .pre {
-    width: 38%;
+  .fields-json {
+    width: 0;
+    font-size: 11px;
+    line-height: 1.1em;
+    transition: width .1s;
+  }
+  &.show-json {
+    .fields-form {
+      width: 58%;
+    }
+    .fields-json {
+      width: 38%;
+    }
   }
 }
 
