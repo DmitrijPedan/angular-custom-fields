@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import {ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {Subscription} from "rxjs";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
@@ -10,13 +10,20 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
   selector: 'app-group-control',
   templateUrl: './group-control.component.html',
   styleUrls: ['./group-control.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GroupControlComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => GroupControlComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => GroupControlComponent),
+      multi: true,
+    },
+  ]
 })
-export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   @Input() formLabel: string | number = "Field";
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();
@@ -97,6 +104,10 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
   setDisabledState(isDisabled: boolean): void {
     // TODO: implement this method
     // throw new Error('setDisabledState not implemented');
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.form.status === 'VALID' ? null : { required: true }
   }
 
   deleteFieldFromArray(index: number) {

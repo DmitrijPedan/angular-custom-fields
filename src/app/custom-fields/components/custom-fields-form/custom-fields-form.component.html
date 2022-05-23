@@ -56,6 +56,7 @@
             color="primary"
             (click)="submit()"
             [disabled]="form.invalid"
+            [title]="form.invalid ? 'Form invalid' : 'Submit'"
           >Submit</button>
         </div>
       </fieldset>

@@ -79,6 +79,7 @@
   }
 
   .ng-invalid {
-    border-color: red!important;
+    border-color: var(--cf-err-color)!important;
+    outline-color: var(--cf-err-color)!important;
   }
 }

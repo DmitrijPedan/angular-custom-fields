@@ -14,7 +14,7 @@ export class CustomFieldsFormComponent   {
   @ViewChild('accordion') accordion!: MatAccordion;
   @Input() data: any;
   public form!: FormGroup;
-  public jsonVisible = true;
+  public jsonVisible = false;
   public reorderDisabled = true;
 
   constructor(
@@ -67,6 +67,7 @@ export class CustomFieldsFormComponent   {
   }
 
   submit(): void {
+    console.log(this.form)
     console.log(this.form.value)
   }
 

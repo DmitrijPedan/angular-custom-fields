@@ -1,5 +1,13 @@
 import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors,
+  Validator
+} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {FieldOption, ICustomFieldConditions, IFieldType} from "../../interfaces/interfaces";
@@ -14,10 +22,15 @@ import {FIELD_TYPES} from "../../variables/field-types";
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FieldFormComponent),
       multi: true
-    }
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => FieldFormComponent),
+      multi: true,
+    },
   ]
 })
-export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
@@ -91,6 +104,10 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
   setDisabledState(isDisabled: boolean): void {
     // TODO: implement this method
     // throw new Error("setDisabledState not implemented");
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.form.status === 'VALID' ? null : { required: true }
   }
 
   private createFormGroup() {
