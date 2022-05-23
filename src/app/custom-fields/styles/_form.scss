@@ -26,6 +26,10 @@
     }
   }
 
+  .submit {
+    margin-top: 15px;
+    text-align: right;
+  }
 
   table {
     border-collapse: collapse;
@@ -72,5 +76,9 @@
       font-size: 12px;
       color: var(--cf-font-ligtheen-color);
     }
+  }
+
+  .ng-invalid {
+    border-color: red!important;
   }
 }

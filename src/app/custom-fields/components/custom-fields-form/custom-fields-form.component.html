@@ -49,6 +49,15 @@
             ></app-group-control>
           </mat-expansion-panel>
         </mat-accordion>
+        <div class="submit" *ngIf="fieldsFormArray.value.length > 0">
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            (click)="submit()"
+            [disabled]="form.invalid"
+          >Submit</button>
+        </div>
       </fieldset>
     </form>
   </div>

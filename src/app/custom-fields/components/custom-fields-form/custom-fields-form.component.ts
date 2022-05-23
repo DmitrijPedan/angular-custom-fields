@@ -66,4 +66,8 @@ export class CustomFieldsFormComponent   {
     this.form = this.cf.getInitialForm();
   }
 
+  submit(): void {
+    console.log(this.form.value)
+  }
+
 }
