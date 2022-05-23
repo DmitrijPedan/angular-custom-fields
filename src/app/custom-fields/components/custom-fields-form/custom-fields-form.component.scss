@@ -1,7 +1,6 @@
 @import "~src/app/custom-fields/styles/accordion";
 
 .wrapper {
-  padding: 20px;
   display: flex;
   justify-content: space-between;
   .fields-form {
@@ -16,10 +15,10 @@
   }
   &.show-json {
     .fields-form {
-      width: 58%;
+      width: 60%;
     }
     .fields-json {
-      width: 38%;
+      width: 40%;
     }
   }
 }

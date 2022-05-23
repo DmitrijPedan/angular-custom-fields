@@ -1,4 +1,5 @@
-<app-custom-fields-form
-  [data]="savedFields"
-  (submitHandle)="submitCustomFieldsForm($event)"
-></app-custom-fields-form>
+<nav>
+  <a routerLink="/fields" routerLinkActive="active">Fields Form</a>
+  <a routerLink="/values" routerLinkActive="active">Values Form</a>
+</nav>
+<router-outlet></router-outlet>

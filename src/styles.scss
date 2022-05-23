@@ -1,4 +1,16 @@
 @import "./app/custom-fields/styles/styles.scss";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 20px;
+}
+.page-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  button {
+    margin-left: 15px;
+  }
+}

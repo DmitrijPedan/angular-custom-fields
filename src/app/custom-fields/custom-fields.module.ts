@@ -36,6 +36,8 @@ import { FieldNamePipe } from './pipes/field-name.pipe';
   exports: [
     CustomFieldsFormComponent,
     CustomValuesFormComponent,
+    MatIconModule,
+    MatButtonModule
   ],
   imports: [
     CommonModule,

@@ -1,25 +1,24 @@
 <div class="wrapper" [ngClass]="{'show-json': jsonVisible}" >
   <div class="fields-form">
-    <div class="cf-controls">
-      <app-buttons
-        [showArrayControls]="fieldsFormArray.length > 0"
-        (addField)="addField()"
-        (openAll)="accordion.openAll()"
-        (closeAll)="accordion.closeAll()"
-        (clearArray)="initForm()"
-        (reorderArray)="toggleReorder()"
-        [reorderDisabled]="reorderDisabled"
-      ></app-buttons>
-      <button *ngIf="data" mat-icon-button (click)="buildFormFromData()" color="primary" title="Build form from saved data">
-        <mat-icon>ballot</mat-icon>
-      </button>
-      <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">
-        <mat-icon>{{jsonVisible ? 'chevron_right' : 'chevron_left'}}</mat-icon>
-      </button>
-    </div>
     <form [formGroup]="form" class="cf-form">
       <fieldset>
         <legend><mat-icon>extension</mat-icon> Custom Fields</legend>
+
+        <div class="cf-controls" style="margin-bottom: 15px">
+          <app-buttons
+            [showArrayControls]="fieldsFormArray.length > 0"
+            (addField)="addField()"
+            (openAll)="accordion.openAll()"
+            (closeAll)="accordion.closeAll()"
+            (clearArray)="initForm()"
+            (reorderArray)="toggleReorder()"
+            [reorderDisabled]="reorderDisabled"
+          ></app-buttons>
+          <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">
+            <mat-icon>{{jsonVisible ? 'chevron_right' : 'chevron_left'}}</mat-icon>
+          </button>
+        </div>
+
         <mat-accordion
           #accordion="matAccordion"
           formArrayName="fields"
@@ -62,8 +61,11 @@
       </fieldset>
     </form>
   </div>
-  <div *ngIf="jsonVisible" class="fields-json">
-    <pre>{{form.value | json}}</pre>
+  <div *ngIf="jsonVisible" class="cf-form fields-json">
+    <fieldset>
+      <legend><mat-icon>code</mat-icon>Json</legend>
+        <pre>{{form.value | json}}</pre>
+      </fieldset>
   </div>
 </div>
 

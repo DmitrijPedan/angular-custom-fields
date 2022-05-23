@@ -1,0 +1,10 @@
+<div class="page-controls">
+  <button *ngIf="savedFields" mat-stroked-button (click)="buildFormFromData()" color="primary" title="Build form from saved data">
+    <mat-icon>ballot</mat-icon>Build form
+  </button>
+</div>
+
+<app-custom-fields-form
+  [data]="data"
+  (submitHandle)="submitCustomFieldsForm($event)"
+></app-custom-fields-form>

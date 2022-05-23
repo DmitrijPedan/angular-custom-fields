@@ -1,0 +1,11 @@
+nav {
+  text-align: center;
+  margin-bottom: 10px;
+  a:not(:first-child) {
+    margin-left: 20px;
+  }
+  a.active {
+    color: var(--cf-primary-color);
+    font-weight: bold;
+  }
+}

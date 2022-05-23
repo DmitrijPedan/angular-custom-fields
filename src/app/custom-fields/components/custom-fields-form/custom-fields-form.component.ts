@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, OnChanges, Input, ViewChild, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {MatAccordion} from "@angular/material/expansion";
@@ -9,7 +9,7 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
   templateUrl: './custom-fields-form.component.html',
   styleUrls: ['./custom-fields-form.component.scss'],
 })
-export class CustomFieldsFormComponent   {
+export class CustomFieldsFormComponent implements OnInit, OnChanges {
 
   @ViewChild('accordion') accordion!: MatAccordion;
   @Input() data: any;
@@ -20,8 +20,17 @@ export class CustomFieldsFormComponent   {
 
   constructor(
     private cf: CustomFieldService,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.initForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const data = changes.data?.currentValue;
+    if (data) {
+      this.buildFormFromData();
+    }
   }
 
   get fieldsFormArray(): FormArray {
