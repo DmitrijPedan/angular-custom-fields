@@ -10,7 +10,7 @@ export interface IFieldType {
 
 export interface ICustomField {
   conditions: ICustomFieldConditions;
-  fields?: ICustomField[];
+  fields: ICustomField[];
 }
 
 export interface ICustomFieldConditions {

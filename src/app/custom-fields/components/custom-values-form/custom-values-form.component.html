@@ -2,13 +2,14 @@
   <fieldset>
     <legend>Custom values</legend>
 
-    <ng-container formArrayName="values">
-      <ng-container *ngFor="let control of valuesFormArray?.controls; index as i">
-        <app-values-group-control
-          [formControlName]="i"
-        ></app-values-group-control>
-      </ng-container>
-    </ng-container>
+
+    <fieldset *ngFor="let field of data.fields">
+      <app-value-form>
+
+      </app-value-form>
+    </fieldset>
+
+
 
     <div class="submit" *ngIf="form">
       <button
@@ -21,5 +22,7 @@
       >Submit</button>
     </div>
   </fieldset>
-
 </form>
+<div class="json">
+  <pre>{{form.value | json}}</pre>
+</div>

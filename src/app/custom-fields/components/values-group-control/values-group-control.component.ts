@@ -1,12 +1,5 @@
 import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor, FormGroup,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator
-} from "@angular/forms";
+import {ControlValueAccessor,  FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
@@ -21,14 +14,9 @@ import {CustomFieldService} from "../../services/custom-field.service";
       useExisting: forwardRef(() => ValuesGroupControlComponent),
       multi: true
     },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => ValuesGroupControlComponent),
-      multi: true,
-    },
   ]
 })
-export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
+export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor  {
 
   public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
@@ -53,7 +41,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   }
 
   writeValue(obj: any) {
-    console.log(obj)
+    // console.log(obj)
   }
 
   registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {
@@ -63,15 +51,9 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   registerOnTouched(fn: any) {
   }
 
-  validate(control: AbstractControl): ValidationErrors | null {
-    return null;
-    // return this.form.status === 'VALID' ? null : { required: true }
-  }
 
   private createFormGroup() {
-    this.form = this.cf.getEmptyCustomFieldGroup()
-    // add one condition on the next tick, after the form creation
-    setTimeout(() => this.form.setValue({}));
+    this.form = this.cf.getEmptyValuesGroup()
   }
 
 }

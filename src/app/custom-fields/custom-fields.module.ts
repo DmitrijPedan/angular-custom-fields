@@ -22,6 +22,7 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
 import { ValuesGroupControlComponent } from './components/values-group-control/values-group-control.component';
+import { ValueFormComponent } from './components/value-form/value-form.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ValuesGroupControlComponent } from './components/values-group-control/v
     FieldTitleComponent,
     ButtonsComponent,
     ValuesGroupControlComponent,
+    ValueFormComponent,
   ],
   exports: [
     CustomFieldsFormComponent,

@@ -72,11 +72,22 @@ export class CustomFieldService {
   }
 
   getFieldControl(field: ICustomField): FormControl {
-    return this.fb.control(field.conditions.attributes?.value)
+    let value: any = ''
+    const type = field.conditions.type;
+    if (type === 'repeater') {
+      value = []
+    }
+    return this.fb.control(value)
   }
 
   getEmptyValuesGroup(): FormGroup {
     return this.fb.group({})
+  }
+
+  getValueGroup(name: any): FormGroup {
+    const group = this.fb.group({})
+    group.addControl(name, this.fb.control(''))
+    return group
   }
 
 
