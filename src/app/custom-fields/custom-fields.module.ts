@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatIconModule} from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 // services
 import { CustomFieldService } from "./services/custom-field.service";
@@ -14,12 +15,12 @@ import { CustomFieldService } from "./services/custom-field.service";
 import { GroupControlComponent } from './components/group-control/group-control.component';
 import { FieldFormComponent } from './components/field-form/field-form.component';
 import { CustomFieldsFormComponent } from './components/custom-fields-form/custom-fields-form.component';
+import { CustomValuesFormComponent } from './components/custom-values-form/custom-values-form.component';
 import { FieldTitleComponent } from './components/field-title/field-title.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
-import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
@@ -28,11 +29,13 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     GroupControlComponent,
     FieldFormComponent,
     CustomFieldsFormComponent,
+    CustomValuesFormComponent,
     FieldTitleComponent,
     ButtonsComponent,
   ],
   exports: [
-    CustomFieldsFormComponent
+    CustomFieldsFormComponent,
+    CustomValuesFormComponent,
   ],
   imports: [
     CommonModule,
