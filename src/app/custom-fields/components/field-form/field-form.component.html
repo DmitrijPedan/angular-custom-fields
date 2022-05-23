@@ -1,5 +1,6 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="cf-form">
   <table>
+    <caption>Field properties</caption>
       <tr>
         <td>
           <p class="title required">Field type</p>
@@ -31,6 +32,7 @@
       </tr>
     </table>
   <table formGroupName="options" class="attributes">
+    <caption>Field attributes</caption>
     <tr *ngIf="showOptionControl('value')">
       <td>
         <p class="title">Default Value</p>

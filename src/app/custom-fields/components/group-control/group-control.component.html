@@ -6,20 +6,24 @@
     </legend>
 
       <app-buttons
+        (removeField)="remove.emit()"
+      ></app-buttons>
+
+      <app-field-form
+        [formControlName]="'conditions'"
+      ></app-field-form>
+
+      <app-buttons
         [showAdd]="type === 'repeater'"
         (addField)="addField()"
-        (removeField)="remove.emit()"
         [showArrayControls]="fieldsFormArray.length > 0"
         (closeAll)="accordion.closeAll()"
         (openAll)="accordion.openAll()"
         (clearArray)="clearFieldsArray()"
         (reorderArray)="toggleReorder()"
         [reorderDisabled]="reorderDisabled"
+        style="margin-bottom: 10px"
       ></app-buttons>
-
-      <app-field-form
-        [formControlName]="'conditions'"
-      ></app-field-form>
 
       <mat-accordion
         #accordion="matAccordion"
@@ -49,13 +53,16 @@
           ></app-group-control>
         </mat-expansion-panel>
       </mat-accordion>
+
       <app-buttons
         *ngIf="fieldsFormArray.value.length > 0"
         (addField)="addField()"
         [showArrayControls]="fieldsFormArray.length > 0"
         (closeAll)="accordion.closeAll()"
         (openAll)="accordion.openAll()"
+        style="margin-top: 10px"
       ></app-buttons>
+
   </fieldset>
 </form>
 
