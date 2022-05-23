@@ -35,6 +35,8 @@ export class CustomFieldService {
       options: this.fb.group({
         value: [''],
         required: [false],
+        minLength: [null],
+        maxLength: [null],
         min: [1],
         max: [1],
         step: [1],
@@ -51,6 +53,8 @@ export class CustomFieldService {
       options: {
         value: '',
         required: false,
+        minLength: null,
+        maxLength: null,
         min: 1,
         max: 1,
         step: 1,

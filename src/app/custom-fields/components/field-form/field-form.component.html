@@ -1,9 +1,9 @@
 <form [formGroup]="form">
-    <table>
+  <table>
       <tr>
         <td>
-          <p class="title">Type</p>
-          <p class="subtitle">Type</p>
+          <p class="title">Field type</p>
+          <p class="subtitle">Type (input, image, repeater etc.)</p>
         </td>
         <td>
           <select name="type" (change)="typeChanged($event)">
@@ -30,14 +30,16 @@
         </td>
       </tr>
     </table>
-  <table formGroupName="options">
+  <table formGroupName="options" class="attributes">
     <tr *ngIf="showOptionControl('value')">
       <td>
         <p class="title">Default Value</p>
         <p class="subtitle">Appears when creating a new item</p>
       </td>
       <td>
-        <input type="text" formControlName="value">
+        <input *ngIf="type.value === 'text' || type.value === 'textarea'" type="text" formControlName="value">
+        <input *ngIf="type.value === 'number'" type="number" formControlName="value">
+        <input *ngIf="type.value === 'checkbox'" type="checkbox" formControlName="value">
       </td>
     </tr>
     <tr *ngIf="showOptionControl('required')">
@@ -49,13 +51,22 @@
         <input type="checkbox" formControlName="required">
       </td>
     </tr>
-    <tr *ngIf="showOptionControl('rows')">
+    <tr *ngIf="showOptionControl('minLength')">
       <td>
-        <p class="title">Rows</p>
-        <p class="subtitle">Textarea rows attribute</p>
+        <p class="title">Min length</p>
+        <p class="subtitle">Field min length attribute</p>
       </td>
       <td>
-        <input type="number" formControlName="rows" min="1" max="10" step="1">
+        <input type="number" formControlName="minLength" min="1" step="1" max="255">
+      </td>
+    </tr>
+    <tr *ngIf="showOptionControl('maxLength')">
+      <td>
+        <p class="title">Max length</p>
+        <p class="subtitle">Field max length attribute</p>
+      </td>
+      <td>
+        <input type="number" formControlName="maxLength" min="1" step="1" max="255">
       </td>
     </tr>
     <tr *ngIf="showOptionControl('min')">

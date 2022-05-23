@@ -36,6 +36,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
       if (this.onChange) {
         this.onChange(value);
       }
+      this.setType();
     });
     this.subscriptions.push(formSub)
   }
@@ -63,6 +64,10 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
         event.target.value = this.type.value;
       }
     }
+    this.setType();
+  }
+
+  setType(): void {
     this.selectedType = this.fieldTypes.find(el => el.type === this.type.value) || this.fieldTypes[0];
     this.allowedOptions = this.selectedType.options;
   }
