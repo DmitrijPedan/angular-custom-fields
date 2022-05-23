@@ -65,7 +65,8 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
       if (value) {
         this.type = value.conditions.type;
         if (value.conditions.type !== 'repeater' && this.fieldsFormArray.value.length > 0) {
-          this.clearFieldsArray();
+          // TODO: fix type changing
+          // this.clearFieldsArray();
         }
       }
     });
