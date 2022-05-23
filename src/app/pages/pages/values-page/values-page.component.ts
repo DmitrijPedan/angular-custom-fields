@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValuesPageComponent implements OnInit {
 
+  public savedFields!: any;
+  public data: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    const savedFields = localStorage.getItem('fields');
+    if (savedFields) {
+      this.data = JSON.parse(savedFields);
+    }
   }
 
 }

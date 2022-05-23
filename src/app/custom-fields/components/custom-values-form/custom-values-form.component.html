@@ -1,1 +1,25 @@
-<p>custom-values-form works!</p>
+<form [formGroup]="form" class="cf-form">
+  <fieldset>
+    <legend>Custom values</legend>
+
+    <ng-container formArrayName="values">
+      <ng-container *ngFor="let control of valuesFormArray?.controls; index as i">
+        <app-values-group-control
+          [formControlName]="i"
+        ></app-values-group-control>
+      </ng-container>
+    </ng-container>
+
+    <div class="submit" *ngIf="form">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="form.invalid"
+        [title]="form.invalid ? 'Form invalid' : 'Submit'"
+      >Submit</button>
+    </div>
+  </fieldset>
+
+</form>

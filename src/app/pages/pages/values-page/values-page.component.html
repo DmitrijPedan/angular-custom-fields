@@ -1,1 +1,8 @@
-<app-custom-values-form></app-custom-values-form>
+<h3 *ngIf="!data; else form">No saved custom fields</h3>
+
+<ng-template #form>
+  <app-custom-values-form
+    [data]="data"
+  ></app-custom-values-form>
+</ng-template>
+

@@ -73,7 +73,7 @@ export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAcc
     this.subscriptions.push(formSub);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 

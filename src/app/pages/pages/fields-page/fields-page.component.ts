@@ -16,6 +16,10 @@ export class FieldsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSavedFields();
+  }
+
+  getSavedFields(): void {
     const savedFields = localStorage.getItem('fields');
     if (savedFields) {
       this.savedFields = JSON.parse(savedFields);
@@ -23,6 +27,7 @@ export class FieldsPageComponent implements OnInit {
   }
 
   buildFormFromData(): void {
+    this.getSavedFields();
     this.data = {...this.savedFields};
   }
 

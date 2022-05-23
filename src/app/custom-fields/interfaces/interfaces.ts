@@ -27,3 +27,7 @@ export interface ICustomFieldAttributes {
   maxLength: number;
   rows: number;
 }
+
+export interface ICustomFieldsData {
+  fields: ICustomField[];
+}
