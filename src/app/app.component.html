@@ -1,3 +1,4 @@
 <app-custom-fields-form
-  [data]="data"
+  [data]="savedFields"
+  (submitHandle)="submitCustomFieldsForm($event)"
 ></app-custom-fields-form>

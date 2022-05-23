@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild, Output, EventEmitter} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
 import {MatAccordion} from "@angular/material/expansion";
@@ -13,6 +13,7 @@ export class CustomFieldsFormComponent   {
 
   @ViewChild('accordion') accordion!: MatAccordion;
   @Input() data: any;
+  @Output() submitHandle: EventEmitter<any> = new EventEmitter<any>();
   public form!: FormGroup;
   public jsonVisible = false;
   public reorderDisabled = true;
@@ -43,15 +44,13 @@ export class CustomFieldsFormComponent   {
   }
 
   buildFormFromData() {
-    if (this.data.fields.length) {
+    if (this.data?.fields?.length) {
       this.initForm()
       this.data.fields.forEach((field: any) => {
         this.addField();
       })
     }
-    setTimeout(() => {
-      this.form.patchValue(this.data);
-    }, 50);
+    setTimeout(() => this.form.patchValue(this.data), 0);
   }
 
   addField() {
@@ -67,8 +66,7 @@ export class CustomFieldsFormComponent   {
   }
 
   submit(): void {
-    console.log(this.form)
-    console.log(this.form.value)
+    this.submitHandle.emit(this.form.value)
   }
 
 }

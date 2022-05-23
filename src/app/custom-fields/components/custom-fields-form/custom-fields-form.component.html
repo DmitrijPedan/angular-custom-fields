@@ -10,7 +10,7 @@
         (reorderArray)="toggleReorder()"
         [reorderDisabled]="reorderDisabled"
       ></app-buttons>
-      <button mat-icon-button (click)="buildFormFromData()" color="primary" title="Build form">
+      <button *ngIf="data" mat-icon-button (click)="buildFormFromData()" color="primary" title="Build form from saved data">
         <mat-icon>ballot</mat-icon>
       </button>
       <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">

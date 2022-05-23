@@ -29,8 +29,8 @@ export class CustomFieldService {
 
   getCustomFieldGroup(): FormGroup {
     return  this.fb.group({
-      name: ['', [Validators.required]],
-      label: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern('[a-z_-]*'), Validators.maxLength(255)]],
+      label: ['', Validators.required, Validators.maxLength(255)],
       type: ['text', Validators.required],
       options: this.fb.group({
         value: [''],

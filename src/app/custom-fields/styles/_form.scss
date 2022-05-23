@@ -70,6 +70,18 @@
       font-size: 13px;
       font-weight: bold;
       color: var(--cf-font-color);
+      display: flex;
+      align-items: center;
+      &.required {
+        &:after {
+          content: "(required)";
+          display: inline-block;
+          font-size: .8em;
+          font-weight: normal;
+          color: var(--cf-err-color);
+          margin-left: 3px;
+        }
+      }
     }
     .subtitle {
       margin-bottom: 0;
