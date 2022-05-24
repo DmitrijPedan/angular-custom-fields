@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl} from "@angular/forms";
-import {ICustomField, ICustomFieldsData} from "../interfaces/interfaces";
+import {FormBuilder, FormGroup, FormControl, Validator, Validators} from "@angular/forms";
+import {ICustomField, ICustomFieldAttributes, ICustomFieldsData} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +93,36 @@ export class CustomValuesService {
     const group = this.fb.group({})
     group.addControl(name, this.fb.control(''))
     return group
+  }
+
+  getCustomValueInput(field: ICustomField): FormGroup {
+    const validators = this.getValidators(field.conditions.options);
+    return  this.fb.group({
+      name: [''],
+      label: [''],
+      type: ['text'],
+      options: this.fb.group({
+        value: [''],
+        required: [false],
+        minLength: [null],
+        maxLength: [null],
+        min: [1],
+        max: [1],
+        step: [1],
+        rows: [1],
+      }),
+      currentValue: ['', validators]
+    })
+  }
+
+  getValidators(attrs: ICustomFieldAttributes): Validators[] {
+    const validators = [];
+    if (attrs.required) validators.push(Validators.required);
+    if (Number.isInteger(attrs.minLength)) validators.push(Validators.minLength(Number(attrs.minLength)));
+    if (Number.isInteger(attrs.maxLength)) validators.push(Validators.maxLength(Number(attrs.maxLength)));
+    if (Number.isInteger(attrs.max)) validators.push(Validators.max(Number(attrs.max)));
+    if (Number.isInteger(attrs.min)) validators.push(Validators.min(Number(attrs.min)));
+    return validators
   }
 
 

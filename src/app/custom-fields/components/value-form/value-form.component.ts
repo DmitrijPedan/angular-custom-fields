@@ -5,10 +5,10 @@ import {
   ICustomField,
   ICustomFieldAttributes,
   ICustomFieldConditions,
-  IFieldType
 } from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomFieldService} from "../../services/custom-field.service";
+import {CustomValuesService} from "../../services/custom-values.service";
+
 
 @Component({
   selector: 'app-value-form',
@@ -39,7 +39,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   public attrs!: ICustomFieldAttributes;
 
   constructor(
-    private cfs: CustomFieldService
+    private cvs: CustomValuesService
   ) { }
 
   ngOnInit() {
@@ -91,7 +91,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   }
 
   private createFormGroup() {
-    this.form = this.cfs.getCustomFieldGroup();
+    this.form = this.cvs.getCustomValueInput(this.field);
   }
 
 }

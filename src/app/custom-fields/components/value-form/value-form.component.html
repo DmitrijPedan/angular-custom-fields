@@ -1,18 +1,18 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="cf-form">
 
-  <label [htmlFor]="id">{{label}}</label>
+  <div class="cv-input">
 
-  <ng-container *ngIf="type === 'text'">
-    <input
-      type="text"
-      formControlName="currentValue"
-      [id]="id"
-      [required]="attrs.required"
-      [minLength]="attrs.minLength ? attrs.minLength : 0"
-      [maxLength]="attrs.maxLength ? attrs.maxLength : 524288">
-  </ng-container>
+    <ng-container *ngIf="type === 'text'">
+      <input
+        type="text"
+        formControlName="currentValue"
+        [id]="id"
+        [required]="attrs.required"
+        [minLength]="attrs.minLength ? attrs.minLength : 0"
+        [maxLength]="attrs.maxLength ? attrs.maxLength : 524288">
+    </ng-container>
 
-  <ng-container *ngIf="type === 'textarea'">
+    <ng-container *ngIf="type === 'textarea'">
     <textarea
       formControlName="currentValue"
       [id]="id"
@@ -21,26 +21,30 @@
       [minLength]="attrs.minLength ? attrs.minLength : 0"
       [maxLength]="attrs.maxLength ? attrs.maxLength : 524288"
     ></textarea>
-  </ng-container>
+    </ng-container>
 
-  <ng-container *ngIf="type === 'checkbox'">
-    <input
-      type="checkbox"
-      formControlName="currentValue"
-      [id]="id"
-      [required]="attrs.required">
-  </ng-container>
+    <ng-container *ngIf="type === 'checkbox'">
+      <input
+        type="checkbox"
+        formControlName="currentValue"
+        [id]="id"
+        [required]="attrs.required">
+    </ng-container>
 
-  <ng-container *ngIf="type === 'number'">
-    <input
-      type="number"
-      formControlName="currentValue"
-      [id]="id"
-      [required]="attrs.required"
-      [min]="attrs.min ? attrs.min : 0"
-      [max]="attrs.max ? attrs.max : 524288"
-      [step]="attrs.step ? attrs.step : 1">
-  </ng-container>
+    <ng-container *ngIf="type === 'number'">
+      <input
+        type="number"
+        formControlName="currentValue"
+        [id]="id"
+        [required]="attrs.required"
+        [min]="attrs.min ? attrs.min : 0"
+        [max]="attrs.max ? attrs.max : 524288"
+        [step]="attrs.step ? attrs.step : 1">
+    </ng-container>
+
+    <label [htmlFor]="id">{{label}}</label>
+
+  </div>
 
 </form>
 
