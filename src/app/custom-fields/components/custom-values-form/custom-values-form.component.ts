@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormGroup} from "@angular/forms";
 import {ICustomField, ICustomFieldsData} from "../../interfaces/interfaces";
 import {CustomValuesService} from "../../services/custom-values.service";
 
@@ -16,7 +16,6 @@ export class CustomValuesFormComponent implements OnInit {
   public form!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private cvs: CustomValuesService,
   ) { }
 
@@ -44,16 +43,17 @@ export class CustomValuesFormComponent implements OnInit {
     this.submitHandle.emit(this.form.value)
   }
 
-  prepareDataObject(data: any, object: any): void {
-    if (!data.fields) return;
-    data.fields.forEach((field: ICustomField) => {
-      object[field.conditions.name] = '';
-      if (field.fields?.length) {
-        object[field.conditions.name] = {};
-        this.prepareDataObject(field, object[field.conditions.name])
-      } else {
-        object[field.conditions.name] = '';
-      }
-    })
-  }
+  // prepareDataObject(data: any, object: any): void {
+  //   if (!data.fields) return;
+  //   data.fields.forEach((field: ICustomField) => {
+  //     object[field.conditions.name] = '';
+  //     if (field.fields?.length) {
+  //       object[field.conditions.name] = {};
+  //       this.prepareDataObject(field, object[field.conditions.name])
+  //     } else {
+  //       object[field.conditions.name] = '';
+  //     }
+  //   })
+  // }
+
 }
