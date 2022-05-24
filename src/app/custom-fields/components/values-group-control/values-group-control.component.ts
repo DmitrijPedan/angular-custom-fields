@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -32,6 +32,7 @@ import {CustomFieldService} from "../../services/custom-field.service";
 })
 export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
 
+  @Input() field!: ICustomField;
   public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];

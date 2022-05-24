@@ -3,12 +3,14 @@
   <fieldset>
     <app-value-form
       [formControlName]="'conditions'"
+      [field]="field"
     ></app-value-form>
 
     <ng-container formArrayName="fields">
       <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
         <app-values-group-control
           [formControlName]="i"
+          [field]="field.fields[i]"
         ></app-values-group-control>
       </ng-container>
     </ng-container>

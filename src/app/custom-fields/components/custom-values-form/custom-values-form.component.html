@@ -6,6 +6,7 @@
       <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
         <app-values-group-control
           [formControlName]="i"
+          [field]="data.fields[i]"
         ></app-values-group-control>
       </ng-container>
     </ng-container>

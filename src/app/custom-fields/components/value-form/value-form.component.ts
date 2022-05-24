@@ -31,22 +31,26 @@ import {CustomFieldService} from "../../services/custom-field.service";
 })
 export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
+  @Input() field!: ICustomField;
   public form!: FormGroup;
+  public conditions!: ICustomFieldConditions;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
+
 
   constructor(
     private cfs: CustomFieldService
   ) { }
 
   ngOnInit() {
+    this.conditions = this.field.conditions;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
       if (this.onChange) {
         this.onChange(value);
       }
     });
-    this.subscriptions.push(formSub)
+    this.subscriptions.push(formSub);
   }
 
   ngOnDestroy() {
