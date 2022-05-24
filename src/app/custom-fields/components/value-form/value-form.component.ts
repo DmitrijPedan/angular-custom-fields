@@ -1,8 +1,16 @@
 import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
-import {ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {ICustomField, ICustomFieldConditions} from "../../interfaces/interfaces";
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors,
+  Validator
+} from "@angular/forms";
+import {FieldOption, ICustomField, ICustomFieldConditions, IFieldType} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomValuesService} from "../../services/custom-values.service";
+import {CustomFieldService} from "../../services/custom-field.service";
 
 @Component({
   selector: 'app-value-form',
@@ -14,32 +22,43 @@ import {CustomValuesService} from "../../services/custom-values.service";
       useExisting: forwardRef(() => ValueFormComponent),
       multi: true
     },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ValueFormComponent),
+      multi: true,
+    },
   ]
 })
-export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
-  @Input() field!: ICustomField;
+export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   public form!: FormGroup;
-  private onChange!: (value: any) => void;
+  private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private cvs: CustomValuesService
+    private cfs: CustomFieldService
   ) { }
 
-  ngOnInit(): void {
-    this.createFormGroup(this.field.conditions.name);
+  ngOnInit() {
+    this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
       if (this.onChange) {
         this.onChange(value);
       }
     });
-    this.subscriptions.push(formSub);
+    this.subscriptions.push(formSub)
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  get type(): FormControl {
+    return this.form.get('type') as FormControl;
+  }
+
+  get fields(): FormControl {
+    return this.form.get('fields') as FormControl;
   }
 
   writeValue(value: ICustomFieldConditions): void {
@@ -49,7 +68,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.form.patchValue(value);
   }
 
-  registerOnChange(fn: (v: any) => void): void {
+  registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {
     this.onChange = fn;
   }
 
@@ -63,9 +82,13 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     // throw new Error("setDisabledState not implemented");
   }
 
-  private createFormGroup(name: string) {
-    // this.form = new FormGroup({})
-    this.form = this.cvs.getValueFormGroup(name);
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.form.status === 'VALID' ? null : { required: true }
   }
+
+  private createFormGroup() {
+    this.form = this.cfs.getCustomFieldGroup();
+  }
+
 
 }

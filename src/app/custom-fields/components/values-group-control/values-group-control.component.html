@@ -1,18 +1,14 @@
 <form [formGroup]="form" class="cf-form">
 
   <fieldset>
-    <div *ngIf="field.conditions.type !== 'repeater'" >
-      <app-value-form
-        [field]="field"
-        [formGroupName]="field.conditions.name"
-      ></app-value-form>
-    </div>
+    <app-value-form
+      [formControlName]="'conditions'"
+    ></app-value-form>
 
-    <ng-container *ngIf="field.conditions.type === 'repeater'" [formArrayName]="field.conditions.name">
-      <ng-container *ngFor="let field of field.fields; index as i">
+    <ng-container formArrayName="fields">
+      <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
         <app-values-group-control
-          [field]="field"
-          [formGroupName]="field.conditions.name"
+          [formControlName]="i"
         ></app-values-group-control>
       </ng-container>
     </ng-container>

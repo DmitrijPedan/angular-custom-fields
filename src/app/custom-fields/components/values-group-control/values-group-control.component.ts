@@ -1,8 +1,17 @@
-import {Component, Input, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {ICustomField} from "../../interfaces/interfaces";
+import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormArray,
+  FormControl,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors,
+  Validator
+} from "@angular/forms";
+import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomValuesService} from "../../services/custom-values.service";
+import {CustomFieldService} from "../../services/custom-field.service";
 
 @Component({
   selector: 'app-values-group-control',
@@ -14,22 +23,36 @@ import {CustomValuesService} from "../../services/custom-values.service";
       useExisting: forwardRef(() => ValuesGroupControlComponent),
       multi: true
     },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ValuesGroupControlComponent),
+      multi: true,
+    },
   ]
 })
-export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor  {
+export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
 
-  @Input() field!: ICustomField;
   public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
+  public type!: FieldType;
 
   constructor(
-    private cvs: CustomValuesService
+    private cfs: CustomFieldService
   ) { }
 
-  ngOnInit(): void {
-    this.createFormGroup(this.field);
-    const formSub = this.form.valueChanges.subscribe((value: any) => {
+  get conditions(): FormControl {
+    return this.form.get('conditions') as FormControl;
+  }
+
+  get fieldsFormArray(): FormArray {
+    return this.form.get('fields') as FormArray;
+  }
+
+
+  ngOnInit() {
+    this.createFormGroup();
+    const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
       if (this.onChange) {
         this.onChange(value);
       }
@@ -41,11 +64,23 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  writeValue(value: any): void {
+  writeValue(value: ICustomField | null | undefined): void {
     if (!value) return;
+    setTimeout(() => {
+      if (value) {
+        this.conditions.setValue(value);
+      }
+      if (value.fields?.length) {
+        this.fieldsFormArray.clear();
+        value.fields.forEach((field: ICustomField) => {
+          this.addField()
+        });
+      }
+      this.form.patchValue(value);
+    }, 10);
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {
     this.onChange = fn;
   }
 
@@ -59,16 +94,26 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     // throw new Error('setDisabledState not implemented');
   }
 
-  get formArray(): FormArray {
-    return this.form.get(this.field.conditions.name) as FormArray;
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.form.status === 'VALID' ? null : { required: true }
   }
 
-  private createFormGroup(field: ICustomField) {
-    this.form = this.cvs.getValueGroupControlForm(field);
-    // console.log(`group control form (${field.conditions.name}): `, this.form)
-    // if (field.conditions.type === 'repeater') {
-    //   this.formArray.patchValue(field.fields)
-    // }
+  deleteFieldFromArray(index: number) {
+    this.fieldsFormArray.removeAt(index);
+  }
+
+  addField() {
+    this.fieldsFormArray.push(this.cfs.getCustomFieldControls());
+  }
+
+  clearFieldsArray(): void {
+    this.fieldsFormArray.clear();
+  }
+
+  private createFormGroup() {
+    this.form = this.cfs.getEmptyCustomFieldGroup()
+    // add one condition on the next tick, after the form creation
+    setTimeout(() => this.conditions.setValue({}));
   }
 
 }

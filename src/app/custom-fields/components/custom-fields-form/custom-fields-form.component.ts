@@ -20,8 +20,7 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
 
   constructor(
     private cf: CustomFieldService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();

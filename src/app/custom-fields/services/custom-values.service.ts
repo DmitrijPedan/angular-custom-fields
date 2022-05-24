@@ -13,7 +13,7 @@ export class CustomValuesService {
 
   public addDefaultFieldValues(fields: ICustomField[]): void {
     fields.forEach(field => {
-      field.value = this.getFieldValue(field);
+      field.conditions.currentValue = this.getFieldValue(field);
       this.addDefaultFieldValues(field.fields)
     })
   }
@@ -40,7 +40,7 @@ export class CustomValuesService {
 
   getFieldValues(fields: ICustomField[], object: any): void {
     fields.forEach(field => {
-      object[field.conditions.name] = field.value;
+      object[field.conditions.name] = field.conditions.currentValue;
       if (field.conditions.type === 'repeater') {
         const obj = {}
         this.getFieldValues(field.fields, obj);

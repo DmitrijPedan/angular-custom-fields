@@ -5,7 +5,6 @@ import {Subscription} from "rxjs";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
-
 @Component({
   selector: 'app-group-control',
   templateUrl: './group-control.component.html',

@@ -1,11 +1,5 @@
 <form [formGroup]="form">
-  <label>{{field.conditions.label}}</label>
-  <input type="text" [formControlName]="field.conditions.name">
-<!--  <ng-container *ngIf="field.conditions.type === 'repeater'" [formArrayName]="field.conditions.name">-->
-<!--    <ng-container *ngFor="let field of field.fields; index as i">-->
-<!--      <p>77777777</p>-->
-<!--      <input type="text" [formControlName]="field.conditions.name" >-->
-<!--    </ng-container>-->
-<!--  </ng-container>-->
+  <label>Label</label>
+  <input type="text" formControlName="currentValue">
 </form>
 

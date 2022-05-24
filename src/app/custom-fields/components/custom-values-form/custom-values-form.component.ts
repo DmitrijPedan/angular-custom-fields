@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
-import {ICustomField, ICustomFieldsData} from "../../interfaces/interfaces";
+import {ICustomFieldsData} from "../../interfaces/interfaces";
 import {CustomValuesService} from "../../services/custom-values.service";
+import {CustomFieldService} from "../../services/custom-field.service";
 
 @Component({
   selector: 'app-custom-values-form',
@@ -17,43 +18,41 @@ export class CustomValuesFormComponent implements OnInit {
 
   constructor(
     private cvs: CustomValuesService,
+    private cfs: CustomFieldService,
   ) { }
+
+  get fieldsFormArray(): FormArray {
+    return this.form?.get('fields') as FormArray;
+  }
 
   ngOnInit(): void {
     this.cvs.addDefaultFieldValues(this.data.fields);
-    // const outputData = this.cvs.getOutputValues(this.data.fields)
-    this.buildFormFromData(this.data)
+    this.buildFormFromData();
+    console.log(this.form.value)
   }
 
-  getControl(i: number) {
-    return this.form.controls[i]
+  buildFormFromData() {
+    if (this.data?.fields?.length) {
+      this.initForm()
+      this.data.fields.forEach((field: any) => {
+        this.addField();
+      })
+    }
+    setTimeout(() => this.form.patchValue(this.data), 0);
   }
 
-  get valuesFormArray(): FormArray {
-    return this.form.get('values') as FormArray;
+  addField() {
+    this.fieldsFormArray.push(this.cfs.getCustomFieldControls());
   }
 
-  buildFormFromData(data: ICustomFieldsData): void {
-    if (!data) return;
-    this.form = this.cvs.getInitialValuesForm(data);
+  initForm() {
+    this.form = this.cfs.getInitialForm();
   }
-
 
   submit(): void {
-    this.submitHandle.emit(this.form.value)
+    const values = this.form.value;
+    const data = this.cvs.getOutputValues(values.fields);
+    this.submitHandle.emit(data)
   }
-
-  // prepareDataObject(data: any, object: any): void {
-  //   if (!data.fields) return;
-  //   data.fields.forEach((field: ICustomField) => {
-  //     object[field.conditions.name] = '';
-  //     if (field.fields?.length) {
-  //       object[field.conditions.name] = {};
-  //       this.prepareDataObject(field, object[field.conditions.name])
-  //     } else {
-  //       object[field.conditions.name] = '';
-  //     }
-  //   })
-  // }
 
 }

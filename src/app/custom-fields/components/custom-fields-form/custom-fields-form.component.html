@@ -1,4 +1,5 @@
 <div class="cf-wrapper " [ngClass]="{'show-json': jsonVisible}">
+
   <div class="fields-form">
     <form [formGroup]="form" class="cf-form">
       <fieldset>
@@ -61,12 +62,14 @@
       </fieldset>
     </form>
   </div>
+
   <div *ngIf="jsonVisible" class="cf-form fields-json">
     <fieldset>
       <legend><mat-icon>code</mat-icon>Json</legend>
         <pre>{{form.value | json}}</pre>
       </fieldset>
   </div>
+
 </div>
 
 
