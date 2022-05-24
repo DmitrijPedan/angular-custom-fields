@@ -2,7 +2,7 @@ import {Component, Input, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomFieldService} from "../../services/custom-field.service";
+import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
   selector: 'app-values-group-control',
@@ -24,7 +24,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private cf: CustomFieldService
+    private cvs: CustomValuesService
   ) { }
 
   ngOnInit(): void {
@@ -64,8 +64,8 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   }
 
   private createFormGroup(field: ICustomField) {
-    this.form = this.cf.getValueGroupControlForm(field);
-    console.log(`group control form (${field.conditions.name}): `, this.form)
+    this.form = this.cvs.getValueGroupControlForm(field);
+    // console.log(`group control form (${field.conditions.name}): `, this.form)
     // if (field.conditions.type === 'repeater') {
     //   this.formArray.patchValue(field.fields)
     // }

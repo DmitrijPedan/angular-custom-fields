@@ -10,6 +10,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 // services
 import { CustomFieldService } from "./services/custom-field.service";
+import { CustomValuesService } from "./services/custom-values.service";
 
 //components
 import { GroupControlComponent } from './components/group-control/group-control.component';
@@ -52,6 +53,6 @@ import { ValueFormComponent } from './components/value-form/value-form.component
     MatButtonModule,
     DragDropModule,
   ],
-  providers: [CustomFieldService]
+  providers: [CustomFieldService, CustomValuesService]
 })
 export class CustomFieldsModule { }

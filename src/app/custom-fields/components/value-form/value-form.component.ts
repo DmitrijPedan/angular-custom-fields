@@ -2,7 +2,7 @@ import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
 import {ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ICustomField, ICustomFieldConditions} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomFieldService} from "../../services/custom-field.service";
+import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
   selector: 'app-value-form',
@@ -25,7 +25,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private cf: CustomFieldService
+    private cvs: CustomValuesService
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   private createFormGroup(name: string) {
     // this.form = new FormGroup({})
-    this.form = this.cf.getValueFormGroup(name);
+    this.form = this.cvs.getValueFormGroup(name);
   }
 
 }

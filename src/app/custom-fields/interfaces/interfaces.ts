@@ -11,13 +11,14 @@ export interface IFieldType {
 export interface ICustomField {
   conditions: ICustomFieldConditions;
   fields: ICustomField[];
+  value?: any;
 }
 
 export interface ICustomFieldConditions {
   name: string;
   label: string;
   type: FieldType;
-  attributes: ICustomFieldAttributes;
+  options: ICustomFieldAttributes;
 }
 
 export interface ICustomFieldAttributes {

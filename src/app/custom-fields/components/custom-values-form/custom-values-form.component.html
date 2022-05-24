@@ -2,11 +2,11 @@
   <fieldset>
     <legend>Custom values</legend>
 
-    <ng-container *ngFor="let field of data.fields">
-      <app-values-group-control
-        [field]="field"
-      ></app-values-group-control>
-    </ng-container>
+<!--    <ng-container *ngFor="let field of data.fields">-->
+<!--      <app-values-group-control-->
+<!--        [field]="field"-->
+<!--      ></app-values-group-control>-->
+<!--    </ng-container>-->
 
     <div class="submit" *ngIf="form">
       <button
@@ -21,5 +21,5 @@
   </fieldset>
 </form>
 <div class="json">
-  <pre>{{form.value | json}}</pre>
+  <pre>{{data | json}}</pre>
 </div>
