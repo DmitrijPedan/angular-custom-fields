@@ -21,49 +21,9 @@ export class CustomValuesFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.processFields(this.data.fields);
-    this.getValues()
-    // const object: any = {};
-    // this.prepareDataObject(this.data, object);
-    // console.log(object)
+    this.cvs.addDefaultFieldValues(this.data.fields);
+    // const outputData = this.cvs.getOutputValues(this.data.fields)
     this.buildFormFromData(this.data)
-  }
-
-  processFields(fields: ICustomField[]): void {
-    fields.forEach(field => {
-      field.value = this.getValue(field);
-      this.processFields(field.fields)
-    })
-  }
-
-  getValue(field: ICustomField): any {
-    const defaultValue = field.conditions?.options?.value;
-    switch (field.conditions.type) {
-      case "checkbox":
-        return defaultValue ? defaultValue : false;
-      case "number":
-        return defaultValue ? defaultValue : 0;
-      case "text":
-        return defaultValue ? defaultValue : '';
-      case "repeater":
-        return []
-    }
-  }
-
-  getValues(): void {
-    const values: any = {};
-    this.getFieldValues(this.data.fields, values);
-  }
-
-  getFieldValues(fields: ICustomField[], object: any): void {
-    fields.forEach(field => {
-      object[field.conditions.name] = field.value;
-      if (field.conditions.type === 'repeater') {
-        const obj = {}
-        this.getFieldValues(field.fields, obj);
-        object[field.conditions.name].push(obj)
-      }
-    })
   }
 
   getControl(i: number) {
