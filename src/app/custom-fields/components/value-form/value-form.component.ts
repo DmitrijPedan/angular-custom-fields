@@ -1,14 +1,12 @@
 import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
+import {AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  FormGroup,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors,
-  Validator
-} from "@angular/forms";
-import {FieldOption, ICustomField, ICustomFieldConditions, IFieldType} from "../../interfaces/interfaces";
+  FieldType,
+  ICustomField,
+  ICustomFieldAttributes,
+  ICustomFieldConditions,
+  IFieldType
+} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
 
@@ -33,17 +31,23 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   @Input() field!: ICustomField;
   public form!: FormGroup;
-  public conditions!: ICustomFieldConditions;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
-
+  public id!: string;
+  public label!: string;
+  public type!: FieldType;
+  public attrs!: ICustomFieldAttributes;
 
   constructor(
     private cfs: CustomFieldService
   ) { }
 
   ngOnInit() {
-    this.conditions = this.field.conditions;
+    this.id = this.field.conditions.name;
+    this.label = this.field.conditions.label;
+    this.type = this.field.conditions.type;
+    this.attrs = this.field.conditions.options;
+    console.log(this.attrs)
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
       if (this.onChange) {
@@ -55,10 +59,6 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  get type(): FormControl {
-    return this.form.get('type') as FormControl;
   }
 
   get fields(): FormControl {
@@ -93,6 +93,5 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   private createFormGroup() {
     this.form = this.cfs.getCustomFieldGroup();
   }
-
 
 }

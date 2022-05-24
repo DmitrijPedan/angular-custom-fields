@@ -23,9 +23,12 @@ export interface ICustomFieldConditions {
 
 export interface ICustomFieldAttributes {
   value?: string | boolean | number;
-  required?: boolean;
+  required: boolean;
   minLength: number;
   maxLength: number;
+  min: number;
+  max: number;
+  step: number;
   rows: number;
 }
 
