@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="cf-form">
 
-  <div class="cv-input">
+  <div class="cv-input" [ngClass]="{'cv-checkbox': type === 'checkbox'}" >
 
     <ng-container *ngIf="type === 'text'">
       <input

@@ -47,7 +47,6 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.label = this.field.conditions.label;
     this.type = this.field.conditions.type;
     this.attrs = this.field.conditions.options;
-    console.log(this.attrs)
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
       if (this.onChange) {
