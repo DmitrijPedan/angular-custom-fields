@@ -1,5 +1,5 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
-import {ControlValueAccessor,  FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, Input, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {ControlValueAccessor, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
@@ -18,6 +18,7 @@ import {CustomFieldService} from "../../services/custom-field.service";
 })
 export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor  {
 
+  @Input() field!: ICustomField;
   public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
@@ -27,8 +28,8 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   ) { }
 
   ngOnInit(): void {
-    this.createFormGroup();
-    const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
+    this.createFormGroup(this.field);
+    const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
         this.onChange(value);
       }
@@ -40,20 +41,34 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  writeValue(obj: any) {
-    // console.log(obj)
+  writeValue(value: any): void {
+    if (!value) return;
   }
 
-  registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {
+  registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
+    // TODO: implement this method
+    // throw new Error('registerOnTouched not implemented');
   }
 
+  setDisabledState(isDisabled: boolean): void {
+    // TODO: implement this method
+    // throw new Error('setDisabledState not implemented');
+  }
 
-  private createFormGroup() {
-    this.form = this.cf.getEmptyValuesGroup()
+  get formArray(): FormArray {
+    return this.form.get(this.field.conditions.name) as FormArray;
+  }
+
+  private createFormGroup(field: ICustomField) {
+    this.form = this.cf.getValueGroupControlForm(field);
+    console.log(`group control form (${field.conditions.name}): `, this.form)
+    // if (field.conditions.type === 'repeater') {
+    //   this.formArray.patchValue(field.fields)
+    // }
   }
 
 }

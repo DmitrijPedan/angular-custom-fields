@@ -38,24 +38,10 @@ export class CustomValuesFormComponent implements OnInit {
 
   buildFormFromData(data: ICustomFieldsData): void {
     if (!data) return;
-    this.form = new FormGroup({});
-    this.addGroup(this.data.fields, this.form);
-    console.log(this.form)
+    this.form = this.cf.getInitialValuesForm(data);
+    console.log('root form: ', this.form)
   }
 
-  addGroup(fields: ICustomField[], group: FormGroup): void {
-    fields.forEach(field => {
-      if (field.conditions?.type !== 'repeater') {
-        group.addControl(field.conditions.name, new FormControl(''))
-      } else {
-        const array = this.fb.array([]);
-        group.addControl(field.conditions.name, array)
-        const fieldGroup = this.fb.group({})
-        this.addGroup(field.fields, fieldGroup);
-        array.push(fieldGroup)
-      }
-    })
-  }
 
   submit(): void {
     this.submitHandle.emit(this.form.value)

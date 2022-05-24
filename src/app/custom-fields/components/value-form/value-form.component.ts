@@ -1,5 +1,5 @@
 import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
-import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ICustomField, ICustomFieldConditions} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomFieldService} from "../../services/custom-field.service";
@@ -21,7 +21,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   @Input() field!: ICustomField;
 
   public form!: FormGroup;
-  private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
+  private onChange!: (value: any) => void;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -49,7 +49,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.form.patchValue(value);
   }
 
-  registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {
+  registerOnChange(fn: (v: any) => void): void {
     this.onChange = fn;
   }
 
@@ -63,10 +63,9 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     // throw new Error("setDisabledState not implemented");
   }
 
-
-  private createFormGroup(name?: string) {
-    this.form = new FormGroup({})
-    // this.form = this.cf.getValueGroup(name);
+  private createFormGroup(name: string) {
+    // this.form = new FormGroup({})
+    this.form = this.cf.getValueFormGroup(name);
   }
 
 }

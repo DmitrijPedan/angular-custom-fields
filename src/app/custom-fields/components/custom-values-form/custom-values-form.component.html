@@ -2,14 +2,11 @@
   <fieldset>
     <legend>Custom values</legend>
 
-
-    <fieldset *ngFor="let field of data.fields">
-      <app-value-form>
-
-      </app-value-form>
-    </fieldset>
-
-
+    <ng-container *ngFor="let field of data.fields">
+      <app-values-group-control
+        [field]="field"
+      ></app-values-group-control>
+    </ng-container>
 
     <div class="submit" *ngIf="form">
       <button
