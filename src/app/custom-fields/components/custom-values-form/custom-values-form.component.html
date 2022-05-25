@@ -1,12 +1,9 @@
 <form [formGroup]="form" class="cf-form">
   <fieldset>
-    <legend>
-      <mat-icon>extension</mat-icon>
-      Custom values
-    </legend>
+    <legend><mat-icon>extension</mat-icon>Custom values</legend>
 
-    <ng-container formArrayName="fields">
-      <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
+    <ng-container formArrayName="values">
+      <ng-container *ngFor="let control of valuesFormArray?.controls; index as i">
         <app-values-group-control
           [formControlName]="i"
           [field]="data.fields[i]"

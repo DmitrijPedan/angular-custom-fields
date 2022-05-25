@@ -20,8 +20,8 @@ export class CustomValuesFormComponent implements OnInit {
     private cvs: CustomValuesService,
   ) { }
 
-  get fieldsFormArray(): FormArray {
-    return this.form?.get('fields') as FormArray;
+  get valuesFormArray(): FormArray {
+    return this.form?.get('values') as FormArray;
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class CustomValuesFormComponent implements OnInit {
   }
 
   addValueField(field: ICustomField): void {
-    this.fieldsFormArray.push(this.cvs.getCustomValueControls(field));
+    this.valuesFormArray.push(this.cvs.getCustomValueControls(field));
   }
 
   initForm(): void {

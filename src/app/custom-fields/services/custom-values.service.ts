@@ -110,7 +110,7 @@ export class CustomValuesService {
 
   getInitialForm(): FormGroup {
     return this.fb.group({
-      fields: this.fb.array([])
+      values: this.fb.array([])
     })
   }
 
