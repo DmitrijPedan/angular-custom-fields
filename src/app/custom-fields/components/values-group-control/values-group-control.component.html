@@ -17,7 +17,10 @@
 
       <ng-container *ngFor="let control of valueArray?.controls; index as controlIndex" [formArrayName]="field.conditions.name">
         <fieldset [formGroupName]="controlIndex">
-          <ng-container *ngFor="let subfield of field.fields;" >
+          <app-buttons
+            (removeField)="removeSubfield(controlIndex)"
+          ></app-buttons>
+          <ng-container *ngFor="let subfield of field.fields;">
             <app-value-form
               *ngIf="subfield.conditions.type !== 'repeater'"
               [field]="subfield"

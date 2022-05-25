@@ -104,6 +104,10 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.valueArray.push(this.cvs.getRepeaterGroup(this.field));
   }
 
+  removeSubfield(i: number): void {
+    this.valueArray.removeAt(i)
+  }
+
 
   private createFormGroup(): void {
     this.form = this.cvs.getValuesGroupControl(this.field)
