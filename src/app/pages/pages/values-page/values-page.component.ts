@@ -8,19 +8,24 @@ import { Component, OnInit } from '@angular/core';
 export class ValuesPageComponent implements OnInit {
 
   public savedFields!: any;
-  public data: any;
+  public savedValues: any;
 
   constructor() { }
 
   ngOnInit(): void {
     const savedFields = localStorage.getItem('fields');
     if (savedFields) {
-      this.data = JSON.parse(savedFields);
+      this.savedFields = JSON.parse(savedFields);
+    }
+    const savedValues = localStorage.getItem('values');
+    if (savedValues) {
+      this.savedValues = JSON.parse(savedValues);
     }
   }
 
   saveValues(values: any): void {
-    console.log(values)
+    localStorage.setItem('values', JSON.stringify(values));
+    alert('Values saved to local storage');
   }
 
 }

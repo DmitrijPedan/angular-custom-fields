@@ -1,8 +1,9 @@
-<h3 *ngIf="!data; else form">No saved custom fields</h3>
+<h3 *ngIf="!savedFields; else form">No saved custom fields</h3>
 
 <ng-template #form>
   <app-custom-values-form
-    [data]="data"
+    [customFields]="savedFields"
+    [values]="savedValues"
     (submitHandle)="saveValues($event)"
   ></app-custom-values-form>
 </ng-template>

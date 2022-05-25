@@ -6,7 +6,7 @@
       <ng-container *ngFor="let control of valuesFormArray?.controls; index as i">
         <app-values-group-control
           [formControlName]="i"
-          [field]="data.fields[i]"
+          [field]="customFields.fields[i]"
           [nesting]="nesting"
         ></app-values-group-control>
       </ng-container>

@@ -12,7 +12,7 @@ export class FieldsPageComponent implements OnInit {
   public savedFields!: any;
   public submitCustomFieldsForm(data: any): void {
     localStorage.setItem('fields', JSON.stringify(data));
-    alert('Data saved to local storage');
+    alert('Fields set saved to local storage');
   }
 
   ngOnInit(): void {

@@ -10,7 +10,8 @@ import {CustomValuesService} from "../../services/custom-values.service";
 })
 export class CustomValuesFormComponent implements OnInit {
 
-  @Input() data!: ICustomFieldsData;
+  @Input() customFields!: ICustomFieldsData;
+  @Input() values!: any;
   @Output() submitHandle: EventEmitter<any> = new EventEmitter<any>();
   public form!: FormGroup;
   public nesting = 0;
@@ -20,25 +21,26 @@ export class CustomValuesFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.buildFormFromData();
+    this.initForm();
+    this.buildForm(this.customFields);
+    this.patchForm(this.values);
+  }
+
+  buildForm(customFields: ICustomFieldsData) {
+    if (customFields?.fields?.length) {
+      this.customFields.fields.forEach((field: ICustomField) => {
+        this.valuesFormArray.push(this.cvs.getCustomValueControls(field))
+      });
+    }
+  }
+
+  patchForm(values: any): void {
+    if (!values) return;
+    this.form.patchValue(values);
   }
 
   get valuesFormArray(): FormArray {
     return this.form?.get('values') as FormArray;
-  }
-
-  buildFormFromData() {
-    this.initForm();
-    if (this.data?.fields?.length) {
-      this.data.fields.forEach((field: any) => this.addValueField(field));
-    }
-    setTimeout(() => {
-      // this.form.patchValue(this.data);
-    }, 0);
-  }
-
-  addValueField(field: ICustomField): void {
-    this.valuesFormArray.push(this.cvs.getCustomValueControls(field));
   }
 
   initForm(): void {
