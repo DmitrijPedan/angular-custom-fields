@@ -14,7 +14,7 @@ import { CustomValuesService } from "./services/custom-values.service";
 import { ViewService } from "./services/view.service";
 
 //components
-import { GroupControlComponent } from './components/group-control/group-control.component';
+import { FieldsGroupControlComponent } from './components/fields-group-control/fields-group-control.component';
 import { FieldFormComponent } from './components/field-form/field-form.component';
 import { CustomFieldsFormComponent } from './components/custom-fields-form/custom-fields-form.component';
 import { CustomValuesFormComponent } from './components/custom-values-form/custom-values-form.component';
@@ -32,7 +32,7 @@ import { ToggleButtonComponent } from './components/toggle-button/toggle-button.
 @NgModule({
   declarations: [
     FieldNamePipe,
-    GroupControlComponent,
+    FieldsGroupControlComponent,
     FieldFormComponent,
     CustomFieldsFormComponent,
     CustomValuesFormComponent,

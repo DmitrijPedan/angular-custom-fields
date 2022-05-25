@@ -6,23 +6,23 @@ import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
-  selector: 'cf-group-control',
-  templateUrl: './group-control.component.html',
-  styleUrls: ['./group-control.component.scss'],
+  selector: 'cf-fields-group-control',
+  templateUrl: './fields-group-control.component.html',
+  styleUrls: ['./fields-group-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => GroupControlComponent),
+      useExisting: forwardRef(() => FieldsGroupControlComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => GroupControlComponent),
+      useExisting: forwardRef(() => FieldsGroupControlComponent),
       multi: true,
     },
   ]
 })
-export class GroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
+export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   @Input() formLabel: string | number = "Field";
   @Output() remove: EventEmitter<void> = new EventEmitter<void>();

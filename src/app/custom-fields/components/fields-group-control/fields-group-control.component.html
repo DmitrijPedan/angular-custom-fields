@@ -46,11 +46,11 @@
               ></cf-field-title>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <cf-group-control
+          <cf-fields-group-control
             (remove)="deleteFieldFromArray(i)"
             [formControlName]="i"
             [formLabel]="'Nested Field '+ (i + 1) + ':'"
-          ></cf-group-control>
+          ></cf-fields-group-control>
         </mat-expansion-panel>
       </mat-accordion>
 
