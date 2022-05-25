@@ -36,7 +36,9 @@ export class CustomValuesFormComponent implements OnInit {
 
   patchForm(values: any): void {
     if (!values) return;
-    this.form.patchValue(values);
+    setTimeout(() => {
+      this.form.patchValue(values);
+    })
   }
 
   get valuesFormArray(): FormArray {

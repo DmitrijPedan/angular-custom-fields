@@ -33,8 +33,9 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   @Input() field!: ICustomField;
   @Input() nesting!: number;
-  public form!: FormGroup;
+  public name!: string;
   public type!: FieldType;
+  public form!: FormGroup;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
 
@@ -49,11 +50,12 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   ngOnInit() {
     this.nesting += 1;
     this.type = this.field?.conditions?.type;
+    this.name = this.field?.conditions?.name;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
         if (this.nesting > 1) {
-          this.onChange(value[this.field.conditions.name]);
+          this.onChange(value[this.name]);
         } else {
           this.onChange(value);
         }
@@ -66,21 +68,18 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  writeValue(value: ICustomField | null | undefined): void {
-    // if (!value) return;
-    // setTimeout(() => {
-    //   if (value) {
-    //     // this.conditions.setValue(value);
-    //   }
-    //   if (value.fields?.length) {
-    //     this.fieldsFormArray.clear();
-    //     value.fields.forEach((field: ICustomField) => {
-    //       this.addField();
-    //       this.addSubfield();
-    //     });
-    //   }
-    //   this.form.patchValue(value);
-    // }, 10);
+  writeValue(data: any): void {
+    if (!data) return;
+    console.log(data)
+    setTimeout(() => {
+      const value = data[this.name];
+      if (Array.isArray(value)) {
+        value.forEach((el: any) => this.addSubfield());
+        this.valueArray.patchValue(value)
+      } else {
+        this.form.get(this.name)?.patchValue(value)
+      }
+    });
   }
 
   registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {

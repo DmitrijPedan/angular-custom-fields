@@ -5,8 +5,8 @@
     <ng-container *ngIf="type === 'text'">
       <input
         type="text"
-        [formControlName]="id"
-        [id]="id"
+        [formControlName]="name"
+        [id]="name"
         [required]="attrs.required"
         [minLength]="attrs.minLength ? attrs.minLength : 0"
         [maxLength]="attrs.maxLength ? attrs.maxLength : 524288">
@@ -14,8 +14,8 @@
 
     <ng-container *ngIf="type === 'textarea'">
     <textarea
-      [formControlName]="id"
-      [id]="id"
+      [formControlName]="name"
+      [id]="name"
       [rows]="attrs.rows ? attrs.rows : 3"
       [required]="attrs.required"
       [minLength]="attrs.minLength ? attrs.minLength : 0"
@@ -26,23 +26,23 @@
     <ng-container *ngIf="type === 'checkbox'">
       <input
         type="checkbox"
-        [formControlName]="id"
-        [id]="id"
+        [formControlName]="name"
+        [id]="name"
         [required]="attrs.required">
     </ng-container>
 
     <ng-container *ngIf="type === 'number'">
       <input
         type="number"
-        [formControlName]="id"
-        [id]="id"
+        [formControlName]="name"
+        [id]="name"
         [required]="attrs.required"
         [min]="attrs.min ? attrs.min : 0"
         [max]="attrs.max ? attrs.max : 524288"
         [step]="attrs.step ? attrs.step : 1">
     </ng-container>
 
-    <label [htmlFor]="id">{{label}}</label>
+    <label [htmlFor]="name">{{label}}</label>
 
   </div>
 

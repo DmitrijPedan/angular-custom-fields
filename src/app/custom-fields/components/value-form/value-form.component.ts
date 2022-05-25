@@ -4,7 +4,6 @@ import {FieldType, ICustomField, ICustomFieldAttributes, ICustomFieldConditions}
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 
-
 @Component({
   selector: 'app-value-form',
   templateUrl: './value-form.component.html',
@@ -28,7 +27,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
-  public id!: string;
+  public name!: string;
   public label!: string;
   public type!: FieldType;
   public attrs!: ICustomFieldAttributes;
@@ -38,16 +37,14 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   ) { }
 
   ngOnInit() {
-
-    this.id = this.field?.conditions?.name;
+    this.name = this.field?.conditions?.name;
     this.label = this.field?.conditions?.label;
     this.type = this.field?.conditions?.type;
     this.attrs = this.field?.conditions?.options;
-
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
-        this.onChange(value[this.id]);
+        this.onChange(value[this.name]);
       }
     });
     this.subscriptions.push(formSub);
@@ -57,11 +54,11 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  writeValue(value: ICustomFieldConditions): void {
-    // if (!value) {
-    //   return;
-    // }
-    // this.form.patchValue(value);
+  writeValue(data: any): void {
+    if (!data) return;
+    setTimeout(() => {
+      this.form.get(this.name)?.patchValue(data);
+    })
   }
 
   registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {
