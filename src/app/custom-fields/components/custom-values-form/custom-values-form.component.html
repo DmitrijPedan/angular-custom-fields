@@ -2,7 +2,7 @@
 
   <form [formGroup]="form" class="cf-form cf-root-form">
     <fieldset>
-      <legend><mat-icon>extension</mat-icon>Custom values</legend>
+      <legend><mat-icon>extension</mat-icon>Custom Values Form</legend>
 
       <div class="cf-controls">
         <cf-toggle-button></cf-toggle-button>
@@ -28,7 +28,7 @@
 
   <div *ngIf="view.jsonVisible$ | async" class="cf-json">
     <fieldset>
-      <legend><mat-icon>code</mat-icon>Json</legend>
+      <legend><mat-icon>code</mat-icon>Json view</legend>
       <pre>{{form.value | json}}</pre>
     </fieldset>
   </div>

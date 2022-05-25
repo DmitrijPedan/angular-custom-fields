@@ -1,16 +1,20 @@
 <div class="page-controls">
-  <button *ngIf="savedFields" mat-stroked-button (click)="fillForm()" color="primary" title="Fill form from saved data">
-    <mat-icon>ballot</mat-icon>Fill form
+  <button
+    [disabled]="!savedValues"
+    mat-stroked-button
+    (click)="fillForm()"
+    [title]="savedValues ? 'Fill form from saved data' : 'No saved values'"
+    color="primary"
+  ><mat-icon>ballot</mat-icon>Fill form
   </button>
 </div>
 
 <h3 *ngIf="!savedFields">No saved custom fields</h3>
 
-
 <app-custom-values-form
   *ngIf="savedFields"
   [customFields]="savedFields"
-  [values]="savedValues"
+  [values]="formValues"
   (submitHandle)="saveValues($event)"
 ></app-custom-values-form>
 

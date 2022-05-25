@@ -1,7 +1,11 @@
 <div class="page-controls">
-  <button *ngIf="savedFields" mat-stroked-button (click)="buildFormFromData()" color="primary" title="Build form from saved fields set">
-    <mat-icon>ballot</mat-icon>Build form
-  </button>
+  <button
+    [disabled]="!savedFields"
+    mat-stroked-button
+    (click)="buildFormFromData()"
+    [title]="savedFields ? 'Build form from saved fields set' : 'No saved fields'"
+    color="primary"
+  ><mat-icon>ballot</mat-icon>Build form</button>
 </div>
 
 <app-custom-fields-form
