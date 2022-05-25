@@ -7,8 +7,9 @@
     <ng-container *ngIf="type!== 'repeater'">
       <cf-value-form
         [field]="field"
-        [formControlName]="field.conditions.name">
-      </cf-value-form>
+        [formControlName]="field.conditions.name"
+        (onImageSelect)="onImageSelect.emit($event)"
+      ></cf-value-form>
     </ng-container>
 
     <ng-container *ngIf="type === 'repeater'">
@@ -30,8 +31,9 @@
             <cf-value-form
               *ngIf="subfield.conditions.type !== 'repeater'"
               [field]="subfield"
-              [formControlName]="subfield.conditions.name">
-            </cf-value-form>
+              [formControlName]="subfield.conditions.name"
+              (onImageSelect)="onImageSelect.emit($event)"
+            ></cf-value-form>
             <cf-values-group-control
               *ngIf="subfield.conditions.type === 'repeater'"
               [field]="subfield"

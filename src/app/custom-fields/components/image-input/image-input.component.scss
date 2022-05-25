@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+.preview {
+  max-width: 80%;
+  max-height: 100px;
+  text-align: right;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid var(--cf-border-color);
+  }
+}

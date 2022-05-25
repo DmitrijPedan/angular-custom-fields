@@ -14,6 +14,7 @@ export class CustomValuesFormComponent implements OnInit, OnChanges {
   @Input() customFields!: ICustomFieldsData;
   @Input() values!: any;
   @Output() submitHandle: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onImageSelect: EventEmitter<any> = new EventEmitter();
   public form!: FormGroup;
   public nesting = 0;
 

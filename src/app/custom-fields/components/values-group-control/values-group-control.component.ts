@@ -1,4 +1,4 @@
-import {Component, Input, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, forwardRef, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {AbstractControl, ControlValueAccessor, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
@@ -26,6 +26,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   @Input() field!: ICustomField;
   @Input() nesting!: number;
+  @Output() onImageSelect: EventEmitter<any> = new EventEmitter();
   public name!: string;
   public type!: FieldType;
   public form!: FormGroup;

@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <div class="controls">
+    <button
+      mat-icon-button
+      (click)="addImage.emit()"
+      color="primary"
+      title="Add image">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button
+      *ngIf="imageSrc"
+      mat-icon-button
+      (click)="remove()"
+      color="warn"
+      title="Remove image">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <div class="preview">
+    <img *ngIf="imageSrc" [src]="imageSrc" alt="Image">
+  </div>
+</div>

@@ -6,4 +6,5 @@ export const FIELD_TYPES: IFieldType[] = [
   {type: 'checkbox', displayName: 'Checkbox', options: ['value']},
   {type: 'number', displayName: 'Number input', options: ['value', 'required', 'min', 'max', 'step']},
   {type: 'repeater', displayName: 'Repeater', options: [ 'minLength', 'maxLength']},
+  {type: 'image', displayName: 'Image', options: [ 'required']},
 ];

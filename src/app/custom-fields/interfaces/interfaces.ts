@@ -1,4 +1,4 @@
-export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number' | 'textarea';
+export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number' | 'textarea' | 'image';
 export type FieldOption = 'value' | 'required' | 'min' | 'max' | 'step' | 'rows' | 'minLength' | 'maxLength';
 
 export interface IFieldType {

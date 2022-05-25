@@ -7,4 +7,5 @@ export const FIELD_ICONS: {[K in FieldType]: string} = {
   textarea: 'text_fields',
   checkbox: 'check_box',
   number: 'looks_one',
+  image: 'image',
 }

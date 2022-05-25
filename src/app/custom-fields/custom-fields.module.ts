@@ -24,6 +24,7 @@ import { ValuesGroupControlComponent } from './components/values-group-control/v
 import { ValueFormComponent } from './components/value-form/value-form.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
+import { ImageInputComponent } from './components/image-input/image-input.component';
 
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
@@ -44,6 +45,7 @@ import { FieldIconPipe } from "./pipes/field-icon.pipe";
     ValueFormComponent,
     SubmitButtonComponent,
     ToggleButtonComponent,
+    ImageInputComponent,
   ],
   exports: [
     CustomFieldsFormComponent,

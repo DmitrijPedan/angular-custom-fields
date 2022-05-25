@@ -71,11 +71,23 @@
     }
   }
 
-  .ng-invalid {
+  input.ng-invalid {
     border-color: var(--cf-err-color)!important;
     outline-color: var(--cf-err-color)!important;
     + label {
       color: var(--cf-err-color);
+    }
+  }
+
+
+  label {
+    display: flex;
+    align-items: center;
+    &.required:after {
+      content: "(required)";
+      margin-left: 5px;
+      font-size: .8em;
+      color: var(--cf-err-color) !important;
     }
   }
 

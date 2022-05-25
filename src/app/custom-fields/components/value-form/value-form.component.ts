@@ -1,7 +1,7 @@
-import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
+import {Component, forwardRef, OnDestroy, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {FieldType, ICustomField, ICustomFieldAttributes, ICustomFieldConditions} from "../../interfaces/interfaces";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
@@ -24,6 +24,7 @@ import {CustomValuesService} from "../../services/custom-values.service";
 export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   @Input() field!: ICustomField;
+  @Output() onImageSelect: EventEmitter<any> = new EventEmitter();
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
@@ -77,6 +78,16 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
 
   validate(control: AbstractControl): ValidationErrors | null {
     return this.form.status === 'VALID' ? null : { required: true }
+  }
+
+
+  setImageSrc(src: string): void {
+    this.form.get(this.name)?.patchValue(src)
+  }
+
+
+  selectImage(): void {
+    this.onImageSelect.emit(this.setImageSrc.bind(this))
   }
 
   private createFormGroup() {

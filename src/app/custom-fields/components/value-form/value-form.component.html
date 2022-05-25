@@ -42,7 +42,22 @@
         [step]="attrs.step ? attrs.step : 1">
     </ng-container>
 
-    <label [htmlFor]="name">{{label}}</label>
+    <ng-container *ngIf="type === 'image'">
+      <cf-image-input
+        [imageSrc]="form.get(name)?.value"
+        (addImage)="selectImage()"
+        (removeImage)="form.get(name)?.setValue('')"
+      ></cf-image-input>
+      <input type="text" hidden
+        [formControlName]="name"
+        [id]="name"
+        [required]="attrs.required">
+    </ng-container>
+
+    <label
+      [htmlFor]="name"
+      [ngClass]="{'required': attrs.required}"
+    >{{label}}</label>
 
   </div>
 

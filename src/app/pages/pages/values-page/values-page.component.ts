@@ -38,4 +38,9 @@ export class ValuesPageComponent implements OnInit {
     }
   }
 
+  addImage(fn: any): void {
+    const src = 'https://hsto.org/webt/d2/yw/h8/d2ywh8knslm8ttn9yfoln48gpic.jpeg';
+    fn(src)
+  }
+
 }
