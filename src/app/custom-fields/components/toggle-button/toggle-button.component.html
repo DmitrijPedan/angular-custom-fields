@@ -1,0 +1,3 @@
+<button mat-icon-button (click)="view.toggleJson()" color="primary" title="Show json">
+  <mat-icon>{{(view.jsonVisible$ | async) ? 'chevron_right' : 'chevron_left'}}</mat-icon>
+</button>

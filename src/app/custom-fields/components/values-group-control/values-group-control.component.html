@@ -11,15 +11,15 @@
     <ng-container *ngIf="type === 'repeater'">
       <label>{{field.conditions.label}}</label>
 
-      <app-buttons
+      <cf-buttons-bar
         (addField)="addSubfield()"
-      ></app-buttons>
+      ></cf-buttons-bar>
 
       <ng-container *ngFor="let control of valueArray?.controls; index as controlIndex" [formArrayName]="field.conditions.name">
         <fieldset [formGroupName]="controlIndex">
-          <app-buttons
+          <cf-buttons-bar
             (removeField)="removeSubfield(controlIndex)"
-          ></app-buttons>
+          ></cf-buttons-bar>
           <ng-container *ngFor="let subfield of field.fields;">
             <app-value-form
               *ngIf="subfield.conditions.type !== 'repeater'"

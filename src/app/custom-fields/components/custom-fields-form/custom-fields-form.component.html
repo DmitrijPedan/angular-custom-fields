@@ -1,69 +1,61 @@
-<div class="cf-wrapper " [ngClass]="{'show-json': jsonVisible}">
+<div class="cf-wrapper" [ngClass]="{'show-json': view.jsonVisible$ | async}">
 
-  <div class="fields-form">
-    <form [formGroup]="form" class="cf-form">
-      <fieldset>
-        <legend><mat-icon>extension</mat-icon> Custom Fields</legend>
+  <form [formGroup]="form" class="cf-form cf-root-form">
+    <fieldset>
+      <legend><mat-icon>extension</mat-icon> Custom Fields</legend>
 
-        <div class="cf-controls" style="margin-bottom: 15px">
-          <app-buttons
-            [showArrayControls]="fieldsFormArray.length > 0"
-            (addField)="addField()"
-            (openAll)="accordion.openAll()"
-            (closeAll)="accordion.closeAll()"
-            (clearArray)="initForm()"
-            (reorderArray)="toggleReorder()"
-            [reorderDisabled]="reorderDisabled"
-          ></app-buttons>
-          <button mat-icon-button (click)="toggleJson()" color="primary" title="Toggle json view">
-            <mat-icon>{{jsonVisible ? 'chevron_right' : 'chevron_left'}}</mat-icon>
-          </button>
-        </div>
+      <div class="cf-controls">
+        <cf-toggle-button></cf-toggle-button>
+        <cf-buttons-bar
+          [showArrayControls]="fieldsFormArray.length > 0"
+          (addField)="addField()"
+          (openAll)="accordion.openAll()"
+          (closeAll)="accordion.closeAll()"
+          (clearArray)="initForm()"
+          (reorderArray)="toggleReorder()"
+          [reorderDisabled]="reorderDisabled"
+        ></cf-buttons-bar>
+      </div>
 
-        <mat-accordion
-          #accordion="matAccordion"
-          formArrayName="fields"
-          togglePosition="before"
-          [multi]="true"
-          class="cf-accordion"
-          cdkDropList
-          (cdkDropListDropped)="reorderFields($event)"
-          [cdkDropListDisabled]="reorderDisabled">
-          <mat-expansion-panel
-            *ngFor="let control of fieldsFormArray?.controls; index as i"
-            [expanded]="true"
-            cdkDrag>
-            <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
-              <mat-panel-title>
-                <app-field-title
-                  [number]="i + 1"
-                  [value]="control.value"
-                  [dragDisabled]="reorderDisabled"
-                ></app-field-title>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <app-group-control
-              [formControlName]="i"
-              [formLabel]="'Field '+ (i + 1)"
-              (remove)="deleteField(i)"
-            ></app-group-control>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <div class="submit" *ngIf="fieldsFormArray.value.length > 0">
-          <button
-            type="submit"
-            mat-raised-button
-            color="primary"
-            (click)="submit()"
-            [disabled]="form.invalid"
-            [title]="form.invalid ? 'Form invalid' : 'Submit'"
-          >Submit</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+      <mat-accordion
+        #accordion="matAccordion"
+        formArrayName="fields"
+        togglePosition="before"
+        [multi]="true"
+        class="cf-accordion"
+        cdkDropList
+        (cdkDropListDropped)="reorderFields($event)"
+        [cdkDropListDisabled]="reorderDisabled">
+        <mat-expansion-panel
+          *ngFor="let control of fieldsFormArray?.controls; index as i"
+          [expanded]="true"
+          cdkDrag>
+          <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
+            <mat-panel-title>
+              <app-field-title
+                [number]="i + 1"
+                [value]="control.value"
+                [dragDisabled]="reorderDisabled"
+              ></app-field-title>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-group-control
+            [formControlName]="i"
+            [formLabel]="'Field '+ (i + 1)"
+            (remove)="deleteField(i)"
+          ></app-group-control>
+        </mat-expansion-panel>
+      </mat-accordion>
 
-  <div *ngIf="jsonVisible" class="cf-form fields-json">
+      <cf-submit-button
+        (submitHandler)="submit()"
+        [disabled]="form.invalid || fieldsFormArray.value.length === 0"
+      >Submit</cf-submit-button>
+
+    </fieldset>
+  </form>
+
+  <div *ngIf="view.jsonVisible$ | async" class="cf-json">
     <fieldset>
       <legend><mat-icon>code</mat-icon>Json</legend>
         <pre>{{form.value | json}}</pre>

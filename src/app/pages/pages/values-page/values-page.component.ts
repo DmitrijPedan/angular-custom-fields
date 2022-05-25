@@ -17,15 +17,18 @@ export class ValuesPageComponent implements OnInit {
     if (savedFields) {
       this.savedFields = JSON.parse(savedFields);
     }
-    const savedValues = localStorage.getItem('values');
-    if (savedValues) {
-      this.savedValues = JSON.parse(savedValues);
-    }
   }
 
   saveValues(values: any): void {
     localStorage.setItem('values', JSON.stringify(values));
     alert('Values saved to local storage');
+  }
+
+  fillForm(): void {
+    const savedValues = localStorage.getItem('values');
+    if (savedValues) {
+      this.savedValues = JSON.parse(savedValues);
+    }
   }
 
 }

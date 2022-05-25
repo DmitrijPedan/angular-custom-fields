@@ -1,6 +1,7 @@
 import {Component, OnInit, OnChanges, Input, ViewChild, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
 import {CustomFieldService} from "../../services/custom-field.service";
+import {ViewService} from "../../services/view.service";
 import {MatAccordion} from "@angular/material/expansion";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
@@ -20,6 +21,7 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
 
   constructor(
     private cf: CustomFieldService,
+    public view: ViewService
   ) {}
 
   ngOnInit(): void {

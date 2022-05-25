@@ -1,30 +1,40 @@
-<form [formGroup]="form" class="cf-form">
-  <fieldset>
-    <legend><mat-icon>extension</mat-icon>Custom values</legend>
+<div class="cf-wrapper" [ngClass]="{'show-json': view.jsonVisible$ | async}">
 
-    <ng-container >
-      <ng-container *ngFor="let field of customFields.fields; index as i">
-        <app-values-group-control
-          [formControlName]="field.conditions.name"
-          [field]="field"
-          [nesting]="nesting"
-        ></app-values-group-control>
+  <form [formGroup]="form" class="cf-form cf-root-form">
+    <fieldset>
+      <legend><mat-icon>extension</mat-icon>Custom values</legend>
+
+      <div class="cf-controls">
+        <cf-toggle-button></cf-toggle-button>
+      </div>
+
+      <ng-container >
+        <ng-container *ngFor="let field of customFields.fields; index as i">
+          <app-values-group-control
+            [formControlName]="field.conditions.name"
+            [field]="field"
+            [nesting]="nesting"
+          ></app-values-group-control>
+        </ng-container>
       </ng-container>
-    </ng-container>
 
-    <div class="submit" *ngIf="form">
-      <button
-        type="submit"
-        mat-raised-button
-        color="primary"
-        (click)="submit()"
+      <cf-submit-button
+        (submitHandler)="submit()"
         [disabled]="form.invalid"
-        [title]="form.invalid ? 'Form invalid' : 'Submit'"
-      >Submit</button>
-    </div>
-  </fieldset>
-</form>
+      >Submit</cf-submit-button>
 
-<div class="json">
-  <pre>{{form.value | json}}</pre>
+    </fieldset>
+  </form>
+
+  <div *ngIf="view.jsonVisible$ | async" class="cf-json">
+    <fieldset>
+      <legend><mat-icon>code</mat-icon>Json</legend>
+      <pre>{{form.value | json}}</pre>
+    </fieldset>
+  </div>
+
 </div>
+
+
+
+

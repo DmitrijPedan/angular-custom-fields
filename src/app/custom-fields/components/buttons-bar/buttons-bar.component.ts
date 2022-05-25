@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-buttons',
-  templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.scss']
+  selector: 'cf-buttons-bar',
+  templateUrl: './buttons-bar.component.html',
+  styleUrls: ['./buttons-bar.component.scss']
 })
-export class ButtonsComponent implements OnInit {
+export class ButtonsBarComponent implements OnInit {
 
   @Input() showArrayControls: boolean = false;
   @Input() showAdd: boolean = true;

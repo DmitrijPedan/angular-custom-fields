@@ -5,15 +5,15 @@
       <span *ngIf="fieldsFormArray.length">({{fieldsFormArray.length}} fields)</span>
     </legend>
 
-      <app-buttons
+      <cf-buttons-bar
         (removeField)="remove.emit()"
-      ></app-buttons>
+      ></cf-buttons-bar>
 
       <app-field-form
         [formControlName]="'conditions'"
       ></app-field-form>
 
-      <app-buttons
+      <cf-buttons-bar
         [showAdd]="type === 'repeater'"
         (addField)="addField()"
         [showArrayControls]="fieldsFormArray.length > 0"
@@ -23,7 +23,7 @@
         (reorderArray)="toggleReorder()"
         [reorderDisabled]="reorderDisabled"
         style="margin-bottom: 10px"
-      ></app-buttons>
+      ></cf-buttons-bar>
 
       <mat-accordion
         #accordion="matAccordion"
@@ -54,14 +54,14 @@
         </mat-expansion-panel>
       </mat-accordion>
 
-      <app-buttons
+      <cf-buttons-bar
         *ngIf="fieldsFormArray.value.length > 0"
         (addField)="addField()"
         [showArrayControls]="fieldsFormArray.length > 0"
         (closeAll)="accordion.closeAll()"
         (openAll)="accordion.openAll()"
         style="margin-top: 10px"
-      ></app-buttons>
+      ></cf-buttons-bar>
 
   </fieldset>
 </form>

@@ -7,24 +7,7 @@
     }
   }
 
-  fieldset {
-    border: 1px solid transparent;
-    margin: 10px 5px;
-    border-radius: 4px;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);;
-  }
-  legend {
-    color: var(--cf-primary-color);
-    font-weight: bold;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 6px;
-    border-radius: 3px;
-    > * {
-      margin-right: 5px;
-    }
-  }
+
 
   input:not([type='checkbox']), select {
     width: 100%;
@@ -34,11 +17,6 @@
   input[type='checkbox'] {
     width: 15px;
     height: 15px;
-  }
-
-  .submit {
-    margin-top: 15px;
-    text-align: right;
   }
 
   table {

@@ -1,4 +1,10 @@
 .cf-controls {
   display: flex;
   justify-content: flex-end;
+  cf-buttons-bar {
+    margin-left: auto;
+  }
+  cf-toggle-button {
+    margin-right: auto;
+  }
 }

@@ -11,6 +11,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 // services
 import { CustomFieldService } from "./services/custom-field.service";
 import { CustomValuesService } from "./services/custom-values.service";
+import { ViewService } from "./services/view.service";
 
 //components
 import { GroupControlComponent } from './components/group-control/group-control.component';
@@ -18,12 +19,14 @@ import { FieldFormComponent } from './components/field-form/field-form.component
 import { CustomFieldsFormComponent } from './components/custom-fields-form/custom-fields-form.component';
 import { CustomValuesFormComponent } from './components/custom-values-form/custom-values-form.component';
 import { FieldTitleComponent } from './components/field-title/field-title.component';
-import { ButtonsComponent } from './components/buttons/buttons.component';
+import { ButtonsBarComponent } from './components/buttons-bar/buttons-bar.component';
 
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
 import { ValuesGroupControlComponent } from './components/values-group-control/values-group-control.component';
 import { ValueFormComponent } from './components/value-form/value-form.component';
+import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
+import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 
 
 @NgModule({
@@ -34,9 +37,11 @@ import { ValueFormComponent } from './components/value-form/value-form.component
     CustomFieldsFormComponent,
     CustomValuesFormComponent,
     FieldTitleComponent,
-    ButtonsComponent,
+    ButtonsBarComponent,
     ValuesGroupControlComponent,
     ValueFormComponent,
+    SubmitButtonComponent,
+    ToggleButtonComponent,
   ],
   exports: [
     CustomFieldsFormComponent,
@@ -53,6 +58,6 @@ import { ValueFormComponent } from './components/value-form/value-form.component
     MatButtonModule,
     DragDropModule,
   ],
-  providers: [CustomFieldService, CustomValuesService]
+  providers: [CustomFieldService, CustomValuesService, ViewService]
 })
 export class CustomFieldsModule { }
