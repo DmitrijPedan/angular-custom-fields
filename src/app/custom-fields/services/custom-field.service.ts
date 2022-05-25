@@ -16,10 +16,6 @@ export class CustomFieldService {
     })
   }
 
-  getFormArray(): FormArray {
-    return this.fb.array([]);
-  }
-
   getEmptyCustomFieldGroup(): FormGroup {
     return this.fb.group({
       conditions: {},

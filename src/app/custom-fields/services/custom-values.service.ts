@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
-import {ICustomField, ICustomFieldAttributes, ICustomFieldsData} from "../interfaces/interfaces";
+import {ICustomField, ICustomFieldAttributes} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +11,17 @@ export class CustomValuesService {
     private fb: FormBuilder
   ) { }
 
-  public addDefaultFieldValues(fields: ICustomField[]): void {
+  getInitialForm(): FormGroup {
+    return this.fb.group({
+      values: this.fb.array([])
+    })
+  }
+
+  addDefaultFieldValues(fields: ICustomField[]): void {
     fields.forEach(field => {
       field.value = this.getFieldValue(field);
       this.addDefaultFieldValues(field.fields)
     })
-  }
-
-  private getFieldValue(field: ICustomField): any {
-    const defaultValue = field.conditions?.options?.value;
-    switch (field.conditions.type) {
-      case "checkbox":
-        return defaultValue ? defaultValue : false;
-      case "number":
-        return defaultValue ? defaultValue : 0;
-      case "text":
-        return defaultValue ? defaultValue : '';
-      case "repeater":
-        return []
-    }
-  }
-
-  getOutputValues(fields: ICustomField[]): any {
-    const values: any = {};
-    this.getFieldValues(fields, values);
-    return values;
   }
 
   getFieldValues(fields: ICustomField[], object: any): void {
@@ -47,13 +33,6 @@ export class CustomValuesService {
         object[field.conditions.name].push(obj)
       }
     })
-  }
-
-  // values root form
-  getInitialValuesForm(data: ICustomFieldsData): FormGroup {
-    const group = new FormGroup({});
-    this.addGroup(data.fields, group);
-    return group;
   }
 
   addGroup(fields: ICustomField[], group: FormGroup): void {
@@ -70,32 +49,6 @@ export class CustomValuesService {
     })
   }
 
-  // group control
-  getValueGroupControlForm(field: ICustomField): FormGroup {
-    const fieldName = field.conditions.name;
-    if (field.conditions.type !== 'repeater') {
-      return this.getValueFormGroup(fieldName);
-    } else {
-      const group = this.fb.group({});
-      const array = this.fb.array([]);
-      field.fields.forEach(f => {
-        const g = new FormGroup({});
-        g.addControl(f.conditions.name, this.fb.control(''));
-        array.push(g)
-      })
-      group.addControl(fieldName, array)
-      return group;
-    }
-  }
-
-
-  getRepeaterControls(field: ICustomField): FormControl {
-    const values: any = {};
-    field.fields.forEach(field => {
-      values[field.conditions.name] = this.getFieldValue(field);
-    })
-    return this.fb.control(values);
-  }
 
   getRepeaterGroup(field: ICustomField): FormGroup {
     const values: any = {};
@@ -106,14 +59,6 @@ export class CustomValuesService {
   }
 
 
-  // ======= root form
-
-  getInitialForm(): FormGroup {
-    return this.fb.group({
-      values: this.fb.array([])
-    })
-  }
-
   getCustomValueControls(field: ICustomField): FormControl {
     const isRepeater = Boolean(field.conditions.type === 'repeater');
     return this.fb.control({
@@ -121,7 +66,6 @@ export class CustomValuesService {
     });
   }
 
-  // values group control
   getValuesGroupControl(field: ICustomField): FormGroup {
     const isRepeater = Boolean(field.conditions.type === 'repeater');
     return this.fb.group({
@@ -129,13 +73,6 @@ export class CustomValuesService {
     })
   }
 
-
-  // value form
-  getValueFormGroup(name: string): FormGroup {
-    const group = this.fb.group({})
-    group.addControl(name, this.fb.control(''))
-    return group
-  }
 
   getCustomValueInput(field: ICustomField): FormGroup {
     const value = this.getFieldValue(field);
@@ -145,7 +82,7 @@ export class CustomValuesService {
     })
   }
 
-  getValidators(attrs: ICustomFieldAttributes): Validators[] {
+  private getValidators(attrs: ICustomFieldAttributes): Validators[] {
     const validators = [];
     if (attrs) {
       if (attrs.required) validators.push(Validators.required);
@@ -155,6 +92,20 @@ export class CustomValuesService {
       if (Number.isInteger(attrs.min)) validators.push(Validators.min(Number(attrs.min)));
     }
     return validators
+  }
+
+  private getFieldValue(field: ICustomField): any {
+    const defaultValue = field.conditions?.options?.value;
+    switch (field.conditions.type) {
+      case "checkbox":
+        return defaultValue ? defaultValue : false;
+      case "number":
+        return defaultValue ? defaultValue : 0;
+      case "text":
+        return defaultValue ? defaultValue : '';
+      case "repeater":
+        return []
+    }
   }
 
 

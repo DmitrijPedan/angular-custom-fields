@@ -1,5 +1,5 @@
 import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
-import {AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
+import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {FieldType, ICustomField, ICustomFieldAttributes, ICustomFieldConditions} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
