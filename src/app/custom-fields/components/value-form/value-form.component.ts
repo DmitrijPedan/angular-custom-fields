@@ -38,7 +38,6 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   ) { }
 
   ngOnInit() {
-    console.log('form field', this.field)
 
     this.id = this.field?.conditions?.name;
     this.label = this.field?.conditions?.label;

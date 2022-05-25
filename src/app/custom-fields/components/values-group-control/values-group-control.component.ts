@@ -48,9 +48,15 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   ngOnInit() {
     this.type = this.field?.conditions?.type;
     this.createFormGroup();
-    const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
+    const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
         this.onChange(value);
+
+        // if (this.field.conditions.name === 'subitems') {
+        //   this.onChange(value[this.field.conditions.name]);
+        // } else {
+        //   this.onChange(value);
+        // }
       }
     });
     this.subscriptions.push(formSub);
