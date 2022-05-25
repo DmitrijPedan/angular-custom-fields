@@ -1,6 +1,18 @@
 :host {
   display: block;
-  .cf-controls {
+}
+.cf-controls {
+  margin-bottom: 0;
+  align-items: center;
+  p {
     margin-bottom: 0;
+    margin-right: auto;
+    color: var(--cf-primary-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    mat-icon {
+     margin-right: 5px;
+    }
   }
 }

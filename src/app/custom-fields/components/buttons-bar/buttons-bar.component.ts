@@ -7,6 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ButtonsBarComponent implements OnInit {
 
+  @Input() title = '';
+  @Input() matIcon = '';
   @Input() showArrayControls: boolean = false;
   @Input() showAdd: boolean = true;
   @Input() confirmRemoveField: boolean = true;

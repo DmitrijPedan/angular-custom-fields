@@ -8,23 +8,28 @@
     margin: 10px 5px;
     border-radius: 4px;
     box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-    legend {
-      color: var(--cf-primary-color);
-      font-weight: bold;
-      background-color: white;
-      display: flex;
-      align-items: center;
-      padding: 0 6px;
-      border-radius: 3px;
-      > * {
-        margin-right: 5px;
-      }
+  }
+
+  legend {
+    color: var(--cf-primary-color);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    > * {
+      margin-right: 5px;
     }
   }
 
   .cf-root-form {
     width: 100%;
     transition: width .1s;
+    > fieldset > legend {
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
   .cf-json {
     width: 0;

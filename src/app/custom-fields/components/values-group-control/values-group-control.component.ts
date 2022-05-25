@@ -3,6 +3,7 @@ import {AbstractControl, ControlValueAccessor, FormArray, FormGroup, NG_VALIDATO
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
+import {FIELD_TYPES} from "../../variables/field-types";
 
 @Component({
   selector: 'cf-values-group-control',

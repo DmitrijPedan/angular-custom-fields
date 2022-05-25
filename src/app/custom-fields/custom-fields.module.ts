@@ -20,18 +20,20 @@ import { CustomFieldsFormComponent } from './components/custom-fields-form/custo
 import { CustomValuesFormComponent } from './components/custom-values-form/custom-values-form.component';
 import { FieldTitleComponent } from './components/field-title/field-title.component';
 import { ButtonsBarComponent } from './components/buttons-bar/buttons-bar.component';
-
-// pipes
-import { FieldNamePipe } from './pipes/field-name.pipe';
 import { ValuesGroupControlComponent } from './components/values-group-control/values-group-control.component';
 import { ValueFormComponent } from './components/value-form/value-form.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 
+// pipes
+import { FieldNamePipe } from './pipes/field-name.pipe';
+import { FieldIconPipe } from "./pipes/field-icon.pipe";
+
 
 @NgModule({
   declarations: [
     FieldNamePipe,
+    FieldIconPipe,
     FieldsGroupControlComponent,
     FieldFormComponent,
     CustomFieldsFormComponent,

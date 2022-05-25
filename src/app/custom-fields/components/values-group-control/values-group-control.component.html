@@ -1,5 +1,8 @@
 <form [formGroup]="form" class="cf-form">
   <fieldset>
+    <legend>
+      {{type | fieldName}}
+    </legend>
 
     <ng-container *ngIf="type!== 'repeater'">
       <cf-value-form
@@ -9,13 +12,16 @@
     </ng-container>
 
     <ng-container *ngIf="type === 'repeater'">
-      <label>{{field.conditions.label}}</label>
 
       <cf-buttons-bar
+        [matIcon]="type | fieldIcon"
+        [title]="field.conditions.label"
         (addField)="addSubfield()"
       ></cf-buttons-bar>
 
-      <ng-container *ngFor="let control of valueArray?.controls; index as controlIndex" [formArrayName]="field.conditions.name">
+      <ng-container
+        *ngFor="let control of valueArray?.controls; index as controlIndex"
+        [formArrayName]="field.conditions.name">
         <fieldset [formGroupName]="controlIndex">
           <cf-buttons-bar
             (removeField)="removeSubfield(controlIndex)"
@@ -36,6 +42,12 @@
         </fieldset>
       </ng-container>
     </ng-container>
+
+    <cf-buttons-bar
+      *ngIf="valueArray.length > 1"
+      [title]="field.conditions.label"
+      (addField)="addSubfield()"
+    ></cf-buttons-bar>
 
   </fieldset>
 </form>

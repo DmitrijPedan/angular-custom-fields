@@ -33,5 +33,4 @@ export class FieldTitleComponent implements OnInit, OnChanges {
     return this.icons[this.type];
   }
 
-
 }
