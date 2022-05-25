@@ -6,7 +6,7 @@ import {MatAccordion} from "@angular/material/expansion";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
-  selector: 'app-custom-fields-form',
+  selector: 'cf-custom-fields-form',
   templateUrl: './custom-fields-form.component.html',
   styleUrls: ['./custom-fields-form.component.scss'],
 })

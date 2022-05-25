@@ -5,7 +5,7 @@ import {CustomValuesService} from "../../services/custom-values.service";
 import {ViewService} from "../../services/view.service";
 
 @Component({
-  selector: 'app-custom-values-form',
+  selector: 'cf-custom-values-form',
   templateUrl: './custom-values-form.component.html',
   styleUrls: ['./custom-values-form.component.scss']
 })

@@ -5,7 +5,7 @@ import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
-  selector: 'app-value-form',
+  selector: 'cf-value-form',
   templateUrl: './value-form.component.html',
   styleUrls: ['./value-form.component.scss'],
   providers: [

@@ -2,10 +2,10 @@
   <fieldset>
 
     <ng-container *ngIf="type!== 'repeater'">
-      <app-value-form
+      <cf-value-form
         [field]="field"
         [formControlName]="field.conditions.name">
-      </app-value-form>
+      </cf-value-form>
     </ng-container>
 
     <ng-container *ngIf="type === 'repeater'">
@@ -21,17 +21,17 @@
             (removeField)="removeSubfield(controlIndex)"
           ></cf-buttons-bar>
           <ng-container *ngFor="let subfield of field.fields;">
-            <app-value-form
+            <cf-value-form
               *ngIf="subfield.conditions.type !== 'repeater'"
               [field]="subfield"
               [formControlName]="subfield.conditions.name">
-            </app-value-form>
-            <app-values-group-control
+            </cf-value-form>
+            <cf-values-group-control
               *ngIf="subfield.conditions.type === 'repeater'"
               [field]="subfield"
               [formControlName]="subfield.conditions.name"
               [nesting]="nesting"
-            ></app-values-group-control>
+            ></cf-values-group-control>
           </ng-container>
         </fieldset>
       </ng-container>

@@ -3,7 +3,7 @@ import {FieldType} from "../../interfaces/interfaces";
 import {FIELD_ICONS} from "../../variables/field-icons";
 
 @Component({
-  selector: 'app-field-title',
+  selector: 'cf-field-title',
   templateUrl: './field-title.component.html',
   styleUrls: ['./field-title.component.scss']
 })

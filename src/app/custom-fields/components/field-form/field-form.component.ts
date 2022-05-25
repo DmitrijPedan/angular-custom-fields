@@ -14,7 +14,7 @@ import {FieldOption, ICustomFieldConditions, IFieldType} from "../../interfaces/
 import {FIELD_TYPES} from "../../variables/field-types";
 
 @Component({
-  selector: 'app-field-form',
+  selector: 'cf-field-form',
   templateUrl: './field-form.component.html',
   styleUrls: ['./field-form.component.scss'],
   providers: [

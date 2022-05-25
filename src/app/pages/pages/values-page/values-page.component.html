@@ -11,10 +11,10 @@
 
 <h3 *ngIf="!savedFields">No saved custom fields</h3>
 
-<app-custom-values-form
+<cf-custom-values-form
   *ngIf="savedFields"
   [customFields]="savedFields"
   [values]="formValues"
   (submitHandle)="saveValues($event)"
-></app-custom-values-form>
+></cf-custom-values-form>
 

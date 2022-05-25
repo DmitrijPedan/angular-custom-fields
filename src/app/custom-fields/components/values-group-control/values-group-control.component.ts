@@ -5,7 +5,7 @@ import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
-  selector: 'app-values-group-control',
+  selector: 'cf-values-group-control',
   templateUrl: './values-group-control.component.html',
   styleUrls: ['./values-group-control.component.scss'],
   providers: [

@@ -32,18 +32,18 @@
           cdkDrag>
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
             <mat-panel-title>
-              <app-field-title
+              <cf-field-title
                 [number]="i + 1"
                 [value]="control.value"
                 [dragDisabled]="reorderDisabled"
-              ></app-field-title>
+              ></cf-field-title>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <app-group-control
+          <cf-group-control
             [formControlName]="i"
             [formLabel]="'Field '+ (i + 1)"
             (remove)="deleteField(i)"
-          ></app-group-control>
+          ></cf-group-control>
         </mat-expansion-panel>
       </mat-accordion>
 

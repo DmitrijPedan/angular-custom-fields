@@ -10,11 +10,11 @@
 
       <ng-container >
         <ng-container *ngFor="let field of customFields.fields; index as i">
-          <app-values-group-control
+          <cf-values-group-control
             [formControlName]="field.conditions.name"
             [field]="field"
             [nesting]="nesting"
-          ></app-values-group-control>
+          ></cf-values-group-control>
         </ng-container>
       </ng-container>
 
