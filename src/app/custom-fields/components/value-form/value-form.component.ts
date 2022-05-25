@@ -1,11 +1,6 @@
 import {Component, forwardRef, OnDestroy, OnInit, Input} from '@angular/core';
 import {AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
-import {
-  FieldType,
-  ICustomField,
-  ICustomFieldAttributes,
-  ICustomFieldConditions,
-} from "../../interfaces/interfaces";
+import {FieldType, ICustomField, ICustomFieldAttributes, ICustomFieldConditions} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 
@@ -43,14 +38,17 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   ) { }
 
   ngOnInit() {
-    this.id = this.field.conditions.name;
-    this.label = this.field.conditions.label;
-    this.type = this.field.conditions.type;
-    this.attrs = this.field.conditions.options;
+    console.log('form field', this.field)
+
+    this.id = this.field?.conditions?.name;
+    this.label = this.field?.conditions?.label;
+    this.type = this.field?.conditions?.type;
+    this.attrs = this.field?.conditions?.options;
+
     this.createFormGroup();
-    const formSub = this.form.valueChanges.subscribe((value: ICustomFieldConditions) => {
+    const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
-        this.onChange(value);
+        this.onChange(value[this.id]);
       }
     });
     this.subscriptions.push(formSub);
@@ -60,15 +58,11 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  get fields(): FormControl {
-    return this.form.get('fields') as FormControl;
-  }
-
   writeValue(value: ICustomFieldConditions): void {
-    if (!value) {
-      return;
-    }
-    this.form.patchValue(value);
+    // if (!value) {
+    //   return;
+    // }
+    // this.form.patchValue(value);
   }
 
   registerOnChange(fn: (v: ICustomFieldConditions | null | undefined) => void): void {

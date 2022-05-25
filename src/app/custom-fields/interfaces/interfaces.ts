@@ -11,6 +11,7 @@ export interface IFieldType {
 export interface ICustomField {
   conditions: ICustomFieldConditions;
   fields: ICustomField[];
+  value?: any;
 }
 
 export interface ICustomFieldConditions {
@@ -18,7 +19,6 @@ export interface ICustomFieldConditions {
   label: string;
   type: FieldType;
   options: ICustomFieldAttributes;
-  currentValue?: any;
 }
 
 export interface ICustomFieldAttributes {

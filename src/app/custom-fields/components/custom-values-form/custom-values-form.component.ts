@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormArray, FormGroup} from "@angular/forms";
-import {ICustomFieldsData} from "../../interfaces/interfaces";
+import {ICustomField, ICustomFieldsData} from "../../interfaces/interfaces";
 import {CustomValuesService} from "../../services/custom-values.service";
 import {CustomFieldService} from "../../services/custom-field.service";
 
@@ -18,7 +18,6 @@ export class CustomValuesFormComponent implements OnInit {
 
   constructor(
     private cvs: CustomValuesService,
-    private cfs: CustomFieldService,
   ) { }
 
   get fieldsFormArray(): FormArray {
@@ -26,27 +25,26 @@ export class CustomValuesFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cvs.addDefaultFieldValues(this.data.fields);
+    // this.cvs.addDefaultFieldValues(this.data.fields);
     this.buildFormFromData();
-    console.log(this.form.value)
   }
 
   buildFormFromData() {
+    this.initForm();
     if (this.data?.fields?.length) {
-      this.initForm()
-      this.data.fields.forEach((field: any) => {
-        this.addField();
-      })
+      this.data.fields.forEach((field: any) => this.addValueField(field));
     }
-    setTimeout(() => this.form.patchValue(this.data), 0);
+    setTimeout(() => {
+      // this.form.patchValue(this.data);
+    }, 0);
   }
 
-  addField() {
-    this.fieldsFormArray.push(this.cfs.getCustomFieldControls());
+  addValueField(field: ICustomField): void {
+    this.fieldsFormArray.push(this.cvs.getCustomValueControls(field));
   }
 
-  initForm() {
-    this.form = this.cfs.getInitialForm();
+  initForm(): void {
+    this.form = this.cvs.getInitialForm();
   }
 
   submit(): void {

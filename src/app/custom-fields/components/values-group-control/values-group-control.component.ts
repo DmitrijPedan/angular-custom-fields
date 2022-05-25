@@ -3,7 +3,6 @@ import {
   AbstractControl,
   ControlValueAccessor,
   FormArray,
-  FormControl,
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors,
@@ -11,7 +10,7 @@ import {
 } from "@angular/forms";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
-import {CustomFieldService} from "../../services/custom-field.service";
+import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
   selector: 'app-values-group-control',
@@ -34,24 +33,20 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   @Input() field!: ICustomField;
   public form!: FormGroup;
+  public type!: FieldType;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
-  public type!: FieldType;
 
   constructor(
-    private cfs: CustomFieldService
+    private cvs: CustomValuesService
   ) { }
 
-  get conditions(): FormControl {
-    return this.form.get('conditions') as FormControl;
+  get valueArray(): FormArray {
+    return this.form.get(this.field.conditions.name) as FormArray;
   }
-
-  get fieldsFormArray(): FormArray {
-    return this.form.get('fields') as FormArray;
-  }
-
 
   ngOnInit() {
+    this.type = this.field?.conditions?.type;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
       if (this.onChange) {
@@ -66,19 +61,20 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   }
 
   writeValue(value: ICustomField | null | undefined): void {
-    if (!value) return;
-    setTimeout(() => {
-      if (value) {
-        this.conditions.setValue(value);
-      }
-      if (value.fields?.length) {
-        this.fieldsFormArray.clear();
-        value.fields.forEach((field: ICustomField) => {
-          this.addField()
-        });
-      }
-      this.form.patchValue(value);
-    }, 10);
+    // if (!value) return;
+    // setTimeout(() => {
+    //   if (value) {
+    //     // this.conditions.setValue(value);
+    //   }
+    //   if (value.fields?.length) {
+    //     this.fieldsFormArray.clear();
+    //     value.fields.forEach((field: ICustomField) => {
+    //       this.addField();
+    //       this.addSubfield();
+    //     });
+    //   }
+    //   this.form.patchValue(value);
+    // }, 10);
   }
 
   registerOnChange(fn: (value: ICustomField | null | undefined) => void): void {
@@ -99,22 +95,15 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     return this.form.status === 'VALID' ? null : { required: true }
   }
 
-  deleteFieldFromArray(index: number) {
-    this.fieldsFormArray.removeAt(index);
+  addSubfield(): void {
+    this.valueArray.push(this.cvs.getRepeaterGroup(this.field));
+    console.log(this.form.value)
+    console.log(this.valueArray.controls)
   }
 
-  addField() {
-    this.fieldsFormArray.push(this.cfs.getCustomFieldControls());
-  }
 
-  clearFieldsArray(): void {
-    this.fieldsFormArray.clear();
-  }
-
-  private createFormGroup() {
-    this.form = this.cfs.getEmptyCustomFieldGroup()
-    // add one condition on the next tick, after the form creation
-    setTimeout(() => this.conditions.setValue({}));
+  private createFormGroup(): void {
+    this.form = this.cvs.getValuesGroupControl(this.field)
   }
 
 }

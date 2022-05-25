@@ -1,19 +1,57 @@
 <form [formGroup]="form" class="cf-form">
+  <fieldset style="border: 1px solid green">
 
-  <fieldset>
-    <app-value-form
-      [formControlName]="'conditions'"
-      [field]="field"
-    ></app-value-form>
 
-    <ng-container formArrayName="fields">
-      <ng-container *ngFor="let control of fieldsFormArray?.controls; index as i">
-        <app-values-group-control
-          [formControlName]="i"
-          [field]="field.fields[i]"
-        ></app-values-group-control>
-      </ng-container>
+
+    <ng-container *ngIf="type!== 'repeater'">
+      <div class="cv-input">
+        <input type="text" [formControlName]="field.conditions.name">
+        <label>{{field.conditions.label}}</label>
+      </div>
     </ng-container>
+
+
+    <ng-container *ngIf="type === 'repeater'">
+
+      <label>{{field.conditions.label}}</label>
+
+      <app-buttons
+        (addField)="addSubfield()"
+      ></app-buttons>
+
+      <ng-container [formArrayName]="field.conditions.name">
+
+        <ng-container *ngFor="let control of valueArray?.controls; index as controlIndex">
+
+          <fieldset [formGroupName]="controlIndex">
+
+            <ng-container *ngFor="let subfield of field.fields;" >
+              <div class="cv-input" *ngIf="subfield.conditions.type !== 'repeater'">
+                <input type="text" [formControlName]="subfield.conditions.name">
+                <label>{{subfield.conditions.label}}</label>
+              </div>
+            </ng-container>
+
+            <ng-container *ngFor="let subfield of field.fields;">
+              <app-values-group-control
+                *ngIf="subfield.conditions.type === 'repeater'"
+                [field]="subfield"
+                [formControlName]="subfield.conditions.name"
+              ></app-values-group-control>
+            </ng-container>
+
+
+          </fieldset>
+
+        </ng-container>
+
+      </ng-container>
+
+
+    </ng-container>
+
+
   </fieldset>
+
 
 </form>

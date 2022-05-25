@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, Validators, FormControl} from "@angular/forms";
-import {ICustomField, ICustomFieldsData} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class CustomFieldService {
   getEmptyCustomFieldGroup(): FormGroup {
     return this.fb.group({
       conditions: {},
-      fields: this.fb.array([])
+      fields: this.fb.array([]),
     })
   }
 
@@ -43,7 +42,6 @@ export class CustomFieldService {
         step: [1],
         rows: [1],
       }),
-      currentValue: ['']
     })
   }
 
@@ -62,9 +60,7 @@ export class CustomFieldService {
         step: 1,
         rows: 1,
       },
-      currentValue: ''
     });
   }
-
 
 }

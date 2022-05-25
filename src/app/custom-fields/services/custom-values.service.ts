@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validator, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
 import {ICustomField, ICustomFieldAttributes, ICustomFieldsData} from "../interfaces/interfaces";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class CustomValuesService {
 
   public addDefaultFieldValues(fields: ICustomField[]): void {
     fields.forEach(field => {
-      field.conditions.currentValue = this.getFieldValue(field);
+      field.value = this.getFieldValue(field);
       this.addDefaultFieldValues(field.fields)
     })
   }
@@ -40,7 +40,7 @@ export class CustomValuesService {
 
   getFieldValues(fields: ICustomField[], object: any): void {
     fields.forEach(field => {
-      object[field.conditions.name] = field.conditions.currentValue;
+      object[field.conditions.name] = field.value;
       if (field.conditions.type === 'repeater') {
         const obj = {}
         this.getFieldValues(field.fields, obj);
@@ -88,6 +88,48 @@ export class CustomValuesService {
     }
   }
 
+
+  getRepeaterControls(field: ICustomField): FormControl {
+    const values: any = {};
+    field.fields.forEach(field => {
+      values[field.conditions.name] = this.getFieldValue(field);
+    })
+    return this.fb.control(values);
+  }
+
+  getRepeaterGroup(field: ICustomField): FormGroup {
+    const values: any = {};
+    field.fields.forEach(field => {
+      values[field.conditions.name] = this.getFieldValue(field);
+    })
+    return this.fb.group(values);
+  }
+
+
+  // ======= root form
+
+  getInitialForm(): FormGroup {
+    return this.fb.group({
+      fields: this.fb.array([])
+    })
+  }
+
+  getCustomValueControls(field: ICustomField): FormControl {
+    const isRepeater = Boolean(field.conditions.type === 'repeater');
+    return this.fb.control({
+      [field.conditions.name]: isRepeater ? [] : this.getFieldValue(field),
+    });
+  }
+
+  // values group control
+  getValuesGroupControl(field: ICustomField): FormGroup {
+    const isRepeater = Boolean(field.conditions.type === 'repeater');
+    return this.fb.group({
+      [field.conditions.name]: isRepeater ? this.fb.array([]) : this.getFieldValue(field),
+    })
+  }
+
+
   // value form
   getValueFormGroup(name: string): FormGroup {
     const group = this.fb.group({})
@@ -96,32 +138,22 @@ export class CustomValuesService {
   }
 
   getCustomValueInput(field: ICustomField): FormGroup {
-    const validators = this.getValidators(field.conditions.options);
-    return  this.fb.group({
-      name: [''],
-      label: [''],
-      type: ['text'],
-      options: this.fb.group({
-        value: [''],
-        required: [false],
-        minLength: [null],
-        maxLength: [null],
-        min: [1],
-        max: [1],
-        step: [1],
-        rows: [1],
-      }),
-      currentValue: ['', validators]
+    const value = this.getFieldValue(field);
+    const validators = this.getValidators(field?.conditions?.options);
+    return this.fb.group({
+      [field.conditions.name]: [value, validators]
     })
   }
 
   getValidators(attrs: ICustomFieldAttributes): Validators[] {
     const validators = [];
-    if (attrs.required) validators.push(Validators.required);
-    if (Number.isInteger(attrs.minLength)) validators.push(Validators.minLength(Number(attrs.minLength)));
-    if (Number.isInteger(attrs.maxLength)) validators.push(Validators.maxLength(Number(attrs.maxLength)));
-    if (Number.isInteger(attrs.max)) validators.push(Validators.max(Number(attrs.max)));
-    if (Number.isInteger(attrs.min)) validators.push(Validators.min(Number(attrs.min)));
+    if (attrs) {
+      if (attrs.required) validators.push(Validators.required);
+      if (Number.isInteger(attrs.minLength)) validators.push(Validators.minLength(Number(attrs.minLength)));
+      if (Number.isInteger(attrs.maxLength)) validators.push(Validators.maxLength(Number(attrs.maxLength)));
+      if (Number.isInteger(attrs.max)) validators.push(Validators.max(Number(attrs.max)));
+      if (Number.isInteger(attrs.min)) validators.push(Validators.min(Number(attrs.min)));
+    }
     return validators
   }
 
