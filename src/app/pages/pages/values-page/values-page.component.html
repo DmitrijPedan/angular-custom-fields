@@ -3,6 +3,7 @@
 <ng-template #form>
   <app-custom-values-form
     [data]="data"
+    (submitHandle)="saveValues($event)"
   ></app-custom-values-form>
 </ng-template>
 

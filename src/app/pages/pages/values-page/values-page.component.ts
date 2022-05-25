@@ -19,4 +19,8 @@ export class ValuesPageComponent implements OnInit {
     }
   }
 
+  saveValues(values: any): void {
+    console.log(values)
+  }
+
 }

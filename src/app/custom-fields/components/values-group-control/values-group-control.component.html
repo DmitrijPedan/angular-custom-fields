@@ -27,6 +27,7 @@
               *ngIf="subfield.conditions.type === 'repeater'"
               [field]="subfield"
               [formControlName]="subfield.conditions.name"
+              [nesting]="nesting"
             ></app-values-group-control>
           </ng-container>
         </fieldset>

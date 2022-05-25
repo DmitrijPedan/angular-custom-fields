@@ -32,6 +32,7 @@ import {CustomValuesService} from "../../services/custom-values.service";
 export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
 
   @Input() field!: ICustomField;
+  @Input() nesting!: number;
   public form!: FormGroup;
   public type!: FieldType;
   private onChange!: (value: ICustomField | null | undefined) => void;
@@ -46,17 +47,16 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   }
 
   ngOnInit() {
+    this.nesting += 1;
     this.type = this.field?.conditions?.type;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
-        this.onChange(value);
-
-        // if (this.field.conditions.name === 'subitems') {
-        //   this.onChange(value[this.field.conditions.name]);
-        // } else {
-        //   this.onChange(value);
-        // }
+        if (this.nesting > 1) {
+          this.onChange(value[this.field.conditions.name]);
+        } else {
+          this.onChange(value);
+        }
       }
     });
     this.subscriptions.push(formSub);
@@ -103,8 +103,6 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   addSubfield(): void {
     this.valueArray.push(this.cvs.getRepeaterGroup(this.field));
-    console.log(this.form.value)
-    console.log(this.valueArray.controls)
   }
 
 
