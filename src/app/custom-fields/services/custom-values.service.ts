@@ -17,39 +17,6 @@ export class CustomValuesService {
     })
   }
 
-  addDefaultFieldValues(fields: ICustomField[]): void {
-    fields.forEach(field => {
-      field.value = this.getFieldValue(field);
-      this.addDefaultFieldValues(field.fields)
-    })
-  }
-
-  getFieldValues(fields: ICustomField[], object: any): void {
-    fields.forEach(field => {
-      object[field.conditions.name] = field.value;
-      if (field.conditions.type === 'repeater') {
-        const obj = {}
-        this.getFieldValues(field.fields, obj);
-        object[field.conditions.name].push(obj)
-      }
-    })
-  }
-
-  addGroup(fields: ICustomField[], group: FormGroup): void {
-    fields.forEach(field => {
-      if (field.conditions?.type !== 'repeater') {
-        group.addControl(field.conditions.name, new FormControl(''))
-      } else {
-        const array = this.fb.array([]);
-        group.addControl(field.conditions.name, array)
-        const fieldGroup = this.fb.group({})
-        this.addGroup(field.fields, fieldGroup);
-        array.push(fieldGroup)
-      }
-    })
-  }
-
-
   getRepeaterGroup(field: ICustomField): FormGroup {
     const values: any = {};
     field.fields.forEach(field => {
