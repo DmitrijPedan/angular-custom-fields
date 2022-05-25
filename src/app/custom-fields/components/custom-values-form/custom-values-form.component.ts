@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormArray, FormGroup} from "@angular/forms";
-import {ICustomField, ICustomFieldsData} from "../../interfaces/interfaces";
+import {FormGroup} from "@angular/forms";
+import {ICustomFieldsData} from "../../interfaces/interfaces";
 import {CustomValuesService} from "../../services/custom-values.service";
 
 @Component({
@@ -21,32 +21,24 @@ export class CustomValuesFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initForm();
     this.buildForm(this.customFields);
     this.patchForm(this.values);
+
   }
 
   buildForm(customFields: ICustomFieldsData) {
     if (customFields?.fields?.length) {
-      this.customFields.fields.forEach((field: ICustomField) => {
-        this.valuesFormArray.push(this.cvs.getCustomValueControls(field))
-      });
+      this.form = this.cvs.getInitialForm(customFields.fields);
     }
   }
 
   patchForm(values: any): void {
     if (!values) return;
     setTimeout(() => {
-      this.form.patchValue(values);
+      Object.keys(values).forEach(key => {
+        this.form.get(key)?.patchValue(values[key]);
+      })
     })
-  }
-
-  get valuesFormArray(): FormArray {
-    return this.form?.get('values') as FormArray;
-  }
-
-  initForm(): void {
-    this.form = this.cvs.getInitialForm();
   }
 
   submit(): void {

@@ -41,16 +41,12 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   ngOnInit() {
     this.nesting += 1;
-    this.type = this.field?.conditions?.type;
     this.name = this.field?.conditions?.name;
+    this.type = this.field?.conditions?.type;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: any) => {
       if (this.onChange) {
-        if (this.nesting > 1) {
-          this.onChange(value[this.name]);
-        } else {
-          this.onChange(value);
-        }
+        this.onChange(value[this.name]);
       }
     });
     this.subscriptions.push(formSub);
@@ -60,10 +56,9 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  writeValue(data: any): void {
-    if (!data) return;
+  writeValue(value: any): void {
+    if (!value) return;
     setTimeout(() => {
-      const value = data[this.name];
       if (Array.isArray(value)) {
         value.forEach((el: any) => this.addSubfield());
         this.valueArray.patchValue(value)

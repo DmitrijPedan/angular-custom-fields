@@ -11,11 +11,19 @@ export class CustomValuesService {
     private fb: FormBuilder
   ) { }
 
-  getInitialForm(): FormGroup {
-    return this.fb.group({
-      values: this.fb.array([])
+  getInitialForm(fields: ICustomField[]): FormGroup {
+    const group = this.fb.group({});
+    fields.forEach(field => {
+      group.addControl(field.conditions.name, this.fb.control(this.getFieldValue(field)))
     })
+    return group;
   }
+
+  // getInitialForm(f): FormGroup {
+  //   return this.fb.group({
+  //     values: this.fb.array([])
+  //   })
+  // }
 
   getRepeaterGroup(field: ICustomField): FormGroup {
     const values: any = {};
