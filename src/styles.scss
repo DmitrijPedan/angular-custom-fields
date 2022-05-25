@@ -9,7 +9,10 @@ body {
 .page-controls {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  position: sticky;
+  top: 3px;
+  z-index: 20;
+  margin-bottom: 15px;
   button {
     margin-left: 15px;
   }
