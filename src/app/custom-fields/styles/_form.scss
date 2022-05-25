@@ -79,18 +79,4 @@
     }
   }
 
-  .cv-input {
-    display: flex;
-    flex-direction: column-reverse;
-    &.cv-checkbox {
-      flex-direction: row;
-      align-items: center;
-      input {
-        margin-right: 5px;
-      }
-      label {
-        margin-right: 15px;
-      }
-    }
-  }
 }
