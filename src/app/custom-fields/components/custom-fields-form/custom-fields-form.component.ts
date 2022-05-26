@@ -39,10 +39,6 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
     return this.form?.get('fields') as FormArray;
   }
 
-  toggleJson(): void {
-    this.jsonVisible = !this.jsonVisible;
-  }
-
   toggleReorder(): void {
     this.reorderDisabled = !this.reorderDisabled;
   }

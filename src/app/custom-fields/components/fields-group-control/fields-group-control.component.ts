@@ -44,17 +44,6 @@ export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlVa
     return this.form.get('fields') as FormArray;
   }
 
-  toggleReorder(): void {
-    this.reorderDisabled = !this.reorderDisabled;
-  }
-
-  reorderFields(event: CdkDragDrop<string[]>) {
-    const controls = this.fieldsFormArray?.controls;
-    moveItemInArray(controls, event.previousIndex, event.currentIndex);
-    const upd = controls.map((el: any) => el.value);
-    this.fieldsFormArray?.setValue(upd)
-  }
-
   ngOnInit() {
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: ICustomField) => {
@@ -78,6 +67,8 @@ export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   writeValue(value: ICustomField | null | undefined): void {
     if (!value) return;
+    console.log('writed')
+
     setTimeout(() => {
       if (value) {
         this.conditions.setValue(value);
@@ -108,6 +99,18 @@ export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   validate(control: AbstractControl): ValidationErrors | null {
     return this.form.status === 'VALID' ? null : { required: true }
+  }
+
+  toggleReorder(): void {
+    this.reorderDisabled = !this.reorderDisabled;
+  }
+
+  reorderFields(event: CdkDragDrop<string[]>) {
+    const controls = this.fieldsFormArray?.controls;
+    const values = this.fieldsFormArray?.value;
+    moveItemInArray(controls, event.previousIndex, event.currentIndex);
+    moveItemInArray(values, event.previousIndex, event.currentIndex);
+    this.onChange(this.form.value)
   }
 
   deleteFieldFromArray(index: number) {
