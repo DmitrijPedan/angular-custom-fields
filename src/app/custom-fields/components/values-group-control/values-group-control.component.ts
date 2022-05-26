@@ -100,9 +100,10 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   reorderItems(event: CdkDragDrop<string[]>) {
     const controls = this.valueArray?.controls;
+    const values = this.valueArray?.value;
     moveItemInArray(controls, event.previousIndex, event.currentIndex);
-    const upd = controls.map((el: any) => el.value);
-    this.valueArray?.patchValue(upd);
+    moveItemInArray(values, event.previousIndex, event.currentIndex);
+    this.onChange(this.form.get(this.name)?.value)
   }
 
   removeSubfield(i: number): void {
