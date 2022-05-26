@@ -29,6 +29,7 @@ import { ImageInputComponent } from './components/image-input/image-input.compon
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
 import { FieldIconPipe } from "./pipes/field-icon.pipe";
+import { AccordionItemTitleComponent } from './components/accordion-item-title/accordion-item-title.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { FieldIconPipe } from "./pipes/field-icon.pipe";
     SubmitButtonComponent,
     ToggleButtonComponent,
     ImageInputComponent,
+    AccordionItemTitleComponent,
   ],
   exports: [
     CustomFieldsFormComponent,

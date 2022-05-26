@@ -1,8 +1,6 @@
 <form [formGroup]="form" class="cf-form">
   <fieldset>
-    <legend>
-      {{type | fieldName}}
-    </legend>
+    <legend>{{type | fieldName}}</legend>
 
     <ng-container *ngIf="type!== 'repeater'">
       <cf-value-form
@@ -12,18 +10,36 @@
       ></cf-value-form>
     </ng-container>
 
-    <ng-container *ngIf="type === 'repeater'">
-
+    <mat-accordion
+      *ngIf="type === 'repeater'"
+      #accordion="matAccordion"
+      [multi]="true"
+      cdkDropList
+      (cdkDropListDropped)="reorderItems($event)"
+      [cdkDropListDisabled]="reorderDisabled">
       <cf-buttons-bar
         [matIcon]="type | fieldIcon"
+        [showArrayControls]="valueArray.length > 1"
         [title]="field.conditions.label"
         (addField)="addSubfield()"
+        (openAll)="accordion.openAll()"
+        (closeAll)="accordion.closeAll()"
+        (reorderArray)="allowReorder()"
       ></cf-buttons-bar>
-
-      <ng-container
+      <mat-expansion-panel
         *ngFor="let control of valueArray?.controls; index as controlIndex"
-        [formArrayName]="field.conditions.name">
-        <fieldset [formGroupName]="controlIndex">
+        [formArrayName]="field.conditions.name"
+        [expanded]="true"
+        togglePosition="before"
+        cdkDrag>
+        <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'35px'">
+          <cf-accordion-item-title
+            [itemTitle]="field.conditions.options.accordionItemName"
+            [index]="controlIndex"
+            [dragDisabled]="reorderDisabled"
+          ></cf-accordion-item-title>
+        </mat-expansion-panel-header>
+        <ng-container [formGroupName]="controlIndex">
           <cf-buttons-bar
             (removeField)="removeSubfield(controlIndex)"
           ></cf-buttons-bar>
@@ -41,9 +57,9 @@
               [nesting]="nesting"
             ></cf-values-group-control>
           </ng-container>
-        </fieldset>
-      </ng-container>
-    </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+    </mat-accordion>
 
     <cf-buttons-bar
       *ngIf="valueArray.length > 1"

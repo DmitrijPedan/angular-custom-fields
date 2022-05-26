@@ -1,8 +1,9 @@
 :host {
   display: block;
-  ::ng-deep ~ cf-value-form {
-    margin-top: 15px;
-  }
+  //::ng-deep ~ cf-value-form {
+  //  margin-top: 15px;
+  //}
+  margin-bottom: 15px;
 }
 
 textarea {

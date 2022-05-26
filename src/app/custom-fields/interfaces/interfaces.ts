@@ -1,12 +1,11 @@
 export type FieldType = 'text' | 'checkbox' | 'repeater' | 'number' | 'textarea' | 'image';
-export type FieldOption = 'value' | 'required' | 'min' | 'max' | 'step' | 'rows' | 'minLength' | 'maxLength';
+export type FieldOption = 'value' | 'required' | 'min' | 'max' | 'step' | 'rows' | 'minLength' | 'maxLength' | 'accordionItemName';
 
 export interface IFieldType {
   type: FieldType;
   displayName: string;
   options: FieldOption[];
 }
-
 
 export interface ICustomField {
   conditions: ICustomFieldConditions;
@@ -30,6 +29,7 @@ export interface ICustomFieldAttributes {
   max: number;
   step: number;
   rows: number;
+  accordionItemName: string;
 }
 
 export interface ICustomFieldsData {

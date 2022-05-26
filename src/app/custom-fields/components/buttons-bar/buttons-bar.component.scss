@@ -16,3 +16,10 @@
     }
   }
 }
+
+button mat-icon {
+  transition: color var(--cf-transition);
+}
+.remove:hover {
+  color: var(--cf-err-color);
+}

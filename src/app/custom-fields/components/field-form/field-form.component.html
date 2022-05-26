@@ -44,6 +44,15 @@
         <input *ngIf="type.value === 'checkbox'" type="checkbox" formControlName="value">
       </td>
     </tr>
+    <tr *ngIf="showOptionControl('accordionItemName')">
+      <td>
+        <p class="title">Accordion item name</p>
+        <p class="subtitle">Appears when creating a new item</p>
+      </td>
+      <td>
+        <input type="text" formControlName="accordionItemName">
+      </td>
+    </tr>
     <tr *ngIf="showOptionControl('required')">
       <td>
         <p class="title">Required?</p>

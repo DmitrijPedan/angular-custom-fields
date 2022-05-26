@@ -4,6 +4,7 @@ import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
 import {FIELD_TYPES} from "../../variables/field-types";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'cf-values-group-control',
@@ -30,6 +31,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   public name!: string;
   public type!: FieldType;
   public form!: FormGroup;
+  public reorderDisabled = true;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
 
@@ -90,6 +92,17 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   addSubfield(): void {
     this.valueArray.push(this.cvs.getRepeaterGroup(this.field));
+  }
+
+  allowReorder(): void {
+    this.reorderDisabled = !this.reorderDisabled;
+  }
+
+  reorderItems(event: CdkDragDrop<string[]>) {
+    const controls = this.valueArray?.controls;
+    moveItemInArray(controls, event.previousIndex, event.currentIndex);
+    const upd = controls.map((el: any) => el.value);
+    this.valueArray?.patchValue(upd);
   }
 
   removeSubfield(i: number): void {

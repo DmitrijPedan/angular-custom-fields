@@ -37,6 +37,7 @@ export class CustomFieldService {
         max: [1],
         step: [1],
         rows: [1],
+        accordionItemName: ['Item']
       }),
     })
   }
@@ -55,6 +56,7 @@ export class CustomFieldService {
         max: 1,
         step: 1,
         rows: 1,
+        accordionItemName: 'Item'
       },
     });
   }

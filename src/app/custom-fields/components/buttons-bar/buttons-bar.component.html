@@ -25,7 +25,7 @@
       mat-icon-button
       (click)="clearAllAction()"
       color="warn"
-      title="Clear all fields">
+      title="Clear all">
       <mat-icon>clear_all</mat-icon>
     </button>
 
@@ -34,7 +34,7 @@
        mat-icon-button
        (click)="reorderArray.emit()"
        [color]="reorderDisabled ? 'primary' : 'warn'"
-       title="Reorder fields">
+       title="Reorder">
       <mat-icon>reorder</mat-icon>
     </button>
 
@@ -45,7 +45,7 @@
     mat-icon-button
     (click)="addField.emit()"
     color="primary"
-    title="Add field">
+    title="Add">
     <mat-icon>add</mat-icon>
   </button>
 
@@ -53,8 +53,9 @@
     *ngIf="removeField.observers.length > 0"
     mat-icon-button
     (click)="removeFieldAction()"
-    color="warn"
-    title="Remove field">
+    color="primary"
+    class="remove"
+    title="Remove">
     <mat-icon>delete_outline</mat-icon>
   </button>
 
