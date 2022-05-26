@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ImageInputComponent implements OnInit {
 
   @Input() imageSrc: string = '';
+  @Input() required = false;
   @Output() addImage: EventEmitter<void> = new EventEmitter<void>()
   @Output() removeImage: EventEmitter<void> = new EventEmitter<void>()
 

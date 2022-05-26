@@ -13,10 +13,14 @@
       (click)="remove()"
       color="warn"
       title="Remove image">
-      <mat-icon>clear</mat-icon>
+      <mat-icon>delete_outline</mat-icon>
     </button>
   </div>
   <div class="preview">
     <img *ngIf="imageSrc" [src]="imageSrc" alt="Image">
+    <p *ngIf="!imageSrc">
+      No image
+      <span *ngIf="required">(required)</span>
+    </p>
   </div>
 </div>

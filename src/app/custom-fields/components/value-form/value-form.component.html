@@ -45,6 +45,7 @@
     <ng-container *ngIf="type === 'image'">
       <cf-image-input
         [imageSrc]="form.get(name)?.value"
+        [required]="attrs.required"
         (addImage)="selectImage()"
         (removeImage)="form.get(name)?.setValue('')"
       ></cf-image-input>
