@@ -1,19 +1,20 @@
-<div class="cf-wrapper" [ngClass]="{'show-json': view.jsonVisible$ | async}">
+<div *ngIf="customFields && form"
+     class="cf-wrapper"
+     [ngClass]="{'show-json': view.jsonVisible$ | async}">
 
   <form [formGroup]="form" class="cf-form cf-root-form">
     <fieldset>
-      <legend><mat-icon>extension</mat-icon>Custom Values Form</legend>
+      <legend (click)="clickHandler.emit($event)"><mat-icon>extension</mat-icon>Custom Values Form</legend>
 
       <div class="cf-controls">
         <cf-toggle-button></cf-toggle-button>
       </div>
 
-      <ng-container >
-        <ng-container *ngFor="let field of customFields.fields; index as i">
+      <ng-container>
+        <ng-container *ngFor="let field of customFields; index as i">
           <cf-values-group-control
             [formControlName]="field.conditions.name"
             [field]="field"
-            [nesting]="nesting"
             (onImageSelect)="onImageSelect.emit($event)"
           ></cf-values-group-control>
         </ng-container>
@@ -21,8 +22,10 @@
 
       <cf-submit-button
         (submitHandler)="submit()"
+        [showCancel]="cancelHandler.observers.length > 0"
+        (cancelHandler)="cancelHandler.emit()"
         [disabled]="form.invalid"
-      >Submit</cf-submit-button>
+      ></cf-submit-button>
 
     </fieldset>
   </form>

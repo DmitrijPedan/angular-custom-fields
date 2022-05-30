@@ -3,30 +3,22 @@
   <span *ngIf="showArrayControls">
 
     <button
-      *ngIf="openAll.observers.length > 0"
+      *ngIf="toggleExpanded.observers.length > 0"
       mat-icon-button
-      (click)="openAll.emit()"
+      (click)="this.toggleExpanded.emit(!this.expanded)"
       color="primary"
-      title="Expand all">
-      <mat-icon>expand_more</mat-icon>
-    </button>
-
-    <button
-      *ngIf="closeAll.observers.length > 0"
-      mat-icon-button
-      (click)="closeAll.emit()"
-      color="primary"
-      title="Collapse all">
-      <mat-icon>expand_less</mat-icon>
+      title="Toggle all">
+      <mat-icon>{{expanded ? 'expand_less' : 'expand_more'}}</mat-icon>
     </button>
 
     <button
       *ngIf="clearArray.observers.length > 0"
       mat-icon-button
       (click)="clearAllAction()"
-      color="warn"
-      title="Clear all">
-      <mat-icon>clear_all</mat-icon>
+      color="primary"
+      class="remove"
+      title="Delete all">
+      <mat-icon>delete_sweep</mat-icon>
     </button>
 
      <button
@@ -35,7 +27,7 @@
        (click)="reorderArray.emit()"
        [color]="reorderDisabled ? 'primary' : 'warn'"
        title="Reorder">
-      <mat-icon>reorder</mat-icon>
+      <mat-icon>swap_vert</mat-icon>
     </button>
 
   </span>
@@ -55,7 +47,7 @@
     (click)="removeFieldAction()"
     color="primary"
     class="remove"
-    title="Remove">
+    title="Delete">
     <mat-icon>delete_outline</mat-icon>
   </button>
 

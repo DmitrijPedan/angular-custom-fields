@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -32,6 +32,7 @@ import {FIELD_TYPES} from "../../variables/field-types";
 })
 export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
+  @Output() typeChange: EventEmitter<void> = new EventEmitter<void>();
   public form!: FormGroup;
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
@@ -73,6 +74,7 @@ export class FieldFormComponent implements OnInit, OnDestroy, ControlValueAccess
     } else {
       if (confirm('Are you sure you want to change the type? Nested fields will be lost!')) {
         this.type.setValue(value);
+        this.typeChange.emit();
       } else {
         event.target.value = this.type.value;
       }

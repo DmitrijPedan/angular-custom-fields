@@ -13,12 +13,12 @@ export class ButtonsBarComponent implements OnInit {
   @Input() showAdd: boolean = true;
   @Input() confirmRemoveField: boolean = true;
   @Input() reorderDisabled: boolean = true;
+  @Output() reorderArray: EventEmitter<void> = new EventEmitter<void>();
   @Output() addField: EventEmitter<void> = new EventEmitter<void>();
   @Output() removeField: EventEmitter<void> = new EventEmitter<void>();
   @Output() clearArray: EventEmitter<void> = new EventEmitter<void>();
-  @Output() openAll: EventEmitter<void> = new EventEmitter<void>();
-  @Output() closeAll: EventEmitter<void> = new EventEmitter<void>();
-  @Output() reorderArray: EventEmitter<void> = new EventEmitter<void>();
+  @Input() expanded: boolean = false;
+  @Output() toggleExpanded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 

@@ -1,10 +1,10 @@
-import {Component, Input, forwardRef, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, forwardRef, OnDestroy, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import {AbstractControl, ControlValueAccessor, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from "@angular/forms";
 import {FieldType, ICustomField} from "../../interfaces/interfaces";
 import {Subscription} from "rxjs";
 import {CustomValuesService} from "../../services/custom-values.service";
-import {FIELD_TYPES} from "../../variables/field-types";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {MatAccordion} from "@angular/material/expansion";
 
 @Component({
   selector: 'cf-values-group-control',
@@ -25,13 +25,17 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 })
 export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
 
+  @ViewChild('accordion') accordion!: MatAccordion
   @Input() field!: ICustomField;
   @Input() nesting!: number;
   @Output() onImageSelect: EventEmitter<any> = new EventEmitter();
   public name!: string;
   public type!: FieldType;
+  public minLength: any;
+  public maxLength: any;
   public form!: FormGroup;
   public reorderDisabled = true;
+  public expanded = false;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
 
@@ -41,6 +45,10 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   get valueArray(): FormArray {
     return this.form.get(this.field.conditions.name) as FormArray;
+  }
+
+  toggleAccordion(event: boolean): void {
+    this.expanded = event;
   }
 
   ngOnInit() {
@@ -64,7 +72,10 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     if (!value) return;
     setTimeout(() => {
       if (Array.isArray(value)) {
-        value.forEach((el: any) => this.addSubfield());
+        this.valueArray.clear()
+        value.forEach((el: any) => {
+          this.addSubfield();
+        });
         this.valueArray.patchValue(value)
       } else {
         this.form.get(this.name)?.patchValue(value)

@@ -1,25 +1,25 @@
 <form [formGroup]="form" class="cf-form">
-
   <div class="cv-input" [ngClass]="{'cv-checkbox': type === 'checkbox'}" >
+
+    <label
+      [htmlFor]="id"
+      [ngClass]="{'required': attrs.required}"
+    >{{label}}</label>
 
     <ng-container *ngIf="type === 'text'">
       <input
         type="text"
         [formControlName]="name"
-        [id]="name"
-        [required]="attrs.required"
-        [minLength]="attrs.minLength ? attrs.minLength : 0"
-        [maxLength]="attrs.maxLength ? attrs.maxLength : 524288">
+        [id]="id"
+        [required]="attrs.required">
     </ng-container>
 
     <ng-container *ngIf="type === 'textarea'">
     <textarea
       [formControlName]="name"
-      [id]="name"
+      [id]="id"
       [rows]="attrs.rows ? attrs.rows : 3"
       [required]="attrs.required"
-      [minLength]="attrs.minLength ? attrs.minLength : 0"
-      [maxLength]="attrs.maxLength ? attrs.maxLength : 524288"
     ></textarea>
     </ng-container>
 
@@ -27,7 +27,7 @@
       <input
         type="checkbox"
         [formControlName]="name"
-        [id]="name"
+        [id]="id"
         [required]="attrs.required">
     </ng-container>
 
@@ -35,7 +35,7 @@
       <input
         type="number"
         [formControlName]="name"
-        [id]="name"
+        [id]="id"
         [required]="attrs.required"
         [min]="attrs.min ? attrs.min : 0"
         [max]="attrs.max ? attrs.max : 524288"
@@ -51,16 +51,19 @@
       ></cf-image-input>
       <input type="text" hidden
         [formControlName]="name"
-        [id]="name"
+        [id]="id"
         [required]="attrs.required">
     </ng-container>
 
-    <label
-      [htmlFor]="name"
-      [ngClass]="{'required': attrs.required}"
-    >{{label}}</label>
+    <cf-form-validation-message
+      [control]="control"
+      [name]="label"
+      [min]="attrs.min"
+      [max]="attrs.max"
+      [minlength]="attrs.minLength"
+      [maxlength]="attrs.maxLength"
+    ></cf-form-validation-message>
 
   </div>
-
 </form>
 

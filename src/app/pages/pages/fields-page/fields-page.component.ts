@@ -28,7 +28,7 @@ export class FieldsPageComponent implements OnInit {
 
   buildFormFromData(): void {
     this.getSavedFields();
-    this.data = {...this.savedFields};
+    this.data = [...this.savedFields];
   }
 
 }

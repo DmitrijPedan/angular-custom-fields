@@ -12,7 +12,7 @@ textarea {
 
 .cv-input {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   &.cv-checkbox {
     flex-direction: row;

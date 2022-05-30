@@ -11,17 +11,19 @@
 
       <cf-field-form
         [formControlName]="'conditions'"
+        (typeChange)="clearFieldsArray()"
       ></cf-field-form>
 
       <cf-buttons-bar
-        [showAdd]="type === 'repeater'"
+        *ngIf="type === 'repeater'"
+        title="Fields"
         (addField)="addField()"
         [showArrayControls]="fieldsFormArray.length > 0"
-        (closeAll)="accordion.closeAll()"
-        (openAll)="accordion.openAll()"
         (clearArray)="clearFieldsArray()"
         (reorderArray)="toggleReorder()"
         [reorderDisabled]="reorderDisabled"
+        [expanded]="expanded"
+        (toggleExpanded)="toggleAccordion($event)"
         style="margin-bottom: 10px"
       ></cf-buttons-bar>
 
@@ -34,7 +36,7 @@
         [cdkDropListDisabled]="reorderDisabled">
         <mat-expansion-panel
           *ngFor="let control of fieldsFormArray?.controls; index as i"
-          [expanded]="true"
+          [expanded]="expanded"
           togglePosition="before"
           cdkDrag>
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
@@ -58,8 +60,8 @@
         *ngIf="fieldsFormArray.value.length > 0"
         (addField)="addField()"
         [showArrayControls]="fieldsFormArray.length > 0"
-        (closeAll)="accordion.closeAll()"
-        (openAll)="accordion.openAll()"
+        [expanded]="expanded"
+        (toggleExpanded)="toggleAccordion($event)"
         style="margin-top: 10px"
       ></cf-buttons-bar>
 

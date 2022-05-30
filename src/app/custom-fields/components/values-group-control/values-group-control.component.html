@@ -1,6 +1,11 @@
 <form [formGroup]="form" class="cf-form">
   <fieldset>
-    <legend>{{type | fieldName}}</legend>
+    <legend>
+      <mat-icon *ngIf="type === 'repeater'">
+        {{type | fieldIcon}}
+      </mat-icon>
+      {{type | fieldName}}
+    </legend>
 
     <ng-container *ngIf="type!== 'repeater'">
       <cf-value-form
@@ -9,7 +14,6 @@
         (onImageSelect)="onImageSelect.emit($event)"
       ></cf-value-form>
     </ng-container>
-
     <mat-accordion
       *ngIf="type === 'repeater'"
       #accordion="matAccordion"
@@ -17,19 +21,25 @@
       cdkDropList
       (cdkDropListDropped)="reorderItems($event)"
       [cdkDropListDisabled]="reorderDisabled">
+      <cf-form-validation-message
+        [control]="form.get(name)"
+        [minlength]="field.conditions?.options?.minLength"
+        [maxlength]="field.conditions?.options?.maxLength"
+      ></cf-form-validation-message>
       <cf-buttons-bar
-        [matIcon]="type | fieldIcon"
         [showArrayControls]="valueArray.length > 1"
         [title]="field.conditions.label"
         (addField)="addSubfield()"
-        (openAll)="accordion.openAll()"
-        (closeAll)="accordion.closeAll()"
         (reorderArray)="allowReorder()"
+        [reorderDisabled]="reorderDisabled"
+        [expanded]="expanded"
+        (toggleExpanded)="toggleAccordion($event)"
+        (clearArray)="valueArray.clear()"
       ></cf-buttons-bar>
       <mat-expansion-panel
         *ngFor="let control of valueArray?.controls; index as controlIndex"
         [formArrayName]="field.conditions.name"
-        [expanded]="true"
+        [expanded]="expanded"
         togglePosition="before"
         cdkDrag>
         <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'35px'">

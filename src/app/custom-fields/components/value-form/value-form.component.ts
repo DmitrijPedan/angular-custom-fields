@@ -29,6 +29,7 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   private onChange!: (value: ICustomFieldConditions | null | undefined) => void;
   private subscriptions: Subscription[] = [];
   public name!: string;
+  public id!: any;
   public label!: string;
   public type!: FieldType;
   public attrs!: ICustomFieldAttributes;
@@ -37,7 +38,12 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
     private cvs: CustomValuesService
   ) { }
 
+  get control(): AbstractControl {
+    return this.form.get(this.name) as AbstractControl;
+  }
+
   ngOnInit() {
+    this.id = Date.now();
     this.name = this.field?.conditions?.name;
     this.label = this.field?.conditions?.label;
     this.type = this.field?.conditions?.type;

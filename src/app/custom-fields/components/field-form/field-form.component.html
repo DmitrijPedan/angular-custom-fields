@@ -19,6 +19,10 @@
         </td>
         <td>
           <input type="text" formControlName="label" required>
+          <cf-form-validation-message
+            [control]="this.form.get('label')"
+            name="Label"
+          ></cf-form-validation-message>
         </td>
       </tr>
       <tr>
@@ -28,10 +32,14 @@
         </td>
         <td>
           <input type="text" formControlName="name" required>
+          <cf-form-validation-message
+            [control]="this.form.get('name')"
+            name="Field Name"
+          ></cf-form-validation-message>
         </td>
       </tr>
     </table>
-  <table formGroupName="options" class="attributes">
+  <table *ngIf="allowedOptions.length > 0" formGroupName="options" class="attributes" >
     <caption>Field attributes</caption>
     <tr *ngIf="showOptionControl('value')">
       <td>
@@ -68,7 +76,11 @@
         <p class="subtitle">Field min length attribute</p>
       </td>
       <td>
-        <input type="number" formControlName="minLength" min="1" step="1" max="255">
+        <input type="number" formControlName="minLength" min="1" step="1">
+        <cf-form-validation-message
+          [control]="this.form.get('minLength')"
+          name="Min length"
+        ></cf-form-validation-message>
       </td>
     </tr>
     <tr *ngIf="showOptionControl('maxLength')">
@@ -77,7 +89,11 @@
         <p class="subtitle">Field max length attribute</p>
       </td>
       <td>
-        <input type="number" formControlName="maxLength" min="1" step="1" max="255">
+        <input type="number" formControlName="maxLength" min="1" step="1">
+        <cf-form-validation-message
+          [control]="this.form.get('maxLength')"
+          name="Max length"
+        ></cf-form-validation-message>
       </td>
     </tr>
     <tr *ngIf="showOptionControl('min')">
@@ -87,6 +103,10 @@
       </td>
       <td>
         <input type="number" formControlName="min">
+        <cf-form-validation-message
+          [control]="this.form.get('min')"
+          name="Min"
+        ></cf-form-validation-message>
       </td>
     </tr>
     <tr *ngIf="showOptionControl('max')">
@@ -96,6 +116,10 @@
       </td>
       <td>
         <input type="number" formControlName="max">
+        <cf-form-validation-message
+          [control]="this.form.get('max')"
+          name="Max"
+        ></cf-form-validation-message>
       </td>
     </tr>
     <tr *ngIf="showOptionControl('step')">
@@ -114,6 +138,10 @@
       </td>
       <td>
         <input type="number" formControlName="rows" min="1" max="20" step="1">
+        <cf-form-validation-message
+          [control]="this.form.get('rows')"
+          name="Rows"
+        ></cf-form-validation-message>
       </td>
     </tr>
   </table>

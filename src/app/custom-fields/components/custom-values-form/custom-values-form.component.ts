@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {ICustomFieldsData} from "../../interfaces/interfaces";
+import {ICustomField} from "../../interfaces/interfaces";
 import {CustomValuesService} from "../../services/custom-values.service";
 import {ViewService} from "../../services/view.service";
 
@@ -11,10 +11,12 @@ import {ViewService} from "../../services/view.service";
 })
 export class CustomValuesFormComponent implements OnInit, OnChanges {
 
-  @Input() customFields!: ICustomFieldsData;
+  @Input() customFields!: ICustomField[];
   @Input() values!: any;
-  @Output() submitHandle: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onImageSelect: EventEmitter<any> = new EventEmitter();
+  @Output() submitHandler: EventEmitter<any> = new EventEmitter<any>();
+  @Output() cancelHandler: EventEmitter<any> = new EventEmitter<any>();
+  @Output() clickHandler: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onImageSelect: EventEmitter<any> = new EventEmitter<any>();
   public form!: FormGroup;
   public nesting = 0;
 
@@ -24,20 +26,24 @@ export class CustomValuesFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.buildForm(this.customFields);
-    this.patchForm(this.values);
+    const valid = this.cvs.validateFieldsArray(this.customFields);
+    if (valid) {
+      this.buildForm(this.customFields);
+      this.patchForm(this.values);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const values = changes.values?.currentValue;
-    if (values) {
+    const values = changes?.values?.currentValue;
+    const valid = this.cvs.validateFieldsArray(this.customFields);
+    if (values && valid) {
       this.patchForm(values)
     }
   }
 
-  buildForm(customFields: ICustomFieldsData) {
-    if (customFields?.fields?.length) {
-      this.form = this.cvs.getInitialForm(customFields.fields);
+  buildForm(customFields: ICustomField[]) {
+    if (customFields?.length) {
+      this.form = this.cvs.getInitialForm(customFields);
     }
   }
 
@@ -52,7 +58,7 @@ export class CustomValuesFormComponent implements OnInit, OnChanges {
 
   submit(): void {
     const values = this.form.value;
-    this.submitHandle.emit(values)
+    this.submitHandler.emit(values)
   }
 
 }

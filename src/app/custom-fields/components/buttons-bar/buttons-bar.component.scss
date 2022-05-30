@@ -8,12 +8,13 @@
     margin-bottom: 0;
     margin-right: auto;
     color: var(--cf-primary-color);
-    font-weight: bold;
     display: flex;
     align-items: center;
+    font-size: 13px;
+    font-weight: bold;
     mat-icon {
      margin-right: 5px;
-    }
+        }
   }
 }
 

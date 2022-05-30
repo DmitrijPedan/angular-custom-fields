@@ -25,6 +25,8 @@ import { ValueFormComponent } from './components/value-form/value-form.component
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { ImageInputComponent } from './components/image-input/image-input.component';
+import { FormValidationMessageComponent } from './components/form-validation-message/form-validation-message.component';
+
 
 // pipes
 import { FieldNamePipe } from './pipes/field-name.pipe';
@@ -48,6 +50,7 @@ import { AccordionItemTitleComponent } from './components/accordion-item-title/a
     ToggleButtonComponent,
     ImageInputComponent,
     AccordionItemTitleComponent,
+    FormValidationMessageComponent,
   ],
   exports: [
     CustomFieldsFormComponent,

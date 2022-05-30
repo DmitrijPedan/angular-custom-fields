@@ -5,12 +5,16 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 20px;
+  * {
+    box-sizing: border-box;
+  }
 }
+
 .page-controls {
   display: flex;
   justify-content: flex-end;
   position: sticky;
-  top: 3px;
+  top: 40px;
   z-index: 20;
   margin-bottom: 15px;
   button {

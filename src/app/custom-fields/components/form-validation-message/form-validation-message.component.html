@@ -1,0 +1,17 @@
+<div *ngIf="control && control.invalid">
+  <ul>
+    <li *ngIf="name">{{name}}</li>
+    <li *ngIf="control && control.hasError('required')">required</li>
+    <li *ngIf="control && control.hasError('email')">invalid</li>
+    <li *ngIf="control && control.hasError('maxlength')">too long <span *ngIf="maxlength">(max length {{maxlength}})</span></li>
+    <li *ngIf="control && control.hasError('minlength')">too short <span *ngIf="minlength">(min length {{minlength}})</span></li>
+    <li *ngIf="control && control.hasError('max')">too high <span *ngIf="max">(max {{max}})</span></li>
+    <li *ngIf="control && control.hasError('min')">too small <span *ngIf="min">(min {{min}})</span></li>
+    <li *ngIf="control && control.hasError('incorrect')">incorrect</li>
+    <li *ngIf="control && control.hasError('pattern')">has invalid characters</li>
+
+    <li *ngIf="control && control.hasError('arrMax')">array too long <span *ngIf="maxlength">(max number of items {{maxlength}})</span></li>
+    <li *ngIf="control && control.hasError('arrMin')">array too short <span *ngIf="minlength">(min number of items {{minlength}})</span></li>
+  </ul>
+</div>
+

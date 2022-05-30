@@ -15,7 +15,7 @@
   *ngIf="savedFields"
   [customFields]="savedFields"
   [values]="formValues"
-  (submitHandle)="saveValues($event)"
+  (submitHandler)="saveValues($event)"
   (onImageSelect)="addImage($event)"
 ></cf-custom-values-form>
 

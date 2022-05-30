@@ -3,6 +3,11 @@
   justify-content: space-between;
 
   fieldset {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     min-height: 100%;
     border: none;
     border-left: 4px solid transparent;
@@ -10,6 +15,7 @@
     border-radius: 4px;
     box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
     transition: border-color var(--cf-transition);
+    background-color: white;
     &.ng-invalid {
       //border-color: var(--cf-err-color);
     }
@@ -23,6 +29,8 @@
     padding: 0 6px;
     border-radius: 3px;
     font-size: 13px;
+    box-shadow: 2px 2px 2px -2px rgb(0 0 0 / 40%);
+
     > * {
       margin-right: 5px;
     }
@@ -52,6 +60,20 @@
     .cf-json {
       width: 40%;
       display: initial;
+    }
+  }
+  mat-accordion {
+    mat-expansion-panel-header {
+      background-color: var(--cf-primary-color);
+      &:hover, &:focus {
+        background-color: var(--cf-primary-color) !important;
+      }
+      .mat-expansion-indicator:after {
+        color: white;
+      }
+    }
+    .mat-expansion-panel-body {
+      padding: 0 10px;
     }
   }
 }

@@ -1,10 +1,18 @@
 <div class="submit" *ngIf="show">
   <button
+    *ngIf="showCancel"
+    type="submit"
+    mat-stroked-button
+    color="primary"
+    (click)="cancelHandler.emit()"
+    title="Cancel"
+  >Cancel</button>
+  <button
     type="submit"
     mat-raised-button
     color="primary"
     (click)="submitHandler.emit()"
     [disabled]="disabled"
     [title]="disabled ? 'Form invalid' : 'Submit'"
-  ><ng-content></ng-content></button>
+  >Submit</button>
 </div>

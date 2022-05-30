@@ -4,6 +4,7 @@ import {CustomFieldService} from "../../services/custom-field.service";
 import {ViewService} from "../../services/view.service";
 import {MatAccordion} from "@angular/material/expansion";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {ICustomField} from "../../interfaces/interfaces";
 
 @Component({
   selector: 'cf-custom-fields-form',
@@ -13,11 +14,12 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 export class CustomFieldsFormComponent implements OnInit, OnChanges {
 
   @ViewChild('accordion') accordion!: MatAccordion;
-  @Input() data: any;
-  @Output() submitHandle: EventEmitter<any> = new EventEmitter<any>();
+  @Input() customFields!: ICustomField[] | null | undefined;
+  @Output() submitHandler: EventEmitter<any> = new EventEmitter<any>();
+  @Output() cancelHandler: EventEmitter<any> = new EventEmitter<any>();
   public form!: FormGroup;
-  public jsonVisible = false;
   public reorderDisabled = true;
+  public expanded = false;
 
   constructor(
     private cf: CustomFieldService,
@@ -29,10 +31,14 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const data = changes.data?.currentValue;
-    if (data) {
+    const customFields = changes.customFields?.currentValue;
+    if (customFields) {
       this.buildFormFromData();
     }
+  }
+
+  toggleAccordion(value: boolean): void {
+    this.expanded = value;
   }
 
   get fieldsFormArray(): FormArray {
@@ -51,13 +57,18 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
   }
 
   buildFormFromData() {
-    if (this.data?.fields?.length) {
+    if (this.customFields?.length) {
       this.initForm()
-      this.data.fields.forEach((field: any) => {
+      this.customFields?.forEach((field: ICustomField) => {
         this.addField();
       })
+      setTimeout(() => {
+        if (this.customFields) {
+          this.fieldsFormArray.patchValue(this.customFields)
+        }
+      }, 0);
     }
-    setTimeout(() => this.form.patchValue(this.data), 0);
+
   }
 
   addField() {
@@ -73,7 +84,7 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
   }
 
   submit(): void {
-    this.submitHandle.emit(this.form.value)
+    this.submitHandler.emit(this.fieldsFormArray.value)
   }
 
 }

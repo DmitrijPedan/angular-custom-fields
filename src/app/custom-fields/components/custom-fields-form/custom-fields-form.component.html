@@ -9,11 +9,11 @@
         <cf-buttons-bar
           [showArrayControls]="fieldsFormArray.length > 0"
           (addField)="addField()"
-          (openAll)="accordion.openAll()"
-          (closeAll)="accordion.closeAll()"
           (clearArray)="initForm()"
           (reorderArray)="toggleReorder()"
           [reorderDisabled]="reorderDisabled"
+          (toggleExpanded)="toggleAccordion($event)"
+          [expanded]="expanded"
         ></cf-buttons-bar>
       </div>
 
@@ -28,7 +28,7 @@
         [cdkDropListDisabled]="reorderDisabled">
         <mat-expansion-panel
           *ngFor="let control of fieldsFormArray?.controls; index as i"
-          [expanded]="true"
+          [expanded]="expanded"
           cdkDrag>
           <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'50px'">
             <mat-panel-title>
@@ -49,6 +49,8 @@
 
       <cf-submit-button
         (submitHandler)="submit()"
+        (cancelHandler)="cancelHandler.emit()"
+        [showCancel]="cancelHandler.observers.length > 0"
         [disabled]="form.invalid || fieldsFormArray.value.length === 0"
       >Submit</cf-submit-button>
 

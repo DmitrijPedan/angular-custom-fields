@@ -31,10 +31,15 @@ export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlVa
   private subscriptions: Subscription[] = [];
   public type!: FieldType;
   public reorderDisabled = true;
+  public expanded = false;
 
   constructor(
     private cf: CustomFieldService
   ) {}
+
+  toggleAccordion(value: boolean): void {
+    this.expanded = value;
+  }
 
   get conditions(): FormControl {
     return this.form.get('conditions') as FormControl;
@@ -67,8 +72,6 @@ export class FieldsGroupControlComponent implements OnInit, OnDestroy, ControlVa
 
   writeValue(value: ICustomField | null | undefined): void {
     if (!value) return;
-    console.log('writed')
-
     setTimeout(() => {
       if (value) {
         this.conditions.setValue(value);
