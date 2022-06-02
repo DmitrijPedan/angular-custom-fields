@@ -83,14 +83,12 @@ export class ValueFormComponent implements OnInit, OnDestroy, ControlValueAccess
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.form.status === 'VALID' ? null : { required: true }
+    return this.form.status === 'VALID' ? null : { required: true };
   }
-
 
   setImageSrc(src: string): void {
     this.form.get(this.name)?.patchValue(src)
   }
-
 
   selectImage(): void {
     this.onImageSelect.emit(this.setImageSrc.bind(this))

@@ -24,7 +24,7 @@
         (submitHandler)="submit()"
         [showCancel]="cancelHandler.observers.length > 0"
         (cancelHandler)="cancelHandler.emit()"
-        [disabled]="form.invalid"
+        [disabled]="invalid"
       ></cf-submit-button>
 
     </fieldset>

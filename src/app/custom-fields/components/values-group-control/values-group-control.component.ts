@@ -23,7 +23,7 @@ import {MatAccordion} from "@angular/material/expansion";
     },
   ]
 })
-export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator  {
+export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   @ViewChild('accordion') accordion!: MatAccordion
   @Input() field!: ICustomField;
@@ -38,13 +38,14 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   public expanded = false;
   private onChange!: (value: ICustomField | null | undefined) => void;
   private subscriptions: Subscription[] = [];
+  private invalid = true;
 
   constructor(
     private cvs: CustomValuesService
   ) { }
 
   get valueArray(): FormArray {
-    return this.form.get(this.field.conditions.name) as FormArray;
+    return this.form.get(this.name) as FormArray;
   }
 
   toggleAccordion(event: boolean): void {
@@ -57,6 +58,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
     this.type = this.field?.conditions?.type;
     this.createFormGroup();
     const formSub = this.form.valueChanges.subscribe((value: any) => {
+      this.invalid = this.form.invalid;
       if (this.onChange) {
         this.onChange(value[this.name]);
       }
@@ -98,7 +100,7 @@ export class ValuesGroupControlComponent implements OnInit, OnDestroy, ControlVa
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.form.status === 'VALID' ? null : { required: true }
+    return this.form.status === 'VALID' ? null : { required: true };
   }
 
   addSubfield(): void {
