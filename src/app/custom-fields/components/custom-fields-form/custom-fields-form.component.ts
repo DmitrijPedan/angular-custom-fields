@@ -19,7 +19,7 @@ export class CustomFieldsFormComponent implements OnInit, OnChanges {
   @Output() cancelHandler: EventEmitter<any> = new EventEmitter<any>();
   public form!: FormGroup;
   public reorderDisabled = true;
-  public expanded = false;
+  public expanded = true;
 
   constructor(
     private cf: CustomFieldService,

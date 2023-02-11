@@ -13,4 +13,8 @@ nav {
     color: var(--cf-primary-color);
     font-weight: bold;
   }
+  a:not(.active) {
+    color: var(--cf-font-ligtheen-color);
+    font-weight: bold;
+  }
 }
